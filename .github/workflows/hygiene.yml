@@ -28,10 +28,16 @@ jobs:
       - name: Check serialization
         run: |
           set -euo pipefail
-          if ! grep -q 'm_SerializationMode: 2' ProjectSetting/EditorSettings.asset; then
-            echo "ERROR: Asset Serialization is not Force Text. Scenes unmergeable."
+          FILE="ProjectSettings/EditorSettings.asset"
+          if [ ! -f "$FILE" ]; then
+            echo "ERROR :$FILE not found. Check the path in this workflow."
             exit 1
           fi
+          if ! grep -q 'm_SerializationMode: 2' "$FILE"; then
+            echo "ERROR :Asset Serialization is not Force Text. Scenes unmergeable."
+            exit 1
+          fi
+          echo "Force Text confirmed"
 
       - name: Check unresolved merge conflicts
         run: |
