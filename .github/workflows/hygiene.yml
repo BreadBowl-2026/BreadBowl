@@ -1,0 +1,105 @@
+name: Project Hygiene
+
+on: 
+  pull_request:
+    branches: [main, dev]
+  push:
+    branches: [main, dev]
+
+jobs:
+  hygiene:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: 
+          lfs: false
+
+      - name: Check Unity version
+        run: |
+          set -euo pipefail
+          EXPECTED="6000.3.23f1"
+          ACTUAL=$(grep '^m_EditorVersion:' ProjectSettings/ProjectVersion.txt | awk '{print $@}')
+          if [ "$ACTUAL" != "$EXPECTED" ]; then
+            echo "ERROR: Project is using version $ACTUAL, expected $EXPECTED."
+            exit 1
+          fi
+          echo "Unity $ACTUAL"
+
+      - name: Check serialization
+        run: |
+          set -euo pipefail
+          if ! grep -q 'm_SerializationMode: 2' ProjectSetting/EditorSettings.asset; then
+            echo "ERROR: Asset Serialization is not Force Text. Scenes unmergeable."
+            exit 1
+          fi
+
+      - name: Check unresolved merge conflicts
+        run: |
+          set -euo pipfail
+          if grep -rEn '^(<{7}|>{7})( |$)' Assets ProjectSettings Packages; then
+            echo "ERROR: Conflict markers committed, won't open in Unity."
+            exit 1
+          fi
+
+      - name: Check orphaned .meta files
+        run: |
+          set -euo pipefail
+          FAIL=0
+          is_hidden() { case "$1" in .*|*/.*|*~|*~/*) return 0;; *) return 1;; esac; }
+
+          while IFS= read -r -d '' f; do
+            is_hidden "$f" && continue
+            [ -e "${f}.meta" ] || { echo "missing .meta: $f"; FAIL=1; }
+          done < <(find Assets -type f ! -name '*.meta' -print0)
+
+          while IFS= read -r -d '' d; do
+            [ "$d" = "Assets" ] && continue
+            is_hidden "$d" && continue
+            [ -e "${d}.meta" ] || { echo "missing .meta: $d"; FAIL=1; }
+          done < <(find Assets -type d -print0)
+
+          while IFS= read -r -d '' m; do
+            [ -e "${m%.meta}" ] || { echo "orphaned .meta: $m"; FAIL=1; }
+          done < <(find Assets -name '*.meta' -print0)
+
+          if [ "$FAIL" -ne 0 ]; then
+            echo "ERROR: .meta files out of sync. An asset was moved, renamed or deleted outside the Unity editor."
+            exit 1
+          fi
+
+      - name: Check duplicate GUIDs
+        run: |
+          set -euo pipefail
+          DUPES=$(grep -rh '^guid: ' Assets --include='*.meta' | sort | uniq -d || true)
+          if [ -n "$DUPES" ]; then
+            echo "$DUPES"
+            echo "ERROR: Duplicate GUIDs"
+            exit 1
+          fi
+
+      - name: Check binary files are in LFS
+        run: |
+          set -euo pipefail
+          EXT='\.(png|jpg|jpeg|gif|bmp|tga|tif|tiff|psd|exr|hdr|dds|fbx|obj|blend|dae|3ds|max|c4d|ma|mb|abc|wav|mp3|ogg|aif|aiff|flac|mp4|mov|webm|avi|ttf|otf|woff|woff2|dll|so|dylib|bundle|aar|jar|zip|7z|rar|gz)$'
+          git lfs ls-files -n | sort > /tmp/lfs.txt
+          git ls-files | grep -iE "$EXT" | sort > /tmp/bins.txt || true
+          RAW=$(comm -23 /tmp/bins.txt /tmp/lfs.txt)
+          if [ -n "$RAW" ]; then
+            echo "$RAW"
+            echo "ERROR: Binaries committed outside LFS. "
+            exit 1
+          fi
+
+      - name: Check for generated or per-user folders
+        run: |
+          set -euo pipefail
+          LEAKED=$(git ls-files | grep -E '^(Library|Temp|Logs|obj|Build|Builds|UserSettings|MemoryCaptures)/' || true)
+          if [ -n "$LEAKED" ]; then
+            echo "$LEAKED"
+            echo "ERROR: Generated or per-developer files are tracked."
+            exit 1
+          fi
+      
+  
+
+  
