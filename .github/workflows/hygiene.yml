@@ -18,7 +18,7 @@ jobs:
         run: |
           set -euo pipefail
           EXPECTED="6000.3.23f1"
-          ACTUAL=$(grep '^m_EditorVersion:' ProjectSettings/ProjectVersion.txt | awk '{print $@}')
+          ACTUAL=$(grep '^m_EditorVersion:' ProjectSettings/ProjectVersion.txt | awk '{print $2}')
           if [ "$ACTUAL" != "$EXPECTED" ]; then
             echo "ERROR: Project is using version $ACTUAL, expected $EXPECTED."
             exit 1
