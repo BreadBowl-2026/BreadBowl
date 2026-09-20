@@ -41,7 +41,7 @@ jobs:
 
       - name: Check unresolved merge conflicts
         run: |
-          set -euo pipfail
+          set -euo pipefail
           if grep -rEn '^(<{7}|>{7})( |$)' Assets ProjectSettings Packages; then
             echo "ERROR: Conflict markers committed, won't open in Unity."
             exit 1
