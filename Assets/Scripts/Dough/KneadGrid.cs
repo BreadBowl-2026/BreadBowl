@@ -45,13 +45,16 @@ namespace BreadBowl.Dough
         // helper method to prevent out of bounds errors that would fail silently
         private int IndexOf(int x, int y)
         {
-            if (x < 0 ||
-                x >= resolution ||
-                y < 0 ||
-                y >= resolution
-            ){
-                throw new ArgumentOutOfRangeException(
-                    $"cell ({x}, {y} is out of the {resolution} x {resolution} grid.");
+            if (x < 0 || x >= resolution)
+            {
+                throw new ArgumentOutOfRangeException(nameof(x), x,
+                $"x must be between 0 and {resolution - 1}");
+            }
+
+            if (y < 0 || y >= resolution)
+            {
+                throw new ArgumentOutOfRangeException(nameof(x), x,
+                $"y must be between 0 and {resolution - 1}");
             }
 
             return y * resolution + x;
