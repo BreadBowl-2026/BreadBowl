@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace BreadBowl.Dough
 {
-    [CreateAssetMenu(fileName = "KneadSettings", menuName = " BreadBowl/Dough/Knead Settings")]
+    [CreateAssetMenu(fileName = "KneadSettings", menuName = "BreadBowl/Dough/Knead Settings")]
     public class KneadSettings : ScriptableObject
     {
         [SerializeField, Min(0f)] private float wellKneadedThreshold = 1f;

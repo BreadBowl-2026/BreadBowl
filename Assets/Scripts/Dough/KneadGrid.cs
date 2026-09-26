@@ -53,7 +53,7 @@ namespace BreadBowl.Dough
 
             if (y < 0 || y >= resolution)
             {
-                throw new ArgumentOutOfRangeException(nameof(x), x,
+                throw new ArgumentOutOfRangeException(nameof(y), y,
                 $"y must be between 0 and {resolution - 1}");
             }
 
