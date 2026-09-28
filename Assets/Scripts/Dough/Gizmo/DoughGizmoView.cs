@@ -12,6 +12,7 @@ namespace BreadBowl.Dough
     {
         [SerializeField, Min(0.1f)] private float gridWidth = 1f;
         [SerializeField, Range(0.1f, 1f)] private float cellFill = 0.9f;
+        [SerializeField, Range(0f, 1f)] private float minBrightness = 0.35f;
         [SerializeField] private Color32 underColor = new Color32(255, 99, 71, 255);
         [SerializeField] private Color32 wellColor = new Color32(34, 139, 34, 255);
         [SerializeField] private Color32 overColor = new Color32(218, 112, 214, 255);
@@ -49,20 +50,29 @@ namespace BreadBowl.Dough
                     float localZ = gridStart + y * cellWidth - halfCell;
                     Vector3 cubeCenter = new Vector3(localX, 0f, localZ);
 
-                    Gizmos.color = ColorFor(dough.Settings.Classify(grid.Get(x, y)));
+                    Gizmos.color = ColorFor(dough.Settings, grid.Get(x, y));
                     Gizmos.DrawCube(cubeCenter, cubeSize);
                 }
             }
         }
 
-        private Color32 ColorFor(KneadLevel level)
+        /// <summary>
+        /// Returns a color with brightness adjusted to its current level of 
+        /// kneadedness with its current knead level. Creates the gradient
+        /// effect that shows progress from the beginning of one knead 
+        /// stage to the end.
+        /// </summary>
+        private Color32 ColorFor(KneadSettings settings, float kneadedness)
         {
-            return level switch
+            Color levelColor = settings.Classify(kneadedness) switch
             {
                 KneadLevel.Well => wellColor,
                 KneadLevel.Over => overColor,
                 _ => underColor // KneadLevel.Under
             };
+
+            Color dimColor = Color.Lerp(Color.black, levelColor, minBrightness);
+            return Color.Lerp(dimColor, levelColor, settings.KneadLevelProgress(kneadedness));
         }
     }
 }

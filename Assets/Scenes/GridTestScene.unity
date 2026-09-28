@@ -444,7 +444,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BreadBowl.Dough.DoughBrushTest
   center: {x: 0.5, y: 0.95}
-  radius: 1
+  radius: 0.509
   amount: 0.25
   falloff: 2
 --- !u!114 &1560281378
@@ -459,8 +459,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdd77373b569ae04d884f87915c858f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BreadBowl.Dough.DoughGizmoView
-  size: 0.1
+  gridWidth: 1
   cellFill: 0.9
+  minBrightness: 0.35
   underColor:
     serializedVersion: 2
     rgba: 4282868735

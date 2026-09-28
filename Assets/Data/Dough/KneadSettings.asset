@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: KneadSettings
   m_EditorClassIdentifier: Assembly-CSharp::BreadBowl.Dough.KneadSettings
   wellKneadedThreshold: 1
-  overKneadedThreshold: 2
+  overKneadedThreshold: 3

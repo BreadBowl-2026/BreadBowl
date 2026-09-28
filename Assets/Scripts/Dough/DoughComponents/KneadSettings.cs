@@ -39,6 +39,22 @@ namespace BreadBowl.Dough
             return KneadLevel.Under;
         }
 
+        /// <summary>
+        /// Uses Mathf.InverseLerp to store the progress between two knead states as a 0-1 value
+        /// instead of storing arbitrary color values to make progress more readable.
+        /// </summary>
+        public float KneadLevelProgress(float kneadedness)
+        {
+            float wellKneadedRange = overKneadedThreshold - wellKneadedThreshold;
+
+            return Classify(kneadedness) switch
+            {
+                KneadLevel.Over => Mathf.InverseLerp(overKneadedThreshold, overKneadedThreshold + wellKneadedRange, kneadedness),
+                KneadLevel.Well => Mathf.InverseLerp(wellKneadedThreshold, overKneadedThreshold, kneadedness),
+                _ => Mathf.InverseLerp(0f, wellKneadedThreshold, kneadedness) // KneadLevel.Under
+            };
+        }
+
         // Only runs in the editor when values are changed in the inspector. Doesn't
         // affect anything at runtime. Just ensures that Classify can always return a 
         // valid wellKneadedState when messing around with values in the editor.
