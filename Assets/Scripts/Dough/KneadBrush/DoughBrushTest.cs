@@ -13,7 +13,8 @@ namespace BreadBowl.Dough
         [ContextMenu("Apply Brush")]
         private void ApplyBrush()
         {
-            KneadBrush.Apply(GetComponent<KneadableDough>().Grid, center, radius, amount, falloff);
+            // KneadBrush.Apply(GetComponent<KneadableDough>().Grid, center, radius, amount, falloff);
+            GetComponent<KneadableDough>().PalmPress(center, radius, amount, falloff);
         }
     }
 }

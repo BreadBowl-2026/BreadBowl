@@ -40,6 +40,25 @@ namespace BreadBowl.Dough
             KneadFold.Apply(Grid, quarterTurns, settings.FoldBlend);
         }
 
+        public void PalmPress(Vector2 playerPosition, float radius, float amount, KneadBrushFalloff falloff)
+        {
+            KneadBrush.Apply(Grid, PlayerToDough(playerPosition), radius, amount, falloff);
+        }
+
+        public Vector2 PlayerToDough(Vector2 playerPosition)
+        {
+            float u = playerPosition.x;
+            float v = playerPosition.y;
+
+            return quarterTurns switch
+            {
+                1 => new Vector2(1f - v, u),
+                2 => new Vector2(1f - u, 1f - v),
+                3 => new Vector2(v, 1f - u),
+                _ => playerPosition // 4
+            };
+        }
+
         [ContextMenu("Randomize Kneadedness")]
         private void RandomizeKneadedness()
         {
