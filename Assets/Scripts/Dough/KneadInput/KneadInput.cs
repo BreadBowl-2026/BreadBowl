@@ -71,6 +71,7 @@ namespace BreadBowl.Dough
             {
                 foldReady = false;
                 Debug.Log("Folding");
+                dough.Fold();
             }
         }
 

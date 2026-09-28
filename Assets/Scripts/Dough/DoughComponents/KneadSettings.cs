@@ -18,10 +18,13 @@ namespace BreadBowl.Dough
         private float overKneadedThreshold = 2f;
         [SerializeField, Min(1), Tooltip("How many keys must be pressed at once to fold the dough")]
         private int foldGrabKeyCount = 3;
+        [SerializeField, Range(0f, 1f), Tooltip("How far each cell value shifts during averaging between itself and its pair. 1 = full, 0 = none")]
+        private float foldBlend = 1f;
 
         public float WellKneadedThreshold => wellKneadedThreshold;
         public float OverKneadedThreshold => overKneadedThreshold;
         public int FoldGrabKeyCount => foldGrabKeyCount;
+        public float FoldBlend => foldBlend;
 
         /// <summary>
         /// Takes in the kneadedness value and determines how it should be

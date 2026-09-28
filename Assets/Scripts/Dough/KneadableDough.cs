@@ -35,6 +35,11 @@ namespace BreadBowl.Dough
             quarterTurns = ((quarterTurns + turns) % 4) %4;
         }
 
+        public void Fold()
+        {
+            KneadFold.Apply(Grid, quarterTurns, settings.FoldBlend);
+        }
+
         [ContextMenu("Randomize Kneadedness")]
         private void RandomizeKneadedness()
         {
