@@ -11,7 +11,6 @@ namespace BreadBowl.Dough
     [CreateAssetMenu(fileName = "KneadSettings", menuName = "BreadBowl/Dough/Knead Settings")]
     public class KneadSettings : ScriptableObject
     {
-        // a larger gap means more knead force needs to be applied to ascend knead states
         [SerializeField, Min(0f), Tooltip("Minimum value at which a cell becomes well kneaded")] 
         private float wellKneadedThreshold = 1f;
         [SerializeField, Min(0f), Tooltip("Minimum value at which a cell becomes over kneaded. Must be higher than well kneaded.")]
@@ -20,11 +19,20 @@ namespace BreadBowl.Dough
         private int foldGrabKeyCount = 3;
         [SerializeField, Range(0f, 1f), Tooltip("How far each cell value shifts during averaging between itself and its pair. 1 = full, 0 = none")]
         private float foldBlend = 1f;
+        [SerializeField, Min(0f), Tooltip("Kneadedness added per second at the center of each valid pressed key")]
+        private float kneadForcePerSecond = 1f;
+        [SerializeField, Range(0.01f, 1f), Tooltip("Radius of each key press as a fraction of dough width")]
+        private float pressRadius = 0.15f;
+        [SerializeField, Tooltip("How press force fades from the center of each key press to the edge of the radius")]
+        private KneadBrushFalloff pressFalloff = KneadBrushFalloff.Smooth;
 
         public float WellKneadedThreshold => wellKneadedThreshold;
         public float OverKneadedThreshold => overKneadedThreshold;
         public int FoldGrabKeyCount => foldGrabKeyCount;
         public float FoldBlend => foldBlend;
+        public float KneadForcePerSecond => kneadForcePerSecond;
+        public float PressRadius => pressRadius;
+        public KneadBrushFalloff PressFalloff => pressFalloff;
 
         /// <summary>
         /// Takes in the kneadedness value and determines how it should be

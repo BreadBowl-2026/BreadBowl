@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Utilities;
 
 namespace BreadBowl.Dough
 {
@@ -11,6 +12,7 @@ namespace BreadBowl.Dough
         private InputAction rotateCWAction;
         private InputAction palmAction;
         private InputAction foldGrabAction;
+        private InputAction[] pressRowActions;
         private bool foldReady = true;
 
         private void Awake()
@@ -20,6 +22,13 @@ namespace BreadBowl.Dough
             rotateCWAction = InputSystem.actions.FindAction("Knead/RotateCW", true);
             palmAction = InputSystem.actions.FindAction("Knead/Palm", true);
             foldGrabAction = InputSystem.actions.FindAction("Knead/FoldGrab", true);
+            pressRowActions = new[]
+            {
+                InputSystem.actions.FindAction("Knead/PressRow1", true),
+                InputSystem.actions.FindAction("Knead/PressRow2", true),
+                InputSystem.actions.FindAction("Knead/PressRow3", true),
+                InputSystem.actions.FindAction("Knead/PressRow4", true)
+            };
         }
 
         private void OnEnable()
@@ -28,6 +37,10 @@ namespace BreadBowl.Dough
             rotateCWAction.Enable();
             palmAction.Enable();
             foldGrabAction.Enable(); 
+            foreach (InputAction rowAction in pressRowActions)
+            {
+                rowAction.Enable();
+            }
         }
 
         private void OnDisable()
@@ -36,6 +49,10 @@ namespace BreadBowl.Dough
             rotateCWAction.Disable();
             palmAction.Disable();
             foldGrabAction.Disable(); 
+            foreach (InputAction rowAction in pressRowActions)
+            {
+                rowAction.Disable();
+            }
         }
 
         private void Update()
@@ -54,6 +71,7 @@ namespace BreadBowl.Dough
                     foldReady = false;
                 }
 
+                ApplyPress();
                 return;
             }
 
@@ -75,6 +93,27 @@ namespace BreadBowl.Dough
             }
         }
 
+        private void ApplyPress()
+        {
+            KneadSettings settings = dough.Settings;
+            float amount = settings.KneadForcePerSecond * Time.deltaTime;
+
+            for (int row = 0; row < pressRowActions.Length; row++)
+            {
+                ReadOnlyArray<InputControl> keys = pressRowActions[row].controls;
+                float v = (row + 0.5f) / pressRowActions.Length;
+
+                for (int i = 0; i < keys.Count; i++)
+                {
+                    if (keys[i].IsPressed())
+                    {
+                        float u = (i + 0.5f) / keys.Count;
+                        dough.PalmPress(new Vector2(u, v), settings.PressRadius, amount, settings.PressFalloff);
+                    }
+                }
+            }
+        }
+
         private static int CountPressedControls(InputAction action)
         {
             int count = 0;
@@ -91,4 +130,3 @@ namespace BreadBowl.Dough
         }
     }
 }
-
