@@ -37,7 +37,8 @@ namespace BreadBowl.Dough
                 cellWidth * CellHeightRatio,                  // y
                 cellWidth * cellFill);                        // z
 
-            Gizmos.matrix = transform.localToWorldMatrix;
+            Quaternion doughRotation = Quaternion.Euler(0f, dough.Orientation, 0f);
+            Gizmos.matrix = transform.localToWorldMatrix * Matrix4x4.Rotate(doughRotation);
 
             // each cell needs to be drawn according to a center point in Unity's space. 
             // the grid is centered on the object, so its left edge is half the grid
@@ -46,14 +47,19 @@ namespace BreadBowl.Dough
             {
                 for (int x = 0; x < grid.Resolution; x++)
                 {
-                    float localX = gridStart + x * cellWidth - halfCell;
-                    float localZ = gridStart + y * cellWidth - halfCell;
+                    float localX = gridStart + x * cellWidth + halfCell;
+                    float localZ = gridStart + y * cellWidth + halfCell;
                     Vector3 cubeCenter = new Vector3(localX, 0f, localZ);
 
                     Gizmos.color = ColorFor(dough.Settings, grid.Get(x, y));
                     Gizmos.DrawCube(cubeCenter, cubeSize);
                 }
             }
+
+            Vector3 markerStart = new Vector3(0f, cellWidth, 0f);
+            Vector3 markerEnd = new Vector3(0f, cellWidth, gridWidth * 0.5f);
+            Gizmos.color = Color.white;
+            Gizmos.DrawLine(markerStart, markerEnd);
         }
 
         /// <summary>

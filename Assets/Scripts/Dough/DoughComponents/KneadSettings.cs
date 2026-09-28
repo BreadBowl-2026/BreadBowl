@@ -16,9 +16,12 @@ namespace BreadBowl.Dough
         private float wellKneadedThreshold = 1f;
         [SerializeField, Min(0f), Tooltip("Minimum value at which a cell becomes over kneaded. Must be higher than well kneaded.")]
         private float overKneadedThreshold = 2f;
+        [SerializeField, Min(1), Tooltip("How many keys must be pressed at once to fold the dough")]
+        private int foldGrabKeyCount = 3;
 
         public float WellKneadedThreshold => wellKneadedThreshold;
         public float OverKneadedThreshold => overKneadedThreshold;
+        public int FoldGrabKeyCount => foldGrabKeyCount;
 
         /// <summary>
         /// Takes in the kneadedness value and determines how it should be

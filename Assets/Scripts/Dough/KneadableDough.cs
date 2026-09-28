@@ -8,8 +8,11 @@ namespace BreadBowl.Dough
         [SerializeField, Min(2)] private int resolution = 32;
 
         private KneadGrid grid;
+        private int quarterTurns;
 
         public KneadSettings Settings => settings;
+        public int QuarterTurn => quarterTurns;
+        public float Orientation => quarterTurns * 90f;
 
         public KneadGrid Grid
         {
@@ -25,6 +28,11 @@ namespace BreadBowl.Dough
 
                 return grid;
             }
+        }
+
+        public void Rotate(int turns)
+        {
+            quarterTurns = ((quarterTurns + turns) % 4) %4;
         }
 
         [ContextMenu("Randomize Kneadedness")]
@@ -52,6 +60,7 @@ namespace BreadBowl.Dough
         private void ResetKnead()
         {
             grid = new KneadGrid(resolution);
+            quarterTurns = 0;
         }
     }
 }

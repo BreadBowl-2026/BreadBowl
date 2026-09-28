@@ -1,4 +1,5 @@
 {
+    "version": 1,
     "name": "InputSystem_Actions",
     "maps": [
         {
@@ -12,7 +13,8 @@
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": true
+                    "initialStateCheck": true,
+                    "priority": 0
                 },
                 {
                     "name": "Look",
@@ -21,7 +23,8 @@
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": true
+                    "initialStateCheck": true,
+                    "priority": 0
                 },
                 {
                     "name": "Attack",
@@ -30,7 +33,8 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": false,
+                    "priority": 0
                 },
                 {
                     "name": "Interact",
@@ -39,7 +43,8 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Hold",
-                    "initialStateCheck": false
+                    "initialStateCheck": false,
+                    "priority": 0
                 },
                 {
                     "name": "Crouch",
@@ -48,7 +53,8 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": false,
+                    "priority": 0
                 },
                 {
                     "name": "Jump",
@@ -57,7 +63,8 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": false,
+                    "priority": 0
                 },
                 {
                     "name": "Previous",
@@ -66,7 +73,8 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": false,
+                    "priority": 0
                 },
                 {
                     "name": "Next",
@@ -75,7 +83,8 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": false,
+                    "priority": 0
                 },
                 {
                     "name": "Sprint",
@@ -84,7 +93,8 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": false,
+                    "priority": 0
                 }
             ],
             "bindings": [
@@ -486,7 +496,8 @@
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": false,
+                    "priority": 0
                 },
                 {
                     "name": "Submit",
@@ -495,7 +506,8 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": false,
+                    "priority": 0
                 },
                 {
                     "name": "Cancel",
@@ -504,7 +516,8 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": false,
+                    "priority": 0
                 },
                 {
                     "name": "Point",
@@ -513,7 +526,8 @@
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": true
+                    "initialStateCheck": true,
+                    "priority": 0
                 },
                 {
                     "name": "Click",
@@ -522,7 +536,8 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": true
+                    "initialStateCheck": true,
+                    "priority": 0
                 },
                 {
                     "name": "RightClick",
@@ -531,7 +546,8 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": false,
+                    "priority": 0
                 },
                 {
                     "name": "MiddleClick",
@@ -540,7 +556,8 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": false,
+                    "priority": 0
                 },
                 {
                     "name": "ScrollWheel",
@@ -549,7 +566,8 @@
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": false,
+                    "priority": 0
                 },
                 {
                     "name": "TrackedDevicePosition",
@@ -558,7 +576,8 @@
                     "expectedControlType": "Vector3",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": false,
+                    "priority": 0
                 },
                 {
                     "name": "TrackedDeviceOrientation",
@@ -567,7 +586,8 @@
                     "expectedControlType": "Quaternion",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": false,
+                    "priority": 0
                 }
             ],
             "bindings": [
@@ -986,6 +1006,175 @@
                     "processors": "",
                     "groups": "XR",
                     "action": "TrackedDeviceOrientation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Knead",
+            "id": "0bd6f7ab-6a7d-46d4-8afe-324b1f81e89b",
+            "actions": [
+                {
+                    "name": "RotateCCW",
+                    "type": "Button",
+                    "id": "31e61128-7158-4ca2-b2f7-62c452728ae5",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
+                },
+                {
+                    "name": "RotateCW",
+                    "type": "Button",
+                    "id": "e7e6eb86-d05c-4a5d-905b-1447c61d6f91",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
+                },
+                {
+                    "name": "Palm",
+                    "type": "Button",
+                    "id": "1d8d6ee5-0148-4302-8b0b-a87abdbc6e27",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
+                },
+                {
+                    "name": "FoldGrab",
+                    "type": "Button",
+                    "id": "f673e755-d0d6-430a-9b28-281bf48617a2",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "1172aab8-7638-4097-8f64-30a6256f0f34",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RotateCCW",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b7d2ccfc-e71c-4cc3-a12f-dc503886b6a8",
+                    "path": "<Keyboard>/rightShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RotateCW",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5e07d42f-dcc8-4d74-8e2a-56c342ad7700",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Palm",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b267c8b8-6383-4138-9f48-c9c15bfad9c9",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "FoldGrab",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "50adf3e0-3dde-45d6-a121-6fea383c7c65",
+                    "path": "<Keyboard>/4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "FoldGrab",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4cdd2081-589c-4ffc-bd0b-3acdbb8ca168",
+                    "path": "<Keyboard>/5",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "FoldGrab",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9d68a9d7-ec39-47a1-ad24-60a3608d4a4e",
+                    "path": "<Keyboard>/6",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "FoldGrab",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f145914a-cd47-4ff5-81b7-01340639bdd1",
+                    "path": "<Keyboard>/7",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "FoldGrab",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a75bb731-8fce-4265-aed2-0da9662b5640",
+                    "path": "<Keyboard>/8",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "FoldGrab",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3602b9f6-03ea-49eb-94a4-742b3443b6e3",
+                    "path": "<Keyboard>/9",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "FoldGrab",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9757197d-8cb9-45cf-86bb-71ef2e148726",
+                    "path": "<Keyboard>/0",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "FoldGrab",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
