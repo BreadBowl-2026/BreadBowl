@@ -443,9 +443,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21bf4dbf150da954e8cfdc7dd4ceaa1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BreadBowl.Dough.DoughBrushTest
-  center: {x: 0.5, y: 0.5}
-  radius: 0.2
-  amount: 0.5
+  center: {x: 0.5, y: 0.95}
+  radius: 1
+  amount: 0.25
   falloff: 2
 --- !u!114 &1560281378
 MonoBehaviour:
