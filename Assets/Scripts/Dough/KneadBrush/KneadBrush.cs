@@ -43,7 +43,7 @@ namespace BreadBowl.Dough
             }
         }
 
-        private static float Weight(float t, KneadBrushFalloff falloff)
+        public static float Weight(float t, KneadBrushFalloff falloff)
         {
             return falloff switch
             {

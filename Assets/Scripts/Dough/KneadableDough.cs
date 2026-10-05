@@ -14,6 +14,10 @@ namespace BreadBowl.Dough
         public int QuarterTurn => quarterTurns;
         public float Orientation => quarterTurns * 90f;
 
+        // adding using.System; breaks compilation because of Random.Range being ambiguous between
+        // System and UnityEngine
+        public event System.Action<Vector2, float> Pressed;
+
         public KneadGrid Grid
         {
             get
@@ -44,7 +48,9 @@ namespace BreadBowl.Dough
 
         public void PalmPress(Vector2 playerPosition, float radius, float amount, KneadBrushFalloff falloff)
         {
+            Vector2 doughPosition = PlayerToDough(playerPosition);
             KneadBrush.Apply(Grid, PlayerToDough(playerPosition), radius, amount, falloff);
+            Pressed?.Invoke(doughPosition, radius);
         }
 
         public Vector2 PlayerToDough(Vector2 playerPosition)
