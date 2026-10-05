@@ -32,7 +32,9 @@ namespace BreadBowl.Dough
 
         public void Rotate(int turns)
         {
-            quarterTurns = ((quarterTurns + turns) % 4) %4;
+            // the +4 is necessary to prevent the player frame breaking after
+            // a certain amount of CCW turns
+            quarterTurns = ((quarterTurns + turns) % 4 + 4) %4;
         }
 
         public void Fold()
