@@ -506,7 +506,6 @@ GameObject:
   - component: {fileID: 1560281375}
   - component: {fileID: 1560281376}
   - component: {fileID: 1560281378}
-  - component: {fileID: 1560281377}
   - component: {fileID: 1560281379}
   - component: {fileID: 1560281380}
   m_Layer: 0
@@ -546,22 +545,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BreadBowl.Dough.KneadableDough
   settings: {fileID: 11400000, guid: a0b9d4fc31babc4498682a6aec0aef37, type: 2}
   resolution: 64
---- !u!114 &1560281377
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1560281374}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21bf4dbf150da954e8cfdc7dd4ceaa1c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BreadBowl.Dough.DoughBrushTest
-  center: {x: 0.5, y: 0.85}
-  radius: 1
-  amount: 1
-  falloff: 2
 --- !u!114 &1560281378
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -612,6 +595,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BreadBowl.Dough.DoughMeshView
   visual: {fileID: 1567079338}
   turnSpeed: 540
+  dentSpeed: 0.5
+  maxDentDepth: 0.15
+  relaxRate: 1.5
 --- !u!1 &1567079337
 GameObject:
   m_ObjectHideFlags: 0
