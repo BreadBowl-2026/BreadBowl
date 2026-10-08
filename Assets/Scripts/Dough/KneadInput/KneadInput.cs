@@ -14,6 +14,7 @@ namespace BreadBowl.Dough
         private InputAction foldGrabAction;
         private InputAction[] pressRowActions;
         private bool foldReady = true;
+        [SerializeField] private KneadAudio kneadAudio;
 
         private void Awake()
         {
@@ -72,6 +73,9 @@ namespace BreadBowl.Dough
                 }
 
                 ApplyPress();
+
+                kneadAudio.RegisterKnead();
+
                 return;
             }
 
