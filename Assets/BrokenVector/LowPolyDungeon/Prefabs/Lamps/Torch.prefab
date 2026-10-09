@@ -158,7 +158,7 @@ Light:
   m_GameObject: {fileID: 4777504214439148958}
   m_Enabled: 1
   serializedVersion: 12
-  m_Type: 3
+  m_Type: 2
   m_Color: {r: 0.9529412, g: 0.81960785, b: 0.45490196, a: 1}
   m_Intensity: 2
   m_Range: 5
