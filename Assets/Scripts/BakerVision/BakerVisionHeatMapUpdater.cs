@@ -22,7 +22,7 @@ public class SourdoughHeatmapUpdater : MonoBehaviour
         if (meshRenderer == null) meshRenderer = GetComponent<MeshRenderer>();
         if (meshFilter == null) meshFilter = GetComponent<MeshFilter>();
 
-        // Create exactly ONE instance of the heatmap material
+        // Create one instance of the heatmap material
         if (bakerVisionMaterial != null)
         {
             bakerVisionInstance = new Material(bakerVisionMaterial);
