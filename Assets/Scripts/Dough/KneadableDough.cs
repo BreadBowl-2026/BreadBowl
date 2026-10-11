@@ -7,7 +7,7 @@ namespace BreadBowl.Dough
         [SerializeField] private KneadSettings settings;
         [SerializeField, Min(2)] private int resolution = 32;
 
-        private KneadGrid grid;
+        [SerializeField] private KneadGrid grid;
         private int quarterTurns;
 
         public KneadSettings Settings => settings;
@@ -93,6 +93,22 @@ namespace BreadBowl.Dough
         {
             grid = new KneadGrid(resolution);
             quarterTurns = 0;
+        }
+
+        /// <summary>
+        /// Returns a copy of the grid cells.
+        /// </summary>
+        public float[] GetCells()
+        {
+            return Grid.GetCells();
+        }
+
+        /// <summary>
+        /// Returns the resolution of the grid.
+        /// </summary>
+        public int GetResolution()
+        {
+            return resolution;
         }
     }
 }
