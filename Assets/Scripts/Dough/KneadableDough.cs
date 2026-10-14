@@ -100,6 +100,7 @@ namespace BreadBowl.Dough
         {
             grid = new KneadGrid(resolution);
             quarterTurns = 0;
+            GridChanged?.Invoke();
         }
 
         private void OnDisable()
@@ -129,6 +130,22 @@ namespace BreadBowl.Dough
 
             yield return new WaitForSeconds(half);
             isFolding = false;
+        }
+
+        /// <summary>
+        /// Returns a copy of the grid cells.
+        /// </summary>
+        public float[] GetCells()
+        {
+            return Grid.GetCells();
+        }
+
+        /// <summary>
+        /// Returns the resolution of the grid.
+        /// </summary>
+        public int GetResolution()
+        {
+            return resolution;
         }
     }
 }
