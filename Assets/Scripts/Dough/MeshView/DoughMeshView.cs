@@ -18,6 +18,9 @@ namespace BreadBowl.Dough
         [SerializeField, Min(0f)] private float dentSpeed = 0.5f;
         [SerializeField, Min(0f)] private float maxDentDepth = 0.15f;
         [SerializeField, Min(0f)] private float relaxRate = 1.0f;
+        [SerializeField, Min(0.001f)] private float hingeWidth = 0.15f;
+        [SerializeField, Range(0.05f, 1f)] private float flattenHeight = 0.35f;
+        [SerializeField, Min(1f)] private float flattenSpread = 1.4f;
 
         private KneadableDough dough;
         private Mesh mesh;
@@ -26,6 +29,15 @@ namespace BreadBowl.Dough
         private Vector3[] restNormals;
         private Vector3[] vertices;
         private float[] dentDepths;
+        private bool folding;
+        private float foldDuration;
+        private float foldElapsed;
+        private float foldAngle;
+        private float foldSettle;
+        private Vector3 foldForward;
+        private Vector3 foldAxis;
+        private Vector3 foldPivot;
+        private float foldFlatten;
 
         private void Awake()
         {
@@ -51,11 +63,13 @@ namespace BreadBowl.Dough
         private void OnEnable()
         {
             dough.Pressed += AddDent;
+            dough.FoldStarted += StartFold;
         }
 
         private void OnDisable()
         {
             dough.Pressed -= AddDent;
+            dough.FoldStarted -= StartFold;
         }
 
         private void OnDestroy()
@@ -76,7 +90,8 @@ namespace BreadBowl.Dough
 
             Turn();
             Relax();
-            ApplyDents();
+            AdvanceFold();
+            ApplyShape();
         }
 
         // rotates the visual towards the actual dough's current orientation. ensure 270 -> 0
@@ -141,11 +156,12 @@ namespace BreadBowl.Dough
             }
         }
 
-        private void ApplyDents()
+        private void ApplyShape()
         {
             for (int i = 0; i < restVertices.Length; i++)
             {
-                vertices[i] = restVertices[i] + Vector3.down * dentDepths[i];
+                Vector3 dented = restVertices[i] + Vector3.down * dentDepths[i];
+                vertices[i] = folding ? FoldVertex(dented) : dented;
             }
 
             mesh.vertices = vertices;
@@ -153,5 +169,66 @@ namespace BreadBowl.Dough
             // lighting comes from normals so dents would be invisible without this
             mesh.RecalculateNormals();
         }
+
+        private void StartFold(float duration)
+        {
+            folding = true;
+            foldDuration = duration;
+            foldElapsed = 0f;
+            foldForward = Quaternion.Euler(0f, -dough.Orientation, 0f) * Vector3.forward;
+            foldAxis = Vector3.Cross(foldForward, Vector3.up);
+            foldPivot = new Vector3(
+                restBounds.center.x,
+                restBounds.min.y + restBounds.size.y * flattenHeight,
+                restBounds.center.z
+            );
+        }
+
+        private void AdvanceFold()
+        {
+            if (!folding)
+            {
+                return;
+            }
+
+            foldElapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(foldElapsed / foldDuration);
+
+            foldFlatten = Mathf.SmoothStep(0f, 1f, t * 4f);
+            foldAngle = 180f * Mathf.SmoothStep(0f, 1f, t * 4f - 1f);
+            foldSettle = Mathf.SmoothStep(0f, 1f, t * 2f - 1f);
+
+            if (t >= 1f)
+            {
+                folding = false;
+            }
+        }
+
+        private Vector3 FoldVertex(Vector3 position)
+        {
+            Vector3 shaped = Vector3.Lerp(position, Flatten(position), foldFlatten);
+            Vector3 offset = shaped - foldPivot;
+            float distance = Vector3.Dot(offset, foldForward);
+
+            if (distance > 0f)
+            {
+                float bend = Mathf.SmoothStep(0f, 1f, distance / hingeWidth);
+                Quaternion rotation = Quaternion.AngleAxis(foldAngle * bend, foldAxis);
+                shaped = foldPivot + rotation * offset;
+            }
+
+            return Vector3.Lerp(shaped, position, foldSettle);
+        }
+
+        private Vector3 Flatten(Vector3 position)
+        {
+            Vector3 center = restBounds.center;
+            float along = Vector3.Dot(position - center, foldForward);
+            Vector3 flat = position + foldForward * along * (flattenSpread - 1f);
+            flat.y = restBounds.min.y + (position.y - restBounds.min.y) * flattenHeight;
+
+            return flat;
+        }
+
     }
 }
