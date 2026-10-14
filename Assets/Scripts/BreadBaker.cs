@@ -7,33 +7,50 @@ using UnityEngine.UI;
 
 public class BreadBaker : MonoBehaviour
 {
+    [Header("Baking Times")]
     [SerializeField] private float bakeTime = 8f;
+    [SerializeField] private float perfectEndTime = 11f;
+    [SerializeField] private float maxBakeTime = 15f;
+
     [Range(0f, 2f)]
     [SerializeField] private float kneadQuality = 0.7f;
 
     [SerializeField] private Vector3 rawSize = new Vector3(3f, 0.8f, 3f);
     [SerializeField] private Vector3 bakedSize = new Vector3(3.3f, 2.5f, 3.3f);
 
+    [Header("UI")]
     [SerializeField] private Slider bakingProgress;
-    [SerializeField] private TMP_Text timerText;
-    [SerializeField] private TMP_Text qualityText;
-    [SerializeField] private TMP_Text statusText;
+
+    [SerializeField] private Button startButton;
+    [SerializeField] private Button takeOutButton;
+
+    [SerializeField] private OvenDoor ovenDoor;
 
     private Transform dough;
     private Material doughMaterial;
     private Mesh doughMesh;
     private Vector3[] originalVertices;
     private Vector3 startPosition;
+
     private bool isBaking = false;
+    private float elapsedTime = 0f;
+    private Coroutine bakingCoroutine;
 
     void Start()
     {
-        GameObject bread = GameObject.Find("Dough");
+        
+        dough = transform;
+        doughMaterial = GetComponent<Renderer>().material;
 
-        dough = bread.transform;
-        doughMaterial = bread.GetComponent<Renderer>().material;
+        MeshFilter filter = GetComponent<MeshFilter>();
 
-        MeshFilter filter = bread.GetComponent<MeshFilter>();
+        if (filter.sharedMesh == null)
+        {
+            GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            filter.sharedMesh = sphere.GetComponent<MeshFilter>().sharedMesh;
+            Destroy(sphere);
+        }
+
         doughMesh = Instantiate(filter.sharedMesh);
         filter.mesh = doughMesh;
         originalVertices = doughMesh.vertices;
@@ -42,29 +59,44 @@ public class BreadBaker : MonoBehaviour
         startPosition = dough.localPosition;
 
         bakingProgress.value = 0f;
-        timerText.text = bakeTime.ToString("F1") + "s";
-        qualityText.text = "Kneading Quality: " + kneadQuality.ToString("F1");
-        statusText.text = "Press SPACE to Bake";
 
         doughMaterial.color = new Color(0.93f, 0.85f, 0.65f);
+
+        startButton.onClick.AddListener(StartBaking);
+        takeOutButton.onClick.AddListener(TakeOutBread);
+
+        takeOutButton.gameObject.SetActive(false);
     }
 
-    void Update()
+    public void StartBaking()
     {
-        if (Keyboard.current != null &&
-            Keyboard.current.spaceKey.wasPressedThisFrame &&
-            !isBaking)
-        {
-            StartCoroutine(Bake());
-        }
+        if (isBaking) return;
+
+        if (ovenDoor == null)
+            ovenDoor = FindFirstObjectByType<OvenDoor>();
+
+        if (ovenDoor != null)
+            ovenDoor.CloseDoor();
+
+        elapsedTime = 0f;
+        dough.localScale = rawSize;
+        dough.localPosition = startPosition;
+        doughMaterial.color = new Color(0.93f, 0.85f, 0.65f);
+
+        ChangeShape(0f);
+
+        bakingProgress.value = 0f;
+
+        isBaking = true;
+
+        startButton.gameObject.SetActive(false);
+        takeOutButton.gameObject.SetActive(true);
+
+        bakingCoroutine = StartCoroutine(Bake());
     }
 
     IEnumerator Bake()
     {
-        isBaking = true;
-
-        float time = 0f;
-
         float quality = 1f - Mathf.Abs(kneadQuality - 1f);
         float height = Mathf.Lerp(1.3f, bakedSize.y, quality);
 
@@ -72,42 +104,78 @@ public class BreadBaker : MonoBehaviour
 
         Color rawColor = new Color(0.93f, 0.85f, 0.65f);
         Color bakedColor = new Color(0.78f, 0.55f, 0.28f);
+        Color burntColor = new Color(0.35f, 0.18f, 0.08f);
 
-        while (time < bakeTime)
+        while (elapsedTime < maxBakeTime)
         {
-            time += Time.deltaTime;
-            float progress = Mathf.Clamp01(time / bakeTime);
+            elapsedTime += Time.deltaTime;
 
-           
+
+            float progress = Mathf.Clamp01(elapsedTime / bakeTime);
+
             dough.localScale = Vector3.Lerp(rawSize, finalSize, progress);
 
             float rise = dough.localScale.y - rawSize.y;
             dough.localPosition = startPosition + Vector3.up * rise / 2f;
 
-    
+
             float browning = Mathf.Clamp01((progress - 0.3f) / 0.7f);
             doughMaterial.color = Color.Lerp(rawColor, bakedColor, browning);
 
-           
+            if (elapsedTime > perfectEndTime)
+            {
+                float overbake = Mathf.InverseLerp(
+                    perfectEndTime, maxBakeTime, elapsedTime
+                );
+
+                doughMaterial.color = Color.Lerp(
+                    bakedColor, burntColor, overbake
+                );
+            }
+
             ChangeShape(progress);
 
-            bakingProgress.value = progress;
-            timerText.text = Mathf.Max(0f, bakeTime - time).ToString("F1") + "s";
-            statusText.text = "Baking...";
+            bakingProgress.value = Mathf.Clamp01(
+                elapsedTime / maxBakeTime
+            );
+
+          
 
             yield return null;
         }
 
-        
-        dough.localScale = finalSize;
-        dough.localPosition = startPosition + Vector3.up * (finalSize.y - rawSize.y) / 2f;
-        doughMaterial.color = bakedColor;
-        ChangeShape(1f);
+        elapsedTime = maxBakeTime;
+        FinishBaking(true);
+    }
 
-        bakingProgress.value = 1f;
-        timerText.text = "0.0s";
-        statusText.text = "Bread is Ready!";
+    public void TakeOutBread()
+    {
+        if (!isBaking) return;
+
+        if (bakingCoroutine != null)
+        {
+            StopCoroutine(bakingCoroutine);
+            bakingCoroutine = null;
+        }
+
+        FinishBaking(false);
+    }
+
+    void FinishBaking(bool burnt)
+    {
         isBaking = false;
+        bakingCoroutine = null;
+
+        if (ovenDoor == null)
+            ovenDoor = FindFirstObjectByType<OvenDoor>();
+
+        if (ovenDoor != null)
+            ovenDoor.OpenDoor();
+
+        takeOutButton.gameObject.SetActive(false);
+        startButton.gameObject.SetActive(true);
+
+
     }
 
     void ChangeShape(float progress)
@@ -134,3 +202,5 @@ public class BreadBaker : MonoBehaviour
         doughMesh.RecalculateBounds();
     }
 }
+
+
