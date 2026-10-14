@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace BreadBowl.Dough
@@ -9,14 +10,18 @@ namespace BreadBowl.Dough
 
         private KneadGrid grid;
         private int quarterTurns;
+        private bool isFolding;
 
         public KneadSettings Settings => settings;
         public int QuarterTurn => quarterTurns;
         public float Orientation => quarterTurns * 90f;
+        public bool IsFolding => isFolding;
 
         // adding using.System; breaks compilation because of Random.Range being ambiguous between
         // System and UnityEngine
         public event System.Action<Vector2, float> Pressed;
+        public event System.Action<float> FoldStarted;
+        public event System.Action GridChanged;
 
         public KneadGrid Grid
         {
@@ -44,13 +49,15 @@ namespace BreadBowl.Dough
         public void Fold()
         {
             KneadFold.Apply(Grid, quarterTurns, settings.FoldBlend);
+            GridChanged?.Invoke();
         }
 
         public void PalmPress(Vector2 playerPosition, float radius, float amount, KneadBrushFalloff falloff)
         {
             Vector2 doughPosition = PlayerToDough(playerPosition);
-            KneadBrush.Apply(Grid, PlayerToDough(playerPosition), radius, amount, falloff);
+            KneadBrush.Apply(Grid, doughPosition, radius, amount, falloff);
             Pressed?.Invoke(doughPosition, radius);
+            GridChanged?.Invoke();
         }
 
         public Vector2 PlayerToDough(Vector2 playerPosition)
@@ -93,6 +100,35 @@ namespace BreadBowl.Dough
         {
             grid = new KneadGrid(resolution);
             quarterTurns = 0;
+        }
+
+        private void OnDisable()
+        {
+            isFolding = false;
+        }
+
+        public void BeginFold()
+        {
+            if (isFolding)
+            {
+                return;
+            }
+
+            StartCoroutine(FoldRoutine());
+        }
+
+        private IEnumerator FoldRoutine()
+        {
+            float half = settings.FoldDuration * 0.5f;
+
+            isFolding = true;
+            FoldStarted?.Invoke(settings.FoldDuration);
+            
+            yield return new WaitForSeconds(half);
+            Fold();
+
+            yield return new WaitForSeconds(half);
+            isFolding = false;
         }
     }
 }
