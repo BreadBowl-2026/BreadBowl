@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class KneadAudio : MonoBehaviour
+public class KneadingSoundPlayer : MonoBehaviour
 {
     [Header("Audio")]
     [SerializeField] private AudioSource audioSource;
@@ -17,6 +17,12 @@ public class KneadAudio : MonoBehaviour
         if (Time.time < nextSoundTime)
             return;
 
+        if (AudioManager.Instance != null &&
+            AudioManager.Instance.IsKneadingMuted())
+        {
+            return;
+        }
+
         PlayRandomKneadingSound();
 
         nextSoundTime = Time.time +
@@ -26,6 +32,9 @@ public class KneadAudio : MonoBehaviour
     private void PlayRandomKneadingSound()
     {
         if (kneadingSounds == null || kneadingSounds.Length == 0)
+            return;
+
+        if (audioSource == null)
             return;
 
         AudioClip clip = kneadingSounds[
