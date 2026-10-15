@@ -16,6 +16,8 @@ public class SourdoughHeatmapUpdater : MonoBehaviour
     private bool isBakerVisionActive = false;
     private KneadableDough kneadableDough;
     private int gridSize;
+    private Bounds restBounds;
+    private bool hasRestBounds;
 
     private void Awake()
     {
@@ -27,26 +29,50 @@ public class SourdoughHeatmapUpdater : MonoBehaviour
         {
             bakerVisionInstance = new Material(bakerVisionMaterial);
         }
+
+        // get component here instead of start so it exists before OnEnable subscribes to GridChanged
+        if (dough != null)
+        {
+            kneadableDough = dough.GetComponent<KneadableDough>();
+        }
+    }
+
+    // subscribed baker vision to the GridChanged event so that it doesn't have check
+    // for cell updates each frame, it will be notified when cells change instead
+    private void OnEnable()
+    {
+        if (kneadableDough != null)
+        {
+            kneadableDough.GridChanged += OnGridChanged;
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (kneadableDough != null)
+        {
+            kneadableDough.GridChanged -= OnGridChanged;
+        }
     }
 
     private void Start()
     {
-        if (dough != null)
+        // capture the rest shape once. the dough mesh deforms during dents and folds,
+        // using the current bounds would misalign the heat map after a fold
+        // the restBounds also don't change after they are established
+        if (meshFilter != null && meshFilter.sharedMesh != null)
         {
-            kneadableDough = dough.GetComponent<KneadableDough>();
-            gridSize = kneadableDough.GetResolution();
+            restBounds = meshFilter.sharedMesh.bounds;
+            hasRestBounds = true;
         }
 
         // Apply initial material state
         SetBakerVision(isBakerVisionActive);
-
-        if (isBakerVisionActive)
-        {
-            UpdateHeatmap();
-        }
     }
 
-    private void Update()
+    // called by KneadableDough.GridChanged event. prevents doing work behind the scenes
+    // when bakervision is disabled
+    private void OnGridChanged()
     {
         if (isBakerVisionActive)
         {
@@ -97,7 +123,8 @@ public class SourdoughHeatmapUpdater : MonoBehaviour
         if (on)
         {
             meshRenderer.sharedMaterial = bakerVisionInstance;
-            SyncShaderProperties();
+            // grid might have changed while bakervision was off so update it now
+            UpdateHeatmap();
         }
         else
         {
@@ -114,18 +141,19 @@ public class SourdoughHeatmapUpdater : MonoBehaviour
             bakerVisionInstance.SetTexture("_DataTex", dataTexture);
         }
 
-        if (meshFilter != null && meshFilter.sharedMesh != null)
+        // switched to use restBounds instead of current mesh bounds to match
+        // how DoughMeshView maps presses onto the mesh
+        if (hasRestBounds)
         {
-            Bounds localBounds = meshFilter.sharedMesh.bounds;
             Vector4 localProjectionRect = new Vector4(
-                localBounds.min.x,
-                localBounds.min.z,
-                localBounds.size.x,
-                localBounds.size.z
+                restBounds.min.x,
+                restBounds.min.z,
+                restBounds.size.x,
+                restBounds.size.z
             );
 
             bakerVisionInstance.SetVector("_BoundsRect", localProjectionRect);
-            bakerVisionInstance.SetFloat("_TopHalfThresholdY", localBounds.center.y);
+            bakerVisionInstance.SetFloat("_TopHalfThresholdY", restBounds.center.y);
         }
     }
 
