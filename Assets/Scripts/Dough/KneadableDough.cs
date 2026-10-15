@@ -147,6 +147,11 @@ namespace BreadBowl.Dough
         {
             return resolution;
         }
+
+        public KneadResult CreateResult()
+        {
+            return new KneadResult(this);
+        }
     }
 }
 
