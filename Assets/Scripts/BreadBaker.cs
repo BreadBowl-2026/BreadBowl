@@ -20,6 +20,8 @@ public class BreadBaker : MonoBehaviour
 
     [Header("UI")]
     [SerializeField] private Slider bakingProgress;
+    [SerializeField] private TMP_Text timerText;
+    [SerializeField] private TMP_Text statusText;
 
     [SerializeField] private Button startButton;
     [SerializeField] private Button takeOutButton;
@@ -66,7 +68,12 @@ public class BreadBaker : MonoBehaviour
         takeOutButton.onClick.AddListener(TakeOutBread);
 
         takeOutButton.gameObject.SetActive(false);
-    }
+
+        UpdateTimer();
+
+        if (statusText != null)
+            statusText.text = "Ready to Bake";
+        }
 
     public void StartBaking()
     {
@@ -79,6 +86,12 @@ public class BreadBaker : MonoBehaviour
             ovenDoor.CloseDoor();
 
         elapsedTime = 0f;
+
+        UpdateTimer();
+
+        if (statusText != null)
+            statusText.text = "Baking...";
+
         dough.localScale = rawSize;
         dough.localPosition = startPosition;
         doughMaterial.color = new Color(0.93f, 0.85f, 0.65f);
@@ -110,6 +123,8 @@ public class BreadBaker : MonoBehaviour
         {
             elapsedTime += Time.deltaTime;
 
+            elapsedTime = Mathf.Min(elapsedTime, maxBakeTime);
+            UpdateTimer();
 
             float progress = Mathf.Clamp01(elapsedTime / bakeTime);
 
@@ -175,6 +190,20 @@ public class BreadBaker : MonoBehaviour
         takeOutButton.gameObject.SetActive(false);
         startButton.gameObject.SetActive(true);
 
+        UpdateTimer();
+
+        if (statusText != null)
+        {
+            if (burnt)
+                statusText.text = "Burnt!";
+            else if (elapsedTime < bakeTime)
+                statusText.text = "Underbaked!";
+            else if (elapsedTime <= perfectEndTime)
+                statusText.text = "Perfect Bake!";
+            else
+                statusText.text = "Overbaked!";
+        }
+
 
     }
 
@@ -200,6 +229,18 @@ public class BreadBaker : MonoBehaviour
         doughMesh.vertices = vertices;
         doughMesh.RecalculateNormals();
         doughMesh.RecalculateBounds();
+    }
+
+    void UpdateTimer()
+    {
+        if (timerText == null) return;
+
+        int seconds = Mathf.FloorToInt(elapsedTime);
+
+        int minutes = seconds / 60;
+        int remainingSeconds = seconds % 60;
+
+        timerText.text = $"{minutes:00}:{remainingSeconds:00}";
     }
 }
 
