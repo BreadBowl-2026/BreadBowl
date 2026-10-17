@@ -42,9 +42,8 @@ namespace BreadBowl.Bowling
         private Transform ballTransform;
         private Vector3 startPosition;
         private Quaternion startRotation;
+        private Quaternion aimRotation;
         private float lateralOffset;
-        private float yawAngle;
-        private float tiltAngle;
         private float gaugeTime;
 
         public float Power { get; private set; }
@@ -68,6 +67,7 @@ namespace BreadBowl.Bowling
             ballTransform = ball.transform;
             ball.isKinematic = true;
             startRotation = ballTransform.rotation;
+            aimRotation = startRotation;
             SnapToGround();
             startPosition = ballTransform.position;
         }
@@ -112,8 +112,11 @@ namespace BreadBowl.Bowling
                 return;
             }
 
-            yawAngle = Mathf.Repeat(yawAngle + yawDirection * yawSpeed * Time.deltaTime, 360f);
-            tiltAngle = Mathf.Repeat(tiltAngle + tiltDirection * tiltSpeed * Time.deltaTime, 360f);
+            // Yaw spins around world up; tilt rolls around the lane's sideways axis,
+            // so positive tilt rolls the top of the ball away from the camera
+            aimRotation = Quaternion.AngleAxis(yawDirection * yawSpeed * Time.deltaTime, Vector3.up)
+                * Quaternion.AngleAxis(tiltDirection * tiltSpeed * Time.deltaTime, LaneRight)
+                * aimRotation;
             ApplyPose();
         }
 
@@ -154,8 +157,7 @@ namespace BreadBowl.Bowling
 
             HasLaunched = false;
             lateralOffset = 0f;
-            yawAngle = 0f;
-            tiltAngle = 0f;
+            aimRotation = startRotation;
             gaugeTime = 0f;
             Power = minPower;
             ApplyPose();
@@ -168,11 +170,7 @@ namespace BreadBowl.Bowling
 
         private void ApplyPose()
         {
-            // Y spins around the world up axis, Z tilts around the ball's own forward axis
-            ballTransform.SetPositionAndRotation(
-                startPosition + LaneRight * lateralOffset,
-                Quaternion.AngleAxis(yawAngle, Vector3.up) * startRotation * Quaternion.AngleAxis(tiltAngle, Vector3.forward)
-            );
+            ballTransform.SetPositionAndRotation(startPosition + LaneRight * lateralOffset, aimRotation);
             SnapToGround();
         }
 
