@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace BreadBowl.Dough
@@ -9,10 +10,18 @@ namespace BreadBowl.Dough
 
         private KneadGrid grid;
         private int quarterTurns;
+        private bool isFolding;
 
         public KneadSettings Settings => settings;
         public int QuarterTurn => quarterTurns;
         public float Orientation => quarterTurns * 90f;
+        public bool IsFolding => isFolding;
+
+        // adding using.System; breaks compilation because of Random.Range being ambiguous between
+        // System and UnityEngine
+        public event System.Action<Vector2, float> Pressed;
+        public event System.Action<float> FoldStarted;
+        public event System.Action GridChanged;
 
         public KneadGrid Grid
         {
@@ -32,17 +41,23 @@ namespace BreadBowl.Dough
 
         public void Rotate(int turns)
         {
-            quarterTurns = ((quarterTurns + turns) % 4) %4;
+            // the +4 is necessary to prevent the player frame breaking after
+            // a certain amount of CCW turns
+            quarterTurns = ((quarterTurns + turns) % 4 + 4) %4;
         }
 
         public void Fold()
         {
             KneadFold.Apply(Grid, quarterTurns, settings.FoldBlend);
+            GridChanged?.Invoke();
         }
 
         public void PalmPress(Vector2 playerPosition, float radius, float amount, KneadBrushFalloff falloff)
         {
-            KneadBrush.Apply(Grid, PlayerToDough(playerPosition), radius, amount, falloff);
+            Vector2 doughPosition = PlayerToDough(playerPosition);
+            KneadBrush.Apply(Grid, doughPosition, radius, amount, falloff);
+            Pressed?.Invoke(doughPosition, radius);
+            GridChanged?.Invoke();
         }
 
         public Vector2 PlayerToDough(Vector2 playerPosition)
@@ -85,6 +100,57 @@ namespace BreadBowl.Dough
         {
             grid = new KneadGrid(resolution);
             quarterTurns = 0;
+            GridChanged?.Invoke();
+        }
+
+        private void OnDisable()
+        {
+            isFolding = false;
+        }
+
+        public void BeginFold()
+        {
+            if (isFolding)
+            {
+                return;
+            }
+
+            StartCoroutine(FoldRoutine());
+        }
+
+        private IEnumerator FoldRoutine()
+        {
+            float half = settings.FoldDuration * 0.5f;
+
+            isFolding = true;
+            FoldStarted?.Invoke(settings.FoldDuration);
+            
+            yield return new WaitForSeconds(half);
+            Fold();
+
+            yield return new WaitForSeconds(half);
+            isFolding = false;
+        }
+
+        /// <summary>
+        /// Returns a copy of the grid cells.
+        /// </summary>
+        public float[] GetCells()
+        {
+            return Grid.GetCells();
+        }
+
+        /// <summary>
+        /// Returns the resolution of the grid.
+        /// </summary>
+        public int GetResolution()
+        {
+            return resolution;
+        }
+
+        public KneadResult CreateResult()
+        {
+            return new KneadResult(this);
         }
     }
 }

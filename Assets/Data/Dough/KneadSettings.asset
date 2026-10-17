@@ -14,3 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BreadBowl.Dough.KneadSettings
   wellKneadedThreshold: 1
   overKneadedThreshold: 3
+  foldGrabKeyCount: 3
+  foldBlend: 0.75
+  foldDuration: 1
+  kneadForcePerSecond: 0.5
+  pressRadius: 0.25
+  pressFalloff: 2

@@ -64,6 +64,11 @@ namespace BreadBowl.Dough
                 foldReady = true;
             }
 
+            if (dough.IsFolding)
+            {
+                return;
+            }
+
             if (palmAction.IsPressed())
             {
                 if (grabbedKeys > 0)
@@ -89,7 +94,7 @@ namespace BreadBowl.Dough
             {
                 foldReady = false;
                 Debug.Log("Folding");
-                dough.Fold();
+                dough.BeginFold();
             }
         }
 
