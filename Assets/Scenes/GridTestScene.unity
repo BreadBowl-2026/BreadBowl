@@ -1001,7 +1001,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: d3c806411e173fe4198242ea5e8fef95, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.15
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -2106,7 +2106,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1210246578}
         m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: SetKneadingMuted
+        m_MethodName: SetDoughMuted
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2438,10 +2438,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AudioManager
   musicSource: {fileID: 462340889}
   sfxSource: {fileID: 618937112}
+  doughSource: {fileID: 2038572047}
   masterVolume: 1
   musicVolume: 1
   sfxVolume: 1
-  kneadingVolume: 1
+  doughVolume: 1
 --- !u!4 &1210246579
 Transform:
   m_ObjectHideFlags: 0
@@ -3460,7 +3461,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Knead Volume
+  m_text: Dough Volume
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3627,7 +3628,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac623654b9f6b92469d5091e0523c4d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BreadBowl.Dough.KneadInput
-  kneadAudio: {fileID: 1560281381}
 --- !u!114 &1560281380
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3659,12 +3659,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::KneadAudio
   audioSource: {fileID: 2038572047}
   kneadingSounds:
-  - {fileID: 8300000, guid: 7a12f65faf7a04742b664ed7967400dc, type: 3}
-  - {fileID: 8300000, guid: 91393e29abd602e4484cd16681a30300, type: 3}
-  - {fileID: 8300000, guid: 732a795e72d625c4cafb4ba6d720e0bf, type: 3}
-  - {fileID: 8300000, guid: 4b1862f3e19f8fd4f8df234f1f7ebd60, type: 3}
-  minimumInterval: 0.8
-  maximumInterval: 1.2
+  - {fileID: 8300000, guid: bc5b632024abb8943b4330982152f226, type: 3}
+  - {fileID: 8300000, guid: 9880456351d7a04478c76ba299b88f6c, type: 3}
+  - {fileID: 8300000, guid: 689f70ec2b1253744886373080dcb0b4, type: 3}
+  - {fileID: 8300000, guid: a85877d7127ff9d4eaa4fcb521824d6f, type: 3}
+  soundDuration: 0.5
+  soundGracePeriod: 0.1
 --- !u!1 &1567079337
 GameObject:
   m_ObjectHideFlags: 0
@@ -4132,7 +4132,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1210246578}
         m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: SetKneadingVolume
+        m_MethodName: SetDoughVolume
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

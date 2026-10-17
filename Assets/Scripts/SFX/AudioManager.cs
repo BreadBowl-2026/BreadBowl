@@ -7,18 +7,19 @@ public class AudioManager : MonoBehaviour
     [Header("Audio Sources")]
     [SerializeField] private AudioSource musicSource;
     [SerializeField] private AudioSource sfxSource;
+    [SerializeField] private AudioSource doughSource;
 
     [Header("Volume")]
     [SerializeField, Range(0f, 1f)] private float masterVolume = 1f;
-    [SerializeField, Range(0f, 1f)] private float musicVolume = 1f;
+    [SerializeField, Range(0f, 1f)] private float musicVolume = 0.25f;
     [SerializeField, Range(0f, 1f)] private float sfxVolume = 1f;
-    [SerializeField, Range(0f, 1f)] private float kneadingVolume = 1f;
+    [SerializeField, Range(0f, 1f)] private float doughVolume = 1f;
 
     [Header("Mute States")]
     private bool masterMuted;
     private bool musicMuted;
     private bool sfxMuted;
-    private bool kneadingMuted;
+    private bool doughMuted;
 
     private void Awake()
     {
@@ -84,19 +85,19 @@ public class AudioManager : MonoBehaviour
     // -------------------------
     // Kneading Volume
     // -------------------------
-    public void SetKneadingVolume(float value)
+    public void SetDoughVolume(float value)
     {
-        kneadingVolume = value;
+        doughVolume = value;
         ApplyAllVolumes();
     }
-    public void SetKneadingMuted(bool muted)
+    public void SetDoughMuted(bool muted)
     {
-        kneadingMuted = !muted;
+        doughMuted = !muted;
         ApplyAllVolumes();
     }
-    public bool IsKneadingMuted()
+    public bool IsDoughMuted()
     {
-        return masterMuted || sfxMuted || kneadingMuted;
+        return masterMuted || sfxMuted || doughMuted;
     }
 
     // -------------------------
@@ -111,10 +112,13 @@ public class AudioManager : MonoBehaviour
         {
             musicSource.volume = musicMuted ? 0f : musicVolume;
         }
-
         if (sfxSource != null)
         {
             sfxSource.volume = sfxMuted ? 0f : sfxVolume;
+        }
+        if (doughSource != null)
+        {
+            doughSource.volume = doughMuted ? 0f : doughVolume;
         }
     }
 }
