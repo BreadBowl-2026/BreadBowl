@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class KneadingSoundPlayer : MonoBehaviour
+public class DoughSoundPlayer : MonoBehaviour
 {
     [Header("Audio")]
     [SerializeField] private AudioSource audioSource;
@@ -66,8 +66,7 @@ public class KneadingSoundPlayer : MonoBehaviour
             return;
         
         // is sfx and kneading muted
-        if (AudioManager.Instance == null || 
-            AudioManager.Instance.IsSFXMuted() || AudioManager.Instance.IsDoughMuted()
+        if (AudioManager.Instance == null || AudioManager.Instance.IsDoughMuted()
             )
             return;
 

@@ -11,7 +11,7 @@ public class AudioManager : MonoBehaviour
 
     [Header("Volume")]
     [SerializeField, Range(0f, 1f)] private float masterVolume = 1f;
-    [SerializeField, Range(0f, 1f)] private float musicVolume = 0.25f;
+    [SerializeField, Range(0f, 1f)] private float musicVolume = 0.2f;
     [SerializeField, Range(0f, 1f)] private float sfxVolume = 1f;
     [SerializeField, Range(0f, 1f)] private float doughVolume = 1f;
 
@@ -97,7 +97,7 @@ public class AudioManager : MonoBehaviour
     }
     public bool IsDoughMuted()
     {
-        return masterMuted || sfxMuted || doughMuted;
+        return masterMuted || doughMuted;
     }
 
     // -------------------------

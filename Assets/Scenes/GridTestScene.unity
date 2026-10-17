@@ -1001,7 +1001,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: d3c806411e173fe4198242ea5e8fef95, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.15
+  m_Volume: 1
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -2030,7 +2030,7 @@ GameObject:
   - component: {fileID: 1121560958}
   - component: {fileID: 1121560959}
   m_Layer: 5
-  m_Name: KneadSoundToggle
+  m_Name: DoughSoundToggle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2440,7 +2440,7 @@ MonoBehaviour:
   sfxSource: {fileID: 618937112}
   doughSource: {fileID: 2038572047}
   masterVolume: 1
-  musicVolume: 1
+  musicVolume: 0.2
   sfxVolume: 1
   doughVolume: 1
 --- !u!4 &1210246579
@@ -2547,7 +2547,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0.2
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -3414,7 +3414,7 @@ GameObject:
   - component: {fileID: 1521758899}
   - component: {fileID: 1521758898}
   m_Layer: 5
-  m_Name: Knead Volume
+  m_Name: Dough Volume
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4051,7 +4051,7 @@ GameObject:
   - component: {fileID: 1677447247}
   - component: {fileID: 1677447248}
   m_Layer: 5
-  m_Name: KneadingVolumeSlider
+  m_Name: DoughVolumeSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
