@@ -7,8 +7,8 @@ namespace BreadBowl
     {
         [SerializeField] private KneadStage kneadStage;
         [SerializeField] private BreadBaker breadBaker;
-        [SerializeField] private GameObject kneadArea;
-        [SerializeField] private GameObject bakeArea;
+        [SerializeField] private GameObject kneadCanvas;
+        [SerializeField] private GameObject bakeCanvas;
 
         [Header("Camera")]
         [SerializeField] private Transform cameraRig;
@@ -32,16 +32,19 @@ namespace BreadBowl
                 cameraRig = Camera.main.transform;
             }
 
-            kneadArea.SetActive(true);
-            bakeArea.SetActive(false);
+            kneadCanvas.SetActive(true);
+            bakeCanvas.SetActive(false);
+            breadBaker.gameObject.SetActive(false);
             MoveCamera(kneadView);
         }
 
         private void HandleKneadFinished(KneadResult result)
         {
             breadBaker.SetKneadResult(result);
-            kneadArea.SetActive(false);
-            bakeArea.SetActive(true);
+            kneadStage.gameObject.SetActive(false);
+            kneadCanvas.SetActive(false);
+            breadBaker.gameObject.SetActive(true);
+            bakeCanvas.SetActive(true);
             MoveCamera(bakeView);
         }
 
