@@ -5060,6 +5060,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1379718361}
     - target: {fileID: 4912893661788169943, guid: fe216801b0d4e48088536b28f8079648, type: 3}
+      propertyPath: bakedSize.y
+      value: 2.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4912893661788169943, guid: fe216801b0d4e48088536b28f8079648, type: 3}
       propertyPath: qualityText
       value: 
       objectReference: {fileID: 0}
@@ -5075,6 +5079,34 @@ PrefabInstance:
       propertyPath: bakingProgress
       value: 
       objectReference: {fileID: 560761150}
+    - target: {fileID: 4912893661788169943, guid: fe216801b0d4e48088536b28f8079648, type: 3}
+      propertyPath: minRiseFraction
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 4912893661788169943, guid: fe216801b0d4e48088536b28f8079648, type: 3}
+      propertyPath: lumpByKnead.m_Curve.Array.data[0].time
+      value: 0.016666412
+      objectReference: {fileID: 0}
+    - target: {fileID: 4912893661788169943, guid: fe216801b0d4e48088536b28f8079648, type: 3}
+      propertyPath: riseByKnead.m_Curve.Array.data[1].time
+      value: 1.0250015
+      objectReference: {fileID: 0}
+    - target: {fileID: 4912893661788169943, guid: fe216801b0d4e48088536b28f8079648, type: 3}
+      propertyPath: riseByKnead.m_Curve.Array.data[2].time
+      value: 2.0083313
+      objectReference: {fileID: 0}
+    - target: {fileID: 4912893661788169943, guid: fe216801b0d4e48088536b28f8079648, type: 3}
+      propertyPath: lumpByKnead.m_Curve.Array.data[0].value
+      value: 0.79206467
+      objectReference: {fileID: 0}
+    - target: {fileID: 4912893661788169943, guid: fe216801b0d4e48088536b28f8079648, type: 3}
+      propertyPath: riseByKnead.m_Curve.Array.data[1].value
+      value: 0.50317
+      objectReference: {fileID: 0}
+    - target: {fileID: 4912893661788169943, guid: fe216801b0d4e48088536b28f8079648, type: 3}
+      propertyPath: riseByKnead.m_Curve.Array.data[2].value
+      value: 0.8968239
+      objectReference: {fileID: 0}
     - target: {fileID: 8292752195454568077, guid: fe216801b0d4e48088536b28f8079648, type: 3}
       propertyPath: m_Mesh
       value: 
