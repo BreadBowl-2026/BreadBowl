@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
 using UnityEngine.UI;
+using BreadBowl.Dough;
 
 public class BreadBaker : MonoBehaviour
 {
@@ -12,8 +13,19 @@ public class BreadBaker : MonoBehaviour
     [SerializeField] private float perfectEndTime = 11f;
     [SerializeField] private float maxBakeTime = 15f;
 
-    [Range(0f, 2f)]
-    [SerializeField] private float kneadQuality = 0.7f;
+    [Header("Knead")]
+    [SerializeField] private AnimationCurve riseByKnead = new AnimationCurve(
+        new Keyframe(0f, 0f), new Keyframe(1f, 1f), new Keyframe(2f, 1f),
+        new Keyframe(3f, 0.3f));
+    [SerializeField] private AnimationCurve lumpByKnead = new AnimationCurve(
+        new Keyframe(0f, 1f), new Keyframe(1f, 0f), new Keyframe(2f, 0f),
+        new Keyframe(3f, 0.4f));
+    [SerializeField] private float minRiseFraction = 0.5f;
+    [SerializeField] private float maxLumpiness = 0.15f;
+    [Range(0f, 3f)]
+    [SerializeField] private float fallbackKneadPosition = 1.5f;
+    // [Range(0f, 2f)]
+    // [SerializeField] private float kneadQuality = 0.7f;
 
     [SerializeField] private Vector3 rawSize = new Vector3(3f, 0.8f, 3f);
     [SerializeField] private Vector3 bakedSize = new Vector3(3.3f, 2.5f, 3.3f);
@@ -33,6 +45,10 @@ public class BreadBaker : MonoBehaviour
     private Mesh doughMesh;
     private Vector3[] originalVertices;
     private Vector3 startPosition;
+    private Bounds originalBounds;
+    private KneadResult kneadResult;
+    private float[] vertexRise;
+    private float[] vertexLump;
 
     private bool isBaking = false;
     private float elapsedTime = 0f;
@@ -56,6 +72,7 @@ public class BreadBaker : MonoBehaviour
         doughMesh = Instantiate(filter.sharedMesh);
         filter.mesh = doughMesh;
         originalVertices = doughMesh.vertices;
+        originalBounds = doughMesh.bounds;
 
         dough.localScale = rawSize;
         startPosition = dough.localPosition;
@@ -73,11 +90,18 @@ public class BreadBaker : MonoBehaviour
 
         if (statusText != null)
             statusText.text = "Ready to Bake";
-        }
+    }
+
+    public void SetKneadResult(KneadResult result)
+    {
+        kneadResult = result;
+    }
 
     public void StartBaking()
     {
         if (isBaking) return;
+
+        CacheKneadValues();
 
         if (ovenDoor == null)
             ovenDoor = FindFirstObjectByType<OvenDoor>();
@@ -110,10 +134,10 @@ public class BreadBaker : MonoBehaviour
 
     IEnumerator Bake()
     {
-        float quality = 1f - Mathf.Abs(kneadQuality - 1f);
-        float height = Mathf.Lerp(1.3f, bakedSize.y, quality);
+        // float quality = 1f - Mathf.Abs(kneadQuality - 1f);
+        // float height = Mathf.Lerp(1.3f, bakedSize.y, quality);
 
-        Vector3 finalSize = new Vector3(bakedSize.x, height, bakedSize.z);
+        // Vector3 finalSize = new Vector3(bakedSize.x, height, bakedSize.z);
 
         Color rawColor = new Color(0.93f, 0.85f, 0.65f);
         Color bakedColor = new Color(0.78f, 0.55f, 0.28f);
@@ -128,7 +152,7 @@ public class BreadBaker : MonoBehaviour
 
             float progress = Mathf.Clamp01(elapsedTime / bakeTime);
 
-            dough.localScale = Vector3.Lerp(rawSize, finalSize, progress);
+            dough.localScale = Vector3.Lerp(rawSize, bakedSize, progress);
 
             float rise = dough.localScale.y - rawSize.y;
             dough.localPosition = startPosition + Vector3.up * rise / 2f;
@@ -210,14 +234,17 @@ public class BreadBaker : MonoBehaviour
     void ChangeShape(float progress)
     {
         Vector3[] vertices = new Vector3[originalVertices.Length];
-
-        float lumpiness = Mathf.Abs(kneadQuality - 1f) * 0.15f * progress;
+        float bottom = originalBounds.min.y;
 
         for (int i = 0; i < vertices.Length; i++)
         {
             Vector3 vertex = originalVertices[i];
 
+            float rise = Mathf.Lerp(1f, Mathf.Lerp(minRiseFraction, 1f, vertexRise[i]), progress);
+            vertex.y = bottom + (vertex.y - bottom) * rise;
+
             float noise = Mathf.PerlinNoise(vertex.x * 3f, vertex.z * 3f) - 0.5f;
+            float lumpiness = vertexLump[i] * maxLumpiness * progress;
 
             vertex.x += noise * lumpiness;
             vertex.y += noise * 0.04f * progress;
@@ -229,6 +256,34 @@ public class BreadBaker : MonoBehaviour
         doughMesh.vertices = vertices;
         doughMesh.RecalculateNormals();
         doughMesh.RecalculateBounds();
+    }
+
+    void CacheKneadValues()
+    {
+        vertexRise = new float[originalVertices.Length];
+        vertexLump = new float[originalVertices.Length];
+
+        for (int i = 0; i < originalVertices.Length; i++)
+        {
+            float kneadPosition = KneadPositionAt(originalVertices[i]);
+            vertexRise[i] = riseByKnead.Evaluate(kneadPosition);
+            vertexLump[i] = lumpByKnead.Evaluate(kneadPosition);
+        }
+    }
+
+    float KneadPositionAt(Vector3 vertex)
+    {
+        if (kneadResult == null)
+        {
+            return fallbackKneadPosition;
+        }
+
+        Vector2 uv = new Vector2(
+            Mathf.InverseLerp(originalBounds.min.x, originalBounds.max.x, vertex.x),
+            Mathf.InverseLerp(originalBounds.min.z, originalBounds.max.z, vertex.z)
+        );
+
+        return kneadResult.Settings.KneadPosition(kneadResult.Sample(uv));
     }
 
     void UpdateTimer()
