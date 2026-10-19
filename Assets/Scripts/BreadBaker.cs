@@ -40,6 +40,8 @@ public class BreadBaker : MonoBehaviour
 
     [SerializeField] private OvenDoor ovenDoor;
 
+    public event System.Action Finished;
+
     private Transform dough;
     private Material doughMaterial;
     private Mesh doughMesh;
@@ -228,7 +230,7 @@ public class BreadBaker : MonoBehaviour
                 statusText.text = "Overbaked!";
         }
 
-
+        Finished?.Invoke();
     }
 
     void ChangeShape(float progress)
