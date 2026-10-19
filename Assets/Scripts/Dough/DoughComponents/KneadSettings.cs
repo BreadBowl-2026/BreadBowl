@@ -72,6 +72,18 @@ namespace BreadBowl.Dough
             };
         }
 
+        public float KneadPosition(float kneadedness)
+        {
+            float progress = KneadLevelProgress(kneadedness);
+
+            return Classify(kneadedness) switch
+            {
+                KneadLevel.Over => 2f + progress,
+                KneadLevel.Well => 1f + progress,
+                _ => progress // KneadLevel.Under
+            };
+        }
+
         // Only runs in the editor when values are changed in the inspector. Doesn't
         // affect anything at runtime. Just ensures that Classify can always return a 
         // valid wellKneadedState when messing around with values in the editor.

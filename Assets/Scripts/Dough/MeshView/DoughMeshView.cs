@@ -269,16 +269,8 @@ namespace BreadBowl.Dough
         private float KneadPositionAt(int vertex)
         {
             Vector2Int cell = vertexCells[vertex];
-            float kneadedness = dough.Grid.Get(cell.x, cell.y);
-            KneadSettings settings = dough.Settings;
-            float progress = settings.KneadLevelProgress(kneadedness);
 
-            return settings.Classify(kneadedness) switch
-            {
-                KneadLevel.Over => 2f + progress,
-                KneadLevel.Well => 1f + progress,
-                _ => progress // KneadLevel.Under
-            };
+            return dough.Settings.KneadPosition(dough.Grid.Get(cell.x, cell.y));
         }
     }
 }
