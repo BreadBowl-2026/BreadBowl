@@ -83,5 +83,45 @@ namespace BreadBowl.Dough
         {
             return inside[y * resolution + x];
         }
+
+        /// <summmary>
+        /// A cell's value is at the center (i + 0.5) / resolution, not at a corner. To convert
+        /// uv -> grid space, multiply by the resolution and subtract 0.5f. This function takes
+        /// any point in the data grid from the player frame (u goes left -> right and v goes
+        /// near -> far) and returns kneadedness blended from the 4 nearest cell centers. This
+        /// prevents the load rising in the resolution grid in the bake step.
+        /// ┌───────────────┬───────────────┐
+        /// │               │               │
+        /// │   (leftX,farY)│  (rightX,farY)│
+        /// │       ●·······│·······●       │
+        /// │       ·       │       ·       │
+        /// ├───────·───────┼───────·───────┤
+        /// │       ·    ×  │       ·       │
+        /// │       ●·······│·······●       │
+        /// │  (leftX,nearY)│ (rightX,nearY)│
+        /// │               │               │
+        /// └───────────────┴───────────────┘
+        /// The caller asks for a knead value at a vertex. This provides that knead value by 
+        /// blending the discrete knead values of the 4 surrounding cells depending on where 
+        /// that vertex (uv point) lands on the grid. It could be any place between any 4
+        /// cells.
+        public float Sample(Vector2 uv)
+        {
+            float gridX = Mathf.Clamp(uv.x * resolution - 0.5f, 0f, resolution - 1);
+            float gridY = Mathf.Clamp(uv.y * resolution - 0.5f, 0f, resolution - 1);
+
+            int leftX = Mathf.Min(Mathf.FloorToInt(gridX), resolution - 2);
+            int nearY = Mathf.Min(Mathf.FloorToInt(gridY), resolution - 2);
+            int rightX = leftX + 1;
+            int farY = nearY + 1;
+
+            float blendX = gridX - leftX;
+            float blendY = gridY - nearY;
+
+            float nearRow = Mathf.Lerp(Get(leftX, nearY), Get(rightX, nearY), blendX);
+            float farRow = Mathf.Lerp(Get(leftX, farY), Get(rightX, farY), blendX);
+
+            return Mathf.Lerp(nearRow, farRow, blendY);
+        }
     }
 }
