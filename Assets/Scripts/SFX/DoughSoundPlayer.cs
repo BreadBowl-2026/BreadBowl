@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 public class DoughSoundPlayer : MonoBehaviour
 {
@@ -12,6 +13,12 @@ public class DoughSoundPlayer : MonoBehaviour
     [SerializeField] private float soundGracePeriod = 0.1f;
     private float nextSoundTime;
     private float lastSoundTime;
+
+    [Header("Fade")]
+    [SerializeField] private float fadeInDuration = 0.1f;
+    [SerializeField] private float fadeOutDuration = 0.1f;
+    [SerializeField] private float targetVolume = 1f;
+    private Coroutine fadeCoroutine;
 
     private InputAction rotateCCWAction;
     private InputAction rotateCWAction;
@@ -45,7 +52,7 @@ public class DoughSoundPlayer : MonoBehaviour
         // not kneading = stop sound
         else if (Time.time - lastSoundTime > soundGracePeriod)
         {
-            StopKneadingSound();
+            FadeOut();
         }
     }
 
@@ -72,7 +79,7 @@ public class DoughSoundPlayer : MonoBehaviour
 
         PlayRandomKneadingSound();
 
-        // randomize a wait period the next sound can play
+        // wait period the next sound can play
         nextSoundTime = Time.time + soundDuration;
     }
 
@@ -86,13 +93,94 @@ public class DoughSoundPlayer : MonoBehaviour
             Random.Range(0, kneadingSounds.Length)
         ];
 
+        //// Cancel an existing fade.
+        //if (fadeCoroutine != null)
+        //    StopCoroutine(fadeCoroutine);
+
         audioSource.clip = clip;
+        audioSource.volume = 0f;
         audioSource.Play();
+
+        // fade in
+        fadeCoroutine = StartCoroutine(
+            FadeIn(targetVolume, fadeInDuration) // fade in 
+        );
     }
 
-    public void StopKneadingSound()
+    // ----------
+    // Fade in
+    // ----------
+    private IEnumerator FadeIn(float target, float duration)
     {
-        if (audioSource != null && audioSource.isPlaying)
-            audioSource.Stop();
+        float startingVolume = audioSource.volume;
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+
+            float t = elapsed / duration;
+
+            audioSource.volume = Mathf.Lerp(
+                startingVolume,
+                target,
+                t
+            );
+
+            yield return null;
+        }
+
+        audioSource.volume = target;
+
+        fadeCoroutine = null;
     }
+
+    // ----------
+    // Fade out
+    // ----------
+    private void FadeOut()
+    {
+        if (audioSource == null || !audioSource.isPlaying)
+            return;
+
+        if (fadeCoroutine != null)
+            StopCoroutine(fadeCoroutine);
+
+        fadeCoroutine = StartCoroutine(
+            FadeOutCoroutine()
+        );
+    }
+    private IEnumerator FadeOutCoroutine()
+    {
+        float startingVolume = audioSource.volume;
+        float elapsed = 0f;
+
+        while (elapsed < fadeOutDuration)
+        {
+            elapsed += Time.deltaTime;
+
+            float t = elapsed / fadeOutDuration;
+
+            audioSource.volume = Mathf.Lerp(
+                startingVolume,
+                0f,
+                t
+            );
+
+            yield return null;
+        }
+
+        audioSource.volume = 0f; // set to 0 for fade in
+        audioSource.Stop();
+
+        fadeCoroutine = null;
+    }
+
+    
+
+    //public void StopKneadingSound()
+    //{
+    //    if (audioSource != null && audioSource.isPlaying)
+    //        audioSource.Stop();
+    //}
 }

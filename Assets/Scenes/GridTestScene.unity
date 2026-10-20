@@ -3663,8 +3663,11 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 9880456351d7a04478c76ba299b88f6c, type: 3}
   - {fileID: 8300000, guid: 689f70ec2b1253744886373080dcb0b4, type: 3}
   - {fileID: 8300000, guid: a85877d7127ff9d4eaa4fcb521824d6f, type: 3}
-  soundDuration: 0.5
+  soundDuration: 0.8
   soundGracePeriod: 0.1
+  fadeInDuration: 0.1
+  fadeOutDuration: 0.1
+  targetVolume: 1
 --- !u!1 &1567079337
 GameObject:
   m_ObjectHideFlags: 0
