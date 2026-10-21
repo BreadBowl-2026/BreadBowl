@@ -11,6 +11,42 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level2Demo.unity
     guid: 8a8747dbbed9ca341b9b81830ffcf306
+  - enabled: 1
+    path: Assets/Scenes/AllStagesTogetherTest.unity
+    guid: a83162a15ba54454cbfa92a1e1ef6163
+  - enabled: 1
+    path: Assets/Scenes/BakerVisionTestScene.unity
+    guid: f0edc638ba7e65f4d9cd8f19bf51d1a2
+  - enabled: 1
+    path: Assets/Scenes/DungeonBakingScene.unity
+    guid: 530724ecdcd371b47b88d734641077c9
+  - enabled: 1
+    path: Assets/Scenes/GridTestScene.unity
+    guid: 2584a31215cfc5245bd97755ce226d0f
+  - enabled: 1
+    path: Assets/Scenes/KneadBakeTestScene.unity
+    guid: 2bfaab399961fba46a12baf251c5b8d8
+  - enabled: 1
+    path: Assets/Scenes/KneadStageTestScene.unity
+    guid: 3c5b807ce899b6a48b0f444e60d2f303
+  - enabled: 1
+    path: Assets/Scenes/Level1Demo.unity
+    guid: 49c53fab95e13dc42a29505ac3348013
+  - enabled: 1
+    path: Assets/Scenes/Level3Demo.unity
+    guid: c2b1374d4d0049848a95e84a7829322d
+  - enabled: 1
+    path: Assets/Scenes/Level4Demo.unity
+    guid: de53f8b656af33547aeaa0c6a752da0e
+  - enabled: 1
+    path: Assets/Scenes/PrefabTestScene.unity
+    guid: 9575747937ede334aac8abf5e1c953da
+  - enabled: 1
+    path: Assets/Scenes/SchoolScene.unity
+    guid: 9527bc6ab052cef4c955c081529ea1a3
+  - enabled: 1
+    path: Assets/Scenes/DungeonBowlingScene.unity
+    guid: f175fbd5c65b42e4ca687850f704b84d
   m_configObjects:
     com.unity.dt.app-ui: {fileID: 11400000, guid: 1b1c20d82303e4b5781c3ef50ac1449f, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

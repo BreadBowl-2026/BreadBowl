@@ -8977,7 +8977,7 @@ Transform:
   m_GameObject: {fileID: 1525485383}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -99.81, y: 1.107, z: 2.32}
+  m_LocalPosition: {x: -99.81, y: 1.147, z: 2.32}
   m_LocalScale: {x: 0.18, y: 0.18, z: 0.18}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -9822,7 +9822,6 @@ GameObject:
   - component: {fileID: 1629643218}
   - component: {fileID: 1629643216}
   - component: {fileID: 1629643215}
-  - component: {fileID: 1629643220}
   - component: {fileID: 1629643221}
   m_Layer: 0
   m_Name: Main Camera
@@ -9913,18 +9912,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1629643220
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1629643214}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 948f4100a11a5c24981795d21301da5c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1629643221
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11480,6 +11467,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 843142722321631748, guid: 8f5543d8c381b28459cf59a17ce78103, type: 3}
+      propertyPath: laneScene
+      value: DungeonBowlingScene
+      objectReference: {fileID: 0}
     - target: {fileID: 1043014754171754118, guid: 8f5543d8c381b28459cf59a17ce78103, type: 3}
       propertyPath: m_Mesh
       value: 

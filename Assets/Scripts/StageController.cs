@@ -37,7 +37,7 @@ public class StageController : MonoBehaviour
                 bread.GetComponent<MeshCollider>().sharedMesh = myBreadMeshFilter.sharedMesh;
 
                 bread.GetComponent<MeshRenderer>().material = breadMesh.GetComponent<MeshRenderer>().material;
-                bread.transform.localScale = new Vector3(2, 2, 2);
+                bread.transform.localScale = new Vector3(1, 1, 1);
             }
             else
             {
