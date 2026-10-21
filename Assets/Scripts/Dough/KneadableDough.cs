@@ -52,8 +52,14 @@ namespace BreadBowl.Dough
         public void Fold()
         {
             KneadFold.Apply(Grid, quarterTurns, settings.FoldBlend);
-            flourPuff.Puff();
             GridChanged?.Invoke();
+
+            // this needs to be null checked otherwise an empty flourPuff
+            // breaks the data layer
+            if (flourPuff != null)
+            {
+                flourPuff.Puff();
+            }
         }
 
         public void PalmPress(Vector2 playerPosition, float radius, float amount, KneadBrushFalloff falloff)

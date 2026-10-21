@@ -1,18 +1,39 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Threading.Tasks;
+using UnityEngine.EventSystems;
 
 public class StageController : MonoBehaviour
 {
     [SerializeField] private GameObject breadMesh;
     [SerializeField] private string laneScene;
     [SerializeField] private int waitingTime = 2;
+    [SerializeField] private float breadScale = 1f;
+
     public async void MoveBreadToLane()
     {
         Debug.Log("Waiting before loading scene: " + laneScene);
         await Task.Delay(waitingTime * 1000);
 
-        Debug.Log("Opening scene: " + laneScene);
+        
+        // this prevents the warning about multiple event systems
+        // loadsceneasync keeps the previous scene running in the background
+        // deactivating it means there is no conflict
+        if (EventSystem.current != null)
+        {
+            EventSystem.current.gameObject.SetActive(false);
+        }
+
+        // same idea as above, the camera from the first scene has an audio 
+        // listener, disabling it before the new scene means only 1 ever
+        // exists at a time.
+        AudioListener listener = FindFirstObjectByType<AudioListener>();
+        if (listener != null)
+        {
+            listener.enabled = false;
+        }
+
+        Debug.Log("Opening scene: " + laneScene);   
         AsyncOperation loadOp = SceneManager.LoadSceneAsync(laneScene, LoadSceneMode.Additive);
 
         while (!loadOp.isDone)
@@ -37,7 +58,7 @@ public class StageController : MonoBehaviour
                 bread.GetComponent<MeshCollider>().sharedMesh = myBreadMeshFilter.sharedMesh;
 
                 bread.GetComponent<MeshRenderer>().material = breadMesh.GetComponent<MeshRenderer>().material;
-                bread.transform.localScale = new Vector3(2, 2, 2);
+                bread.transform.localScale = breadMesh.transform.lossyScale * breadScale;
             }
             else
             {
