@@ -8,6 +8,10 @@
 
 /[Uu]ser[Ss]ettings/
 
+# Local-only Unity AI assistant / MCP settings
+/[Pp]roject[Ss]ettings/[Pp]ackages/com.unity.ai.assistant/
+/[Pp]roject[Ss]ettings/TimelineSettings.asset
+
 /[Bb]uild/
 /[Bb]uilds/
 /[Ee]xported[Oo]bj/

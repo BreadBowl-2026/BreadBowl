@@ -16,6 +16,7 @@ MonoBehaviour:
   overKneadedThreshold: 3
   foldGrabKeyCount: 3
   foldBlend: 0.75
-  kneadForcePerSecond: 0.25
+  foldDuration: 1
+  kneadForcePerSecond: 0.5
   pressRadius: 0.25
   pressFalloff: 2

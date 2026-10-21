@@ -76,5 +76,13 @@ namespace BreadBowl.Dough
 
             return y * resolution + x;
         }
+        /// <summary>
+        /// Returns a copy of the grid cells.
+        /// </summary>
+        public float[] GetCells()
+        {
+            return (float[])cells.Clone();
+        }
+
     }
 }
