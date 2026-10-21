@@ -3,9 +3,10 @@ using UnityEngine;
 namespace BreadBowl.Dough
 {
     /// <summary>
-    /// Cosmetic mesh view for Kneadable Dough. Applies dents to the mesh that 
-    /// correspond to keypresses wherever the player presses that relax back
-    /// to their rest shape. Does not use about the data layer KneadGrid at all.
+    /// Cosmetic mesh view for KneadableDough. Dents the mesh where the player presses and
+    /// lets them relax back. Reads the knead grid so dents feel different
+    /// by knead level: under kneaded dough dents deep and keeps some of the dent, well
+    /// kneaded recovers fully, over kneaded dents shallow and snaps back quickly.
     /// </summary>
     [RequireComponent(typeof(KneadableDough))]
     public class DoughMeshView : MonoBehaviour
@@ -17,7 +18,20 @@ namespace BreadBowl.Dough
         [SerializeField, Min(0f)] private float turnSpeed = 540f;        
         [SerializeField, Min(0f)] private float dentSpeed = 0.5f;
         [SerializeField, Min(0f)] private float maxDentDepth = 0.15f;
-        [SerializeField, Min(0f)] private float relaxRate = 1.0f;
+
+        [SerializeField, Tooltip("multiplies dentSpeed and maxDentDepth. 1 = base values, > 1 = squishier, < 1 = firmer")] 
+        private AnimationCurve kneadSoftness = new AnimationCurve(
+            new Keyframe(0f, 1.5f), new Keyframe(1f, 1f), new Keyframe(2f, 0.7f), new Keyframe(3f, 0.3f));
+        [SerializeField, Tooltip("0-1, a fraction of the dent that stays after letting go. also caps lasting dents at " +
+         "maxDentDepth * plasticity so old marks smooth out as kneading continues. at 0 the dough stop holding marks entirely")] 
+        private AnimationCurve kneadPlasticity = new AnimationCurve(
+            new Keyframe(0f, 0.7f), new Keyframe(1f, 0f), new Keyframe(3f, 0f));
+        [SerializeField, Tooltip("decay rate towards the lasting depth. the higher the value, the snappier the relax")] 
+        private AnimationCurve kneadRelaxRate = new AnimationCurve(
+            new Keyframe(0f, 0.6f), new Keyframe(1f, 1.5f), new Keyframe(2f, 3f), new Keyframe(3f, 8f));
+        [SerializeField, Min(0.001f)] private float hingeWidth = 0.15f;
+        [SerializeField, Range(0.05f, 1f)] private float flattenHeight = 0.35f;
+        [SerializeField, Min(1f)] private float flattenSpread = 1.4f;
 
         private KneadableDough dough;
         private Mesh mesh;
@@ -26,6 +40,17 @@ namespace BreadBowl.Dough
         private Vector3[] restNormals;
         private Vector3[] vertices;
         private float[] dentDepths;
+        private float[] setDepths;
+        private Vector2Int[] vertexCells;
+        private bool folding;
+        private float foldDuration;
+        private float foldElapsed;
+        private float foldAngle;
+        private float foldSettle;
+        private Vector3 foldForward;
+        private Vector3 foldAxis;
+        private Vector3 foldPivot;
+        private float foldFlatten;
 
         private void Awake()
         {
@@ -46,16 +71,31 @@ namespace BreadBowl.Dough
             restNormals = mesh.normals;
             vertices = new Vector3[restVertices.Length];
             dentDepths = new float[restVertices.Length];
+            setDepths = new float[restVertices.Length];
+            vertexCells = new Vector2Int[restVertices.Length];
+            int resolution = dough.Grid.Resolution;
+
+            for (int i = 0; i < restVertices.Length; i++)
+            {
+                float u = Mathf.InverseLerp(restBounds.min.x, restBounds.max.x, restVertices[i].x);
+                float v = Mathf.InverseLerp(restBounds.min.z, restBounds.max.z, restVertices[i].z);
+                vertexCells[i] = new Vector2Int(
+                    Mathf.Min(Mathf.FloorToInt(u * resolution), resolution - 1),
+                    Mathf.Min(Mathf.FloorToInt(v * resolution), resolution - 1)
+                );
+            }
         }
 
         private void OnEnable()
         {
             dough.Pressed += AddDent;
+            dough.FoldStarted += StartFold;
         }
 
         private void OnDisable()
         {
             dough.Pressed -= AddDent;
+            dough.FoldStarted -= StartFold;
         }
 
         private void OnDestroy()
@@ -76,7 +116,8 @@ namespace BreadBowl.Dough
 
             Turn();
             Relax();
-            ApplyDents();
+            AdvanceFold();
+            ApplyShape();
         }
 
         // rotates the visual towards the actual dough's current orientation. ensure 270 -> 0
@@ -125,33 +166,111 @@ namespace BreadBowl.Dough
                 }
 
                 float weight = KneadBrush.Weight(distance / localRadius, falloff);
-                dentDepths[i] = Mathf.Min(dentDepths[i] + amount * weight, maxDentDepth);
+                float knead = KneadPositionAt(i);
+                float softness = kneadSoftness.Evaluate(knead);
+                float pressed = Mathf.Min(dentDepths[i] + amount * weight * softness, maxDentDepth * softness);
+
+                dentDepths[i] = Mathf.Max(dentDepths[i], pressed);
+                setDepths[i] = Mathf.Max(setDepths[i], dentDepths[i] * kneadPlasticity.Evaluate(knead));
             }
         }
 
         // exponential decay toward the rest shape. deep dents recover quickly at first then
         // settle slowly. using exp keeps it independent from the frame rate
+        // updated to relax towards the set depth associated with the knead level instead of 
+        // back to 0 so it relaxes more and faster the more kneaded the dough
         private void Relax()
         {
-            float keep = Mathf.Exp(-relaxRate * Time.deltaTime);
-
             for (int i = 0; i < dentDepths.Length; i++)
             {
-                dentDepths[i] *= keep;
+                float knead = KneadPositionAt(i);
+                float maxSet = maxDentDepth * kneadPlasticity.Evaluate(knead);
+                setDepths[i] = Mathf.Min(setDepths[i], maxSet);
+
+                float keep = Mathf.Exp(-kneadRelaxRate.Evaluate(knead) * Time.deltaTime);
+                dentDepths[i] = setDepths[i] + (dentDepths[i] - setDepths[i]) * keep;
             }
         }
 
-        private void ApplyDents()
+        private void ApplyShape()
         {
             for (int i = 0; i < restVertices.Length; i++)
             {
-                vertices[i] = restVertices[i] + Vector3.down * dentDepths[i];
+                Vector3 dented = restVertices[i] + Vector3.down * dentDepths[i];
+                vertices[i] = folding ? FoldVertex(dented) : dented;
             }
 
             mesh.vertices = vertices;
 
             // lighting comes from normals so dents would be invisible without this
             mesh.RecalculateNormals();
+        }
+
+        private void StartFold(float duration)
+        {
+            folding = true;
+            foldDuration = duration;
+            foldElapsed = 0f;
+            foldForward = Quaternion.Euler(0f, -dough.Orientation, 0f) * Vector3.forward;
+            foldAxis = Vector3.Cross(foldForward, Vector3.up);
+            foldPivot = new Vector3(
+                restBounds.center.x,
+                restBounds.min.y + restBounds.size.y * flattenHeight,
+                restBounds.center.z
+            );
+        }
+
+        private void AdvanceFold()
+        {
+            if (!folding)
+            {
+                return;
+            }
+
+            foldElapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(foldElapsed / foldDuration);
+
+            foldFlatten = Mathf.SmoothStep(0f, 1f, t * 4f);
+            foldAngle = 180f * Mathf.SmoothStep(0f, 1f, t * 4f - 1f);
+            foldSettle = Mathf.SmoothStep(0f, 1f, t * 2f - 1f);
+
+            if (t >= 1f)
+            {
+                folding = false;
+            }
+        }
+
+        private Vector3 FoldVertex(Vector3 position)
+        {
+            Vector3 shaped = Vector3.Lerp(position, Flatten(position), foldFlatten);
+            Vector3 offset = shaped - foldPivot;
+            float distance = Vector3.Dot(offset, foldForward);
+
+            if (distance > 0f)
+            {
+                float bend = Mathf.SmoothStep(0f, 1f, distance / hingeWidth);
+                Quaternion rotation = Quaternion.AngleAxis(foldAngle * bend, foldAxis);
+                shaped = foldPivot + rotation * offset;
+            }
+
+            return Vector3.Lerp(shaped, position, foldSettle);
+        }
+
+        private Vector3 Flatten(Vector3 position)
+        {
+            Vector3 center = restBounds.center;
+            float along = Vector3.Dot(position - center, foldForward);
+            Vector3 flat = position + foldForward * along * (flattenSpread - 1f);
+            flat.y = restBounds.min.y + (position.y - restBounds.min.y) * flattenHeight;
+
+            return flat;
+        }
+
+        private float KneadPositionAt(int vertex)
+        {
+            Vector2Int cell = vertexCells[vertex];
+
+            return dough.Settings.KneadPosition(dough.Grid.Get(cell.x, cell.y));
         }
     }
 }

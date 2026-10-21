@@ -19,6 +19,8 @@ namespace BreadBowl.Dough
         private int foldGrabKeyCount = 3;
         [SerializeField, Range(0f, 1f), Tooltip("How far each cell value shifts during averaging between itself and its pair. 1 = full, 0 = none")]
         private float foldBlend = 1f;
+        [SerializeField, Min(0.01f), Tooltip("How long the fold animation takes in seconds. Knead input is locked for this duration.")]
+        private float foldDuration = 0.6f;
         [SerializeField, Min(0f), Tooltip("Kneadedness added per second at the center of each valid pressed key")]
         private float kneadForcePerSecond = 1f;
         [SerializeField, Range(0.01f, 1f), Tooltip("Radius of each key press as a fraction of dough width")]
@@ -30,6 +32,7 @@ namespace BreadBowl.Dough
         public float OverKneadedThreshold => overKneadedThreshold;
         public int FoldGrabKeyCount => foldGrabKeyCount;
         public float FoldBlend => foldBlend;
+        public float FoldDuration => foldDuration;
         public float KneadForcePerSecond => kneadForcePerSecond;
         public float PressRadius => pressRadius;
         public KneadBrushFalloff PressFalloff => pressFalloff;
@@ -66,6 +69,18 @@ namespace BreadBowl.Dough
                 KneadLevel.Over => Mathf.InverseLerp(overKneadedThreshold, overKneadedThreshold + wellKneadedRange, kneadedness),
                 KneadLevel.Well => Mathf.InverseLerp(wellKneadedThreshold, overKneadedThreshold, kneadedness),
                 _ => Mathf.InverseLerp(0f, wellKneadedThreshold, kneadedness) // KneadLevel.Under
+            };
+        }
+
+        public float KneadPosition(float kneadedness)
+        {
+            float progress = KneadLevelProgress(kneadedness);
+
+            return Classify(kneadedness) switch
+            {
+                KneadLevel.Over => 2f + progress,
+                KneadLevel.Well => 1f + progress,
+                _ => progress // KneadLevel.Under
             };
         }
 
