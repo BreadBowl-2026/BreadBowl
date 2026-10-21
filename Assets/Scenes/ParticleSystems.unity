@@ -256,24 +256,17 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
---- !u!1 &757829719 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1102538556476556568, guid: d878d6bb4207d41e0913a5da0ed06733, type: 3}
+--- !u!114 &757829720 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7174257413014779894, guid: d878d6bb4207d41e0913a5da0ed06733, type: 3}
   m_PrefabInstance: {fileID: 1344287415}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &757829720
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 757829719}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9c0eaf72ae3f2480fbe1dc43a442f6b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BreadBowl.BreadSteam
-  initialBurst: 3
 --- !u!4 &757829723 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9020804803147244143, guid: d878d6bb4207d41e0913a5da0ed06733, type: 3}
@@ -817,10 +810,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1102538556476556568, guid: d878d6bb4207d41e0913a5da0ed06733, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 757829720}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d878d6bb4207d41e0913a5da0ed06733, type: 3}
 --- !u!4 &1567467073 stripped
 Transform:
@@ -996,7 +986,7 @@ PrefabInstance:
       objectReference: {fileID: 1263624083}
     - target: {fileID: 5006581241744159910, guid: 8f5543d8c381b28459cf59a17ce78103, type: 3}
       propertyPath: m_VersionIndex
-      value: 1123
+      value: 1126
       objectReference: {fileID: 0}
     - target: {fileID: 6108360914083041616, guid: 8f5543d8c381b28459cf59a17ce78103, type: 3}
       propertyPath: steam
@@ -1012,7 +1002,7 @@ PrefabInstance:
       objectReference: {fileID: 1637347690}
     - target: {fileID: 6558052105051997507, guid: 8f5543d8c381b28459cf59a17ce78103, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6665474426711877344, guid: 8f5543d8c381b28459cf59a17ce78103, type: 3}
       propertyPath: m_Mesh
@@ -1060,7 +1050,7 @@ PrefabInstance:
       objectReference: {fileID: 1079025629}
     - target: {fileID: 7811172995432405907, guid: 8f5543d8c381b28459cf59a17ce78103, type: 3}
       propertyPath: m_VersionIndex
-      value: 1125
+      value: 1128
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
