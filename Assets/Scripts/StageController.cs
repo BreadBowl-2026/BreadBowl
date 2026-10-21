@@ -7,6 +7,8 @@ public class StageController : MonoBehaviour
     [SerializeField] private GameObject breadMesh;
     [SerializeField] private string laneScene;
     [SerializeField] private int waitingTime = 2;
+    [SerializeField] private float breadScale = 1f;
+
     public async void MoveBreadToLane()
     {
         Debug.Log("Waiting before loading scene: " + laneScene);
@@ -37,7 +39,7 @@ public class StageController : MonoBehaviour
                 bread.GetComponent<MeshCollider>().sharedMesh = myBreadMeshFilter.sharedMesh;
 
                 bread.GetComponent<MeshRenderer>().material = breadMesh.GetComponent<MeshRenderer>().material;
-                bread.transform.localScale = new Vector3(1, 1, 1);
+                bread.transform.localScale = breadMesh.transform.lossyScale * breadScale;
             }
             else
             {
