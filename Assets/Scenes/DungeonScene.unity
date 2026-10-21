@@ -6133,6 +6133,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Table_Big (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 5493550688961220248, guid: 0a7f51b5f4ba6294a889f661114da0d3, type: 3}
+      propertyPath: m_Convex
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7407,6 +7411,10 @@ PrefabInstance:
     - target: {fileID: 490335350711660523, guid: 0a7f51b5f4ba6294a889f661114da0d3, type: 3}
       propertyPath: m_Name
       value: Table_Big (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5493550688961220248, guid: 0a7f51b5f4ba6294a889f661114da0d3, type: 3}
+      propertyPath: m_Convex
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9048,6 +9056,10 @@ PrefabInstance:
     - target: {fileID: 490335350711660523, guid: 0a7f51b5f4ba6294a889f661114da0d3, type: 3}
       propertyPath: m_Name
       value: Table_Big
+      objectReference: {fileID: 0}
+    - target: {fileID: 5493550688961220248, guid: 0a7f51b5f4ba6294a889f661114da0d3, type: 3}
+      propertyPath: m_Convex
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
