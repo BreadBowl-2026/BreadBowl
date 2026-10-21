@@ -7,6 +7,8 @@ namespace BreadBowl.Dough
     {
         [SerializeField] private KneadSettings settings;
         [SerializeField, Min(2)] private int resolution = 32;
+        [SerializeField] private FlourPuff flourPuff;
+
 
         private KneadGrid grid;
         private int quarterTurns;
@@ -22,6 +24,7 @@ namespace BreadBowl.Dough
         public event System.Action<Vector2, float> Pressed;
         public event System.Action<float> FoldStarted;
         public event System.Action GridChanged;
+        
 
         public KneadGrid Grid
         {
@@ -49,6 +52,7 @@ namespace BreadBowl.Dough
         public void Fold()
         {
             KneadFold.Apply(Grid, quarterTurns, settings.FoldBlend);
+            flourPuff.Puff();
             GridChanged?.Invoke();
         }
 
