@@ -10,6 +10,7 @@ namespace BreadBowl
         [SerializeField] private BreadBaker breadBaker;
         [SerializeField] private GameObject kneadCanvas;
         [SerializeField] private GameObject bakeCanvas;
+        [SerializeField] private GameObject showcaseCanvas;
 
         [Header("Camera")]
         [SerializeField] private Transform cameraRig;
@@ -48,6 +49,7 @@ namespace BreadBowl
 
             kneadCanvas.SetActive(true);
             bakeCanvas.SetActive(false);
+            showcaseCanvas.SetActive(false);
             showcase.enabled = false;
             breadBaker.gameObject.SetActive(false);
             MoveCamera(kneadView);
@@ -81,6 +83,7 @@ namespace BreadBowl
 
             MoveCamera(showcaseView);
             showcase.enabled = true;
+            showcaseCanvas.SetActive(true);
         }
 
         private void StartSteam()
