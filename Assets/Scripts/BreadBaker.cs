@@ -30,6 +30,7 @@ public class BreadBaker : MonoBehaviour
     [SerializeField] private Vector3 rawSize = new Vector3(3f, 0.8f, 3f);
     [SerializeField] private Vector3 bakedSize = new Vector3(3.3f, 2.5f, 3.3f);
 
+
     [Header("UI")]
     [SerializeField] private Slider bakingProgress;
     [SerializeField] private TMP_Text timerText;

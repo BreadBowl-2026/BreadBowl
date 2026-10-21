@@ -14,7 +14,7 @@ namespace BreadBowl
         [Header("Camera")]
         [SerializeField] private Transform cameraRig;
         [SerializeField] private Transform kneadView;
-        [SerializeField] private Transform bakeView;  
+        [SerializeField] private Transform bakeView;
 
         [Header("Showcase")]
         [SerializeField] private Showcase showcase;
@@ -25,6 +25,8 @@ namespace BreadBowl
         [SerializeField] private float liftDelay = 0.7f;
         [SerializeField] private float liftDuration = 1f;
 
+        [Header("Steam")]
+        [SerializeField] private BreadSteam steam;
         private void OnEnable()
         {
             kneadStage.Finished += HandleKneadFinished;
@@ -72,11 +74,23 @@ namespace BreadBowl
             yield return new WaitForSeconds(liftDelay);
 
             breadBaker.transform.SetParent(tin, true);
+            StartSteam();
+
             yield return MoveOnto(tin, pullOutPoint, slideDuration);
             yield return MoveOnto(breadBaker.transform, showcase.transform, liftDuration);
 
             MoveCamera(showcaseView);
             showcase.enabled = true;
+        }
+
+        private void StartSteam()
+        {
+            if (steam == null) return;
+
+            // Follow the loaf; the particles simulate in world space so they trail behind.
+            steam.transform.SetParent(breadBaker.transform, false);
+            steam.transform.localPosition = Vector3.zero;
+            steam.Play();
         }
 
         private IEnumerator MoveOnto(Transform mover, Transform target, float duration)
@@ -92,8 +106,9 @@ namespace BreadBowl
                 mover.localPosition = Vector3.Lerp(startPosition, Vector3.zero, time);
                 yield return null;
             }
-        }
 
+            mover.localPosition = Vector3.zero;
+        }
 
         private void MoveCamera(Transform view)
         {
@@ -101,4 +116,3 @@ namespace BreadBowl
         }
     }
 }
-
