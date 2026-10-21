@@ -77,6 +77,7 @@ namespace BreadBowl.Dough
                 }
 
                 ApplyPress();
+
                 return;
             }
 
