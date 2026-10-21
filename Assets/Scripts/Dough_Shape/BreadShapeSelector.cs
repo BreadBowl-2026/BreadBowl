@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 public class BreadShapeSelector : MonoBehaviour
 {
     [SerializeField] private Camera playerCamera;
+    private BreadShapeChoice breadShapeChoice;
 
     private void Update()
     {
@@ -25,6 +26,11 @@ public class BreadShapeSelector : MonoBehaviour
 
             if (choice != null)
             {
+                if (breadShapeChoice != null)
+                {
+                    breadShapeChoice.Deselect();
+                }
+                breadShapeChoice = choice;
                 choice.Select();
             }
         }
