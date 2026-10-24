@@ -43,6 +43,9 @@ public class BreadBaker : MonoBehaviour
 
     public event System.Action Finished;
 
+    public Mesh BakedMesh => doughMesh;
+    public Material BakedMaterial => doughMaterial;
+
     private Transform dough;
     private Material doughMaterial;
     private Mesh doughMesh;

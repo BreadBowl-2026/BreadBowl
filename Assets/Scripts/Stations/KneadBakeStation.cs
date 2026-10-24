@@ -1,5 +1,6 @@
 using System.Collections;
 using BreadBowl.Dough;
+using BreadBowl.Bowling;
 using UnityEngine;
 
 namespace BreadBowl
@@ -28,6 +29,12 @@ namespace BreadBowl
 
         [Header("Steam")]
         [SerializeField] private BreadSteam steam;
+
+        [Header("Loaf")]
+        [SerializeField] private Loaf loafPrefab;
+
+        public event System.Action<Loaf> LoafReady;
+
         private void OnEnable()
         {
             kneadStage.Finished += HandleKneadFinished;
@@ -40,19 +47,41 @@ namespace BreadBowl
             breadBaker.Finished -= HandleBakerFinished;
         }
 
-        private void Start()
+        // needs to be awake so this is guaranteed to be ready when a levelcontroller
+        // calls Begin() from it's own Start() method
+        private void Awake()
         {
             if (cameraRig == null)
             {
                 cameraRig = Camera.main.transform;
             }
 
-            kneadCanvas.SetActive(true);
+            kneadStage.gameObject.SetActive(false);
+            kneadCanvas.SetActive(false);
             bakeCanvas.SetActive(false);
             showcaseCanvas.SetActive(false);
             showcase.enabled = false;
             breadBaker.gameObject.SetActive(false);
+        }
+
+        [ContextMenu("Begin")]
+        public void Begin()
+        {
+            kneadStage.gameObject.SetActive(true);
+            kneadCanvas.SetActive(true);
             MoveCamera(kneadView);
+        }
+
+        public void TakeLoaf()
+        {
+            showcaseCanvas.SetActive(false);
+            showcase.enabled = false;
+
+            Loaf loaf = Instantiate(loafPrefab);
+            loaf.Build(Instantiate(breadBaker.BakedMesh), new Material(breadBaker.BakedMaterial), breadBaker.transform.lossyScale);
+            loaf.gameObject.SetActive(false);
+
+            LoafReady?.Invoke(loaf);
         }
 
         private void HandleKneadFinished(KneadResult result)
