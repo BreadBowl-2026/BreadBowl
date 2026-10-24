@@ -138,6 +138,35 @@ public class BreadBaker : MonoBehaviour
         bakingCoroutine = StartCoroutine(Bake());
     }
 
+    public void ResetBake()
+    {
+        if (doughMesh == null)
+        {
+            return;
+        }
+
+        isBaking = false;
+        bakingCoroutine = null;
+        kneadResult = null;
+        elapsedTime = 0f;
+
+        dough.localScale = rawSize;
+        doughMaterial.color = new Color(0.93f, 0.85f, 0.65f);
+        doughMesh.vertices = originalVertices;
+        doughMesh.RecalculateNormals();
+        doughMesh.RecalculateBounds();
+
+        bakingProgress.value = 0f;
+        startButton.gameObject.SetActive(true);
+        takeOutButton.gameObject.SetActive(false);
+        UpdateTimer();
+
+        if (statusText != null)
+        {
+            statusText.text = "Ready to Bake";
+        }
+    }
+
     IEnumerator Bake()
     {
         // float quality = 1f - Mathf.Abs(kneadQuality - 1f);

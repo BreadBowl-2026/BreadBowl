@@ -33,6 +33,31 @@ namespace BreadBowl
         [Header("Loaf")]
         [SerializeField] private Loaf loafPrefab;
 
+        private struct Placement
+        {
+            private readonly Transform parent;
+            private readonly Vector3 position;
+            private readonly Quaternion rotation;
+
+            public Placement(Transform target)
+            {
+                parent = target.parent;
+                position = target.localPosition;
+                rotation = target.localRotation;
+            }
+
+            public void Restore(Transform target)
+            {
+                target.SetParent(parent, false);
+                target.SetLocalPositionAndRotation(position, rotation);
+            }
+        }
+
+        private Placement tinHome;
+        private Placement bakerHome;
+        private Placement showcaseHome;
+        private Placement steamHome;
+
         public event System.Action<Loaf> LoafReady;
 
         private void OnEnable()
@@ -56,12 +81,18 @@ namespace BreadBowl
                 cameraRig = Camera.main.transform;
             }
 
+            tinHome = new Placement(tin);
+            bakerHome = new Placement(breadBaker.transform);
+            showcaseHome = new Placement(showcase.transform);
+
+            if (steam != null)
+            {
+                steamHome = new Placement(steam.transform);
+            }
+
             kneadStage.gameObject.SetActive(false);
             kneadCanvas.SetActive(false);
-            bakeCanvas.SetActive(false);
-            showcaseCanvas.SetActive(false);
-            showcase.enabled = false;
-            breadBaker.gameObject.SetActive(false);
+            ResetStation();
         }
 
         [ContextMenu("Begin")]
@@ -72,10 +103,34 @@ namespace BreadBowl
             MoveCamera(kneadView);
         }
 
+        private void ResetStation()
+        {
+            if (steam != null)
+            {
+                steam.StopAndClear();
+                steamHome.Restore(steam.transform);
+            }
+
+            bakerHome.Restore(breadBaker.transform);
+            tinHome.Restore(tin);
+            showcaseHome.Restore(showcase.transform);
+            breadBaker.ResetBake();
+
+            showcase.enabled = false;
+            showcaseCanvas.SetActive(false);
+            bakeCanvas.SetActive(false);
+            breadBaker.gameObject.SetActive(false);
+        }
+
         public void TakeLoaf()
         {
             showcaseCanvas.SetActive(false);
             showcase.enabled = false;
+
+            if (steam != null)
+            {
+                steam.FadeOut(1f);
+            }
 
             Loaf loaf = Instantiate(loafPrefab);
             loaf.Build(Instantiate(breadBaker.BakedMesh), new Material(breadBaker.BakedMaterial), breadBaker.transform.lossyScale);
