@@ -11,9 +11,17 @@ namespace BreadBowl.Levels
         Quit
     }
 
+    public struct LevelResult
+    {
+        public LevelOutcome Outcome;
+        public int LoavesBowled;
+        public float Time;
+    }
+
     public class LevelController : MonoBehaviour
     {
         [SerializeField][Min(1)] private int maxLoaves = 13;
+        [SerializeField] private string completeMessage = "Level Complete";
 
         [Header("Roll")]
         [SerializeField] private float settleSpeed = 0.1f;
@@ -30,8 +38,13 @@ namespace BreadBowl.Levels
         private LevelGoal[] goals;
         private LevelConstraint[] constraints;
         private Loaf currentLoaf;
+        private ResultUI resultUI;
+        private LevelResult result;
+        private int loavesBowled;
+        private float startTime;
 
-        public event System.Action<LevelOutcome> Finished;
+
+        public event System.Action<LevelResult> Finished;
 
         private void Awake()
         {
@@ -40,6 +53,8 @@ namespace BreadBowl.Levels
             cameraFollow = GetComponentInChildren<CameraFollow>(true);
             laneUI = GetComponentInChildren<LaneUI>(true);
             launchPoint = GetComponentInChildren<LaunchPoint>(true);
+            resultUI = GetComponentInChildren<ResultUI>(true);
+            resultUI.Hide();
 
             launcher.gameObject.SetActive(false);
             laneUI.Hide();
@@ -51,6 +66,7 @@ namespace BreadBowl.Levels
             launcher.Launched += HandleLaunched;
             laneUI.BowlPressed += BowlNextLoaf;
             laneUI.BakePressed += GoToKitchen;
+            resultUI.ContinuePressed += HandleContinue;
         }
 
         private void OnDisable()
@@ -59,10 +75,12 @@ namespace BreadBowl.Levels
             launcher.Launched -= HandleLaunched;
             laneUI.BowlPressed -= BowlNextLoaf;
             laneUI.BakePressed -= GoToKitchen;
+            resultUI.ContinuePressed -= HandleContinue;
         }
 
         private void Start()
         {
+            startTime = Time.time;
             goals = FindObjectsByType<LevelGoal>(FindObjectsSortMode.None);
             constraints = FindObjectsByType<LevelConstraint>(FindObjectsSortMode.None);
 
@@ -117,6 +135,7 @@ namespace BreadBowl.Levels
 
         private void StartBowling(Loaf loaf)
         {
+            loavesBowled++;
             currentLoaf = loaf;
             laneUI.Hide();
             MoveCameraTo(launchPoint.CameraView);
@@ -172,8 +191,7 @@ namespace BreadBowl.Levels
 
             if (completed)
             {
-                Debug.Log("Level complete!", this);
-                Finished?.Invoke(LevelOutcome.Completed);
+                Complete();
                 yield break;
             }
 
@@ -257,6 +275,29 @@ namespace BreadBowl.Levels
         private void MoveCameraTo(Transform view)
         {
             cameraFollow.transform.SetPositionAndRotation(view.position, view.rotation);
+        }
+
+        private void Complete()
+        {
+            result = new LevelResult
+            {
+                Outcome = LevelOutcome.Completed,
+                LoavesBowled = loavesBowled,
+                Time = Time.time - startTime
+            };
+
+            resultUI.Show(completeMessage, result);
+        }
+
+        private void HandleContinue()
+        {
+            if (Finished == null)
+            {
+                Debug.Log("Level finished, but no GameController listening.", this);
+                return;
+            }
+
+            Finished.Invoke(result);
         }
     }
 }
