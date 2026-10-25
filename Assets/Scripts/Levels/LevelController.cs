@@ -66,6 +66,7 @@ namespace BreadBowl.Levels
             launcher.Launched += HandleLaunched;
             laneUI.BowlPressed += BowlNextLoaf;
             laneUI.BakePressed += GoToKitchen;
+            laneUI.MenuPressed += Quit;
             resultUI.ContinuePressed += HandleContinue;
         }
 
@@ -75,6 +76,7 @@ namespace BreadBowl.Levels
             launcher.Launched -= HandleLaunched;
             laneUI.BowlPressed -= BowlNextLoaf;
             laneUI.BakePressed -= GoToKitchen;
+            laneUI.MenuPressed -= Quit;
             resultUI.ContinuePressed -= HandleContinue;
         }
 
@@ -279,14 +281,14 @@ namespace BreadBowl.Levels
 
         private void Complete()
         {
-            result = new LevelResult
-            {
-                Outcome = LevelOutcome.Completed,
-                LoavesBowled = loavesBowled,
-                Time = Time.time - startTime
-            };
-
+            result = BuildResult(LevelOutcome.Completed);
             resultUI.Show(completeMessage, result);
+        }
+
+        private void Quit()
+        {
+            result = BuildResult(LevelOutcome.Quit);
+            HandleContinue();
         }
 
         private void HandleContinue()
@@ -298,6 +300,16 @@ namespace BreadBowl.Levels
             }
 
             Finished.Invoke(result);
+        }
+
+        private LevelResult BuildResult(LevelOutcome outcome)
+        {
+            return new LevelResult
+            {
+                Outcome = outcome,
+                LoavesBowled = loavesBowled,
+                Time = Time.time - startTime
+            };
         }
     }
 }

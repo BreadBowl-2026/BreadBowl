@@ -10,7 +10,9 @@ namespace BreadBowl.Levels
         [SerializeField] private Button bakeButton;
         [SerializeField] private TMP_Text loafCountText;
         [SerializeField] private TMP_Text messageText;
+        [SerializeField] private Button menuButton;
 
+        public event System.Action MenuPressed;
         public event System.Action BowlPressed;
         public event System.Action BakePressed;
 
@@ -18,6 +20,7 @@ namespace BreadBowl.Levels
         {
             bowlButton.onClick.AddListener(() => BowlPressed?.Invoke());
             bakeButton.onClick.AddListener(() => BakePressed?.Invoke());
+            menuButton.onClick.AddListener(() => MenuPressed?.Invoke());
         }
 
         public void Show(int loafCount, int maxLoaves, string message)

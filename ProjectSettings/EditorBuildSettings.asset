@@ -6,9 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 6e7415afce868f24abd74ab6207e443a
+  - enabled: 0
     path: Assets/Scenes/DungeonBakingScene.unity
     guid: 530724ecdcd371b47b88d734641077c9
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/DungeonBowlingScene.unity
     guid: f175fbd5c65b42e4ca687850f704b84d
   m_configObjects:
