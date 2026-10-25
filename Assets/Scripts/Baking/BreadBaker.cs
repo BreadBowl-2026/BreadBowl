@@ -56,10 +56,12 @@ public class BreadBaker : MonoBehaviour
     private float[] vertexRise;
     private float[] vertexLump;
 
-    private string kneadLabel = "Perfectly Kneaded";
+    // unused commented out to prevent unity warning
+    // private string kneadLabel = "Perfectly Kneaded";
     private float kneadRise = 1f;
     private float kneadWidth = 1f;
-    private float kneadRoughness = 0f;
+    // unused commented out to prevent unity warning
+    // private float kneadRoughness = 0f;
 
     private bool isBaking = false;
     private float elapsedTime = 0f;
