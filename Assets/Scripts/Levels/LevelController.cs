@@ -1,9 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using BreadBowl.Bowling;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace BreadBowl.Levels
 {
@@ -15,14 +13,8 @@ namespace BreadBowl.Levels
 
     public abstract class LevelController : MonoBehaviour
     {
-        [SerializeField] private LaunchPoint launchPoint;
+        
         [SerializeField][Min(1)] private int maxLoaves = 13;
-
-        [Header("Lane UI")]
-        [SerializeField] private GameObject laneCanvas;
-        [SerializeField] private Button bowlButton;
-        [SerializeField] private Button bakeButton;
-        [SerializeField] private TMP_Text loafCountText;
 
         [Header("Roll")]
         [SerializeField] private float settleSpeed = 0.1f;
@@ -36,6 +28,8 @@ namespace BreadBowl.Levels
         private BreadLauncher launcher;
         private CameraFollow cameraFollow;
         private Loaf currentLoaf;
+        private LaneUI laneUI;
+        private LaunchPoint launchPoint;
 
         public event System.Action<LevelOutcome> Finished;
 
@@ -46,25 +40,28 @@ namespace BreadBowl.Levels
             station = GetComponentInChildren<KneadBakeStation>(true);
             launcher = GetComponentInChildren<BreadLauncher>(true);
             cameraFollow = GetComponentInChildren<CameraFollow>(true);
+            laneUI = GetComponentInChildren<LaneUI>(true);
+            launchPoint = GetComponentInChildren<LaunchPoint>(true);
+
 
             launcher.gameObject.SetActive(false);
-            laneCanvas.SetActive(false);
+            laneUI.Hide();
         }
 
         private void OnEnable()
         {
             station.LoafReady += HandleLoafReady;
             launcher.Launched += HandleLaunched;
-            bowlButton.onClick.AddListener(BowlNextLoaf);
-            bakeButton.onClick.AddListener(GoToKitchen);
+            laneUI.BowlPressed += BowlNextLoaf;
+            laneUI.BakePressed += GoToKitchen;
         }
 
         private void OnDisable()
         {
             station.LoafReady -= HandleLoafReady;
             launcher.Launched -= HandleLaunched;
-            bowlButton.onClick.RemoveListener(BowlNextLoaf);
-            bakeButton.onClick.RemoveListener(GoToKitchen);
+            laneUI.BowlPressed -= BowlNextLoaf;
+            laneUI.BakePressed -= GoToKitchen;
         }
 
         private void Start()
@@ -75,7 +72,7 @@ namespace BreadBowl.Levels
 
         private void GoToKitchen()
         {
-            laneCanvas.SetActive(false);
+            laneUI.Hide();
             cameraFollow.enabled = false;
             station.Begin();
         }
@@ -84,11 +81,7 @@ namespace BreadBowl.Levels
         {
             cameraFollow.enabled = false;
             MoveCameraTo(launchPoint.CameraView);
-            laneCanvas.SetActive(true);
-
-            bowlButton.interactable = loaves.Count > 0;
-            bakeButton.interactable = loaves.Count < maxLoaves;
-            loafCountText.text = $"Loaves: {loaves.Count}/{maxLoaves}";
+            laneUI.Show(loaves.Count, maxLoaves);
         }
 
         private void HandleLoafReady(Loaf loaf)
@@ -112,7 +105,7 @@ namespace BreadBowl.Levels
         private void StartBowling(Loaf loaf)
         {
             currentLoaf = loaf;
-            laneCanvas.SetActive(false);
+            laneUI.Show(loaves.Count, maxLoaves);
             MoveCameraTo(launchPoint.CameraView);
 
             loaf.gameObject.SetActive(true);

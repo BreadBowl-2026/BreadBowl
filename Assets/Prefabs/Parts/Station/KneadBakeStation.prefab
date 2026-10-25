@@ -635,7 +635,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3978632890735555110}
   - component: {fileID: 6108360914083041616}
-  - component: {fileID: 843142722321631748}
   m_Layer: 0
   m_Name: KneadBakeStation
   m_TagString: Untagged
@@ -658,7 +657,6 @@ Transform:
   m_Children:
   - {fileID: 2969396354651940967}
   - {fileID: 2551703929536852078}
-  - {fileID: 7256871385512130146}
   - {fileID: 8172586578008077016}
   - {fileID: 5251242281211842558}
   - {fileID: 1923991141793862696}
@@ -690,7 +688,7 @@ MonoBehaviour:
   kneadView: {fileID: 8172586578008077016}
   bakeView: {fileID: 5251242281211842558}
   showcase: {fileID: 5183756955612576309}
-  showcaseView: {fileID: 7256871385512130146}
+  showcaseView: {fileID: 5251242281211842558}
   tin: {fileID: 5219805787650618094}
   pullOutPoint: {fileID: 2969396354651940967}
   slideDuration: 0.8
@@ -698,22 +696,6 @@ MonoBehaviour:
   liftDuration: 1
   steam: {fileID: 8633857708616965206}
   loafPrefab: {fileID: 5601298502742498980, guid: 37bc59cf10873954d89fe69c3533c993, type: 3}
---- !u!114 &843142722321631748
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1355916315637036199}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0408b0cc3c56a54c9df93f3a8b583f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::StageController
-  breadMesh: {fileID: 205361462615112348}
-  laneScene: 
-  waitingTime: 2
-  breadScale: 1
 --- !u!1 &1406320381431340229
 GameObject:
   m_ObjectHideFlags: 0
@@ -4689,37 +4671,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3978632890735555110}
   m_LocalEulerAnglesHint: {x: 12, y: 0, z: 0}
---- !u!1 &7923823508251660015
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7256871385512130146}
-  m_Layer: 0
-  m_Name: ShowcaseView
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7256871385512130146
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7923823508251660015}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0.25417984, y: -0.00096719083, z: 0.0002541861, w: 0.9671565}
-  m_LocalPosition: {x: 0.4622484, y: 1.602975, z: -1.696825}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3978632890735555110}
-  m_LocalEulerAnglesHint: {x: 10, y: 0, z: 0}
 --- !u!1 &8273909246534181060
 GameObject:
   m_ObjectHideFlags: 0
@@ -5028,7 +4979,7 @@ Transform:
   m_GameObject: {fileID: 8740719070272057407}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.49, y: 1.45, z: -0.6}
+  m_LocalPosition: {x: 0.49, y: 1.65, z: -0.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5046,7 +4997,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b74f1334ca4f51b48856e925517f360e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BreadBowl.Showcase
-  viewer: {fileID: 7256871385512130146}
+  viewer: {fileID: 0}
   autoSpinSpeed: 30
   rotateSpeed: 120
   resumeDelay: 2
@@ -5405,11 +5356,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fe216801b0d4e48088536b28f8079648, type: 3}
---- !u!1 &205361462615112348 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2717480546173271381, guid: fe216801b0d4e48088536b28f8079648, type: 3}
-  m_PrefabInstance: {fileID: 2841763673306515401}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3687571604982686808 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1460041316137444241, guid: fe216801b0d4e48088536b28f8079648, type: 3}
@@ -5420,7 +5366,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4912893661788169943, guid: fe216801b0d4e48088536b28f8079648, type: 3}
   m_PrefabInstance: {fileID: 2841763673306515401}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 205361462615112348}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1026b382f2d9a4f16b223f5f54d4a899, type: 3}
