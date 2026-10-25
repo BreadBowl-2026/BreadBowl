@@ -3,18 +3,20 @@ using UnityEngine;
 
 namespace BreadBowl.Levels
 {
-    public class StrikeLevel : LevelController
+    public class StrikeGoal : LevelGoal
     {
-        [SerializeField] private Transform pinRack;
         [SerializeField] private float knockedAngle = 30f;
+        [SerializeField] private float settleTime = 1f;
 
         private Rigidbody[] pins;
         private Pose[] pinStarts;
         private Vector3[] pinUps;
 
-        protected override void OnLevelStarted()
+        public override float SettleTime => settleTime;
+
+        private void Start()
         {
-            pins = pinRack.GetComponentsInChildren<Rigidbody>();
+            pins = GetComponentsInChildren<Rigidbody>();
             pinStarts = new Pose[pins.Length];
             pinUps = new Vector3[pins.Length];
 
@@ -27,7 +29,7 @@ namespace BreadBowl.Levels
             }
         }
 
-        protected override bool EvaluateRoll(Loaf loaf)
+        public override bool IsComplete(Loaf loaf)
         {
             int standing = 0;
 
@@ -40,23 +42,10 @@ namespace BreadBowl.Levels
             }
 
             Debug.Log($"{pins.Length - standing} of {pins.Length} pins down", this);
-
-            if (standing == 0)
-            {
-                return true;
-            }
-
-            ResetPins();
-            return false;
+            return standing == 0;
         }
 
-        private bool IsStanding(int index)
-        {
-            Vector3 up = pins[index].rotation * pinUps[index];
-            return Vector3.Angle(up, Vector3.up) < knockedAngle;
-        }
-
-        private void ResetPins()
+        public override void ResetForNextRoll()
         {
             for (int i = 0; i < pins.Length; i++)
             {
@@ -67,6 +56,11 @@ namespace BreadBowl.Levels
                 pins[i].Sleep();
             }
         }
+
+        private bool IsStanding(int index)
+        {
+            Vector3 up = pins[index].rotation * pinUps[index];
+            return Vector3.Angle(up, Vector3.up) < knockedAngle;
+        }
     }
 }
-

@@ -11,9 +11,8 @@ namespace BreadBowl.Levels
         Quit
     }
 
-    public abstract class LevelController : MonoBehaviour
+    public class LevelController : MonoBehaviour
     {
-        
         [SerializeField][Min(1)] private int maxLoaves = 13;
 
         [Header("Roll")]
@@ -21,19 +20,18 @@ namespace BreadBowl.Levels
         [SerializeField] private float settleTime = 1f;
         [SerializeField] private float maxRollTime = 15f;
         [SerializeField] private float fallDepth = 10f;
-        [SerializeField] private float pinSettleTime = 1f;
 
         private readonly List<Loaf> loaves = new List<Loaf>();
         private KneadBakeStation station;
         private BreadLauncher launcher;
         private CameraFollow cameraFollow;
-        private Loaf currentLoaf;
         private LaneUI laneUI;
         private LaunchPoint launchPoint;
+        private LevelGoal[] goals;
+        private LevelConstraint[] constraints;
+        private Loaf currentLoaf;
 
         public event System.Action<LevelOutcome> Finished;
-
-        protected LaunchPoint LaunchPoint => launchPoint;
 
         private void Awake()
         {
@@ -42,7 +40,6 @@ namespace BreadBowl.Levels
             cameraFollow = GetComponentInChildren<CameraFollow>(true);
             laneUI = GetComponentInChildren<LaneUI>(true);
             launchPoint = GetComponentInChildren<LaunchPoint>(true);
-
 
             launcher.gameObject.SetActive(false);
             laneUI.Hide();
@@ -66,8 +63,24 @@ namespace BreadBowl.Levels
 
         private void Start()
         {
-            OnLevelStarted();
+            goals = FindObjectsByType<LevelGoal>(FindObjectsSortMode.None);
+            constraints = FindObjectsByType<LevelConstraint>(FindObjectsSortMode.None);
+
+            if (goals.Length == 0)
+            {
+                Debug.LogWarning("This level has no LevelGoal, so it can never be completed", this);
+            }
+
+            StartAttempt();
             GoToKitchen();
+        }
+
+        private void StartAttempt()
+        {
+            foreach (LevelConstraint constraint in constraints)
+            {
+                constraint.OnAttemptStarted();
+            }
         }
 
         private void GoToKitchen()
@@ -77,11 +90,11 @@ namespace BreadBowl.Levels
             station.Begin();
         }
 
-        private void GoToLane()
+        private void GoToLane(string message = "")
         {
             cameraFollow.enabled = false;
             MoveCameraTo(launchPoint.CameraView);
-            laneUI.Show(loaves.Count, maxLoaves);
+            laneUI.Show(loaves.Count, maxLoaves, message);
         }
 
         private void HandleLoafReady(Loaf loaf)
@@ -105,7 +118,7 @@ namespace BreadBowl.Levels
         private void StartBowling(Loaf loaf)
         {
             currentLoaf = loaf;
-            laneUI.Show(loaves.Count, maxLoaves);
+            laneUI.Hide();
             MoveCameraTo(launchPoint.CameraView);
 
             loaf.gameObject.SetActive(true);
@@ -117,7 +130,16 @@ namespace BreadBowl.Levels
 
         private void HandleLaunched()
         {
-            OnLoafLaunched(currentLoaf);
+            foreach (LevelGoal goal in goals)
+            {
+                goal.OnRollStarted(currentLoaf);
+            }
+
+            foreach (LevelConstraint constraint in constraints)
+            {
+                constraint.OnRollStarted(currentLoaf);
+            }
+
             StartCoroutine(WatchRoll(currentLoaf));
         }
 
@@ -134,27 +156,97 @@ namespace BreadBowl.Levels
                 stillTime = loaf.Body.linearVelocity.magnitude < settleSpeed
                     ? stillTime + Time.deltaTime
                     : 0f;
-                
+
                 yield return null;
             }
 
-             yield return new WaitForSeconds(pinSettleTime);
+            yield return new WaitForSeconds(LongestSettleTime());
 
-             bool completed = EvaluateRoll(loaf);
+            LevelConstraint violated = FindViolation(loaf);
+            bool completed = violated == null && AllGoalsComplete(loaf);
 
-             cameraFollow.enabled = false;
-             launcher.gameObject.SetActive(false);
-             Destroy(loaf.gameObject);
-             currentLoaf = null;
+            cameraFollow.enabled = false;
+            launcher.gameObject.SetActive(false);
+            Destroy(loaf.gameObject);
+            currentLoaf = null;
 
-             if (completed)
-             {
+            if (completed)
+            {
+                Debug.Log("Level complete!", this);
                 Finished?.Invoke(LevelOutcome.Completed);
-             }
-             else
-             {
-                GoToLane();
-             }
+                yield break;
+            }
+
+            foreach (LevelGoal goal in goals)
+            {
+                goal.ResetForNextRoll();
+            }
+
+            string message = violated != null ? violated.ViolationMessage : "";
+
+            if (!AllowsAnotherRoll())
+            {
+                StartAttempt();
+                message = "Out of rolls, try again!";
+            }
+
+            GoToLane(message);
+        }
+
+        private LevelConstraint FindViolation(Loaf loaf)
+        {
+            foreach (LevelConstraint constraint in constraints)
+            {
+                if (constraint.IsViolated(loaf))
+                {
+                    return constraint;
+                }
+            }
+
+            return null;
+        }
+
+        private bool AllGoalsComplete(Loaf loaf)
+        {
+            if (goals.Length == 0)
+            {
+                return false;
+            }
+
+            foreach (LevelGoal goal in goals)
+            {
+                if (!goal.IsComplete(loaf))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private bool AllowsAnotherRoll()
+        {
+            foreach (LevelConstraint constraint in constraints)
+            {
+                if (!constraint.AllowsAnotherRoll)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private float LongestSettleTime()
+        {
+            float longest = 0f;
+
+            foreach (LevelGoal goal in goals)
+            {
+                longest = Mathf.Max(longest, goal.SettleTime);
+            }
+
+            return longest;
         }
 
         private bool HasFallen(Loaf loaf)
@@ -166,10 +258,5 @@ namespace BreadBowl.Levels
         {
             cameraFollow.transform.SetPositionAndRotation(view.position, view.rotation);
         }
-
-        protected virtual void OnLevelStarted() {}
-        protected virtual void OnLoafLaunched(Loaf loaf) {}
-        protected abstract bool EvaluateRoll(Loaf loaf);
     }
 }
-
