@@ -53,6 +53,11 @@ public class BreadBaker : MonoBehaviour
     private float[] vertexRise;
     private float[] vertexLump;
 
+    private string kneadLabel = "Perfectly Kneaded";
+    private float kneadRise = 1f;
+    private float kneadWidth = 1f;
+    private float kneadRoughness = 0f;
+
     private bool isBaking = false;
     private float elapsedTime = 0f;
     private Coroutine bakingCoroutine;
@@ -137,10 +142,6 @@ public class BreadBaker : MonoBehaviour
 
     IEnumerator Bake()
     {
-        // float quality = 1f - Mathf.Abs(kneadQuality - 1f);
-        // float height = Mathf.Lerp(1.3f, bakedSize.y, quality);
-
-        // Vector3 finalSize = new Vector3(bakedSize.x, height, bakedSize.z);
 
         Color rawColor = new Color(0.93f, 0.85f, 0.65f);
         Color bakedColor = new Color(0.78f, 0.55f, 0.28f);
@@ -155,7 +156,17 @@ public class BreadBaker : MonoBehaviour
 
             float progress = Mathf.Clamp01(elapsedTime / bakeTime);
 
-            dough.localScale = Vector3.Lerp(rawSize, bakedSize, progress);
+            Vector3 finalSize = new Vector3(
+                bakedSize.x * kneadWidth,
+                rawSize.y + (bakedSize.y - rawSize.y) * kneadRise,
+                bakedSize.z * kneadWidth
+            );
+
+            dough.localScale = Vector3.Lerp(
+                rawSize,
+                finalSize,
+                progress
+            );
 
             float rise = dough.localScale.y - rawSize.y;
             dough.localPosition = startPosition + Vector3.up * rise / 2f;
@@ -237,20 +248,34 @@ public class BreadBaker : MonoBehaviour
     void ChangeShape(float progress)
     {
         Vector3[] vertices = new Vector3[originalVertices.Length];
+
         float bottom = originalBounds.min.y;
+        float top = originalBounds.max.y;
 
         for (int i = 0; i < vertices.Length; i++)
         {
             Vector3 vertex = originalVertices[i];
 
-            float rise = Mathf.Lerp(1f, Mathf.Lerp(minRiseFraction, 1f, vertexRise[i]), progress);
-            vertex.y = bottom + (vertex.y - bottom) * rise;
+            float localRise = Mathf.Lerp(
+                1f,
+                Mathf.Lerp(minRiseFraction, 1f, vertexRise[i]),
+                progress
+            );
 
-            float noise = Mathf.PerlinNoise(vertex.x * 3f, vertex.z * 3f) - 0.5f;
-            float lumpiness = vertexLump[i] * maxLumpiness * progress;
+            vertex.y = bottom + (vertex.y - bottom) * localRise;
+
+            float height = Mathf.InverseLerp(bottom, top, originalVertices[i].y);
+            float topInfluence = Mathf.SmoothStep(0f, 1f, height);
+
+            float noise = Mathf.PerlinNoise(
+                vertex.x * 7f + 1.3f,
+                vertex.z * 7f + 2.7f
+            ) - 0.5f;
+
+            float lumpiness = vertexLump[i] * maxLumpiness * progress * topInfluence;
 
             vertex.x += noise * lumpiness;
-            vertex.y += noise * 0.04f * progress;
+            vertex.y += noise * lumpiness * 0.6f;
             vertex.z += noise * lumpiness;
 
             vertices[i] = vertex;
@@ -263,15 +288,27 @@ public class BreadBaker : MonoBehaviour
 
     void CacheKneadValues()
     {
-        vertexRise = new float[originalVertices.Length];
-        vertexLump = new float[originalVertices.Length];
+        int count = originalVertices.Length;
+        vertexRise = new float[count];
+        vertexLump = new float[count];
 
-        for (int i = 0; i < originalVertices.Length; i++)
+        float peak = 0.01f, total = 0f;
+
+        for (int i = 0; i < count; i++)
         {
             float kneadPosition = KneadPositionAt(originalVertices[i]);
-            vertexRise[i] = riseByKnead.Evaluate(kneadPosition);
-            vertexLump[i] = lumpByKnead.Evaluate(kneadPosition);
+            vertexRise[i] = Mathf.Clamp01(riseByKnead.Evaluate(kneadPosition));
+            vertexLump[i] = Mathf.Clamp01(lumpByKnead.Evaluate(kneadPosition));
+            peak = Mathf.Max(peak, vertexRise[i]);
+            total += vertexRise[i];
         }
+
+        kneadRise = Mathf.Max(peak, 0.2f);
+        kneadWidth = Mathf.Lerp(0.94f, 1f, total / count);
+
+        for (int i = 0; i < count; i++)
+            vertexRise[i] /= peak;
+
     }
 
     float KneadPositionAt(Vector3 vertex)
