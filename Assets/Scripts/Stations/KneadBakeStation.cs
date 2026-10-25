@@ -1,5 +1,6 @@
 using System.Collections;
 using BreadBowl.Dough;
+using BreadBowl.Bowling;
 using UnityEngine;
 
 namespace BreadBowl
@@ -28,6 +29,37 @@ namespace BreadBowl
 
         [Header("Steam")]
         [SerializeField] private BreadSteam steam;
+
+        [Header("Loaf")]
+        [SerializeField] private Loaf loafPrefab;
+
+        private struct Placement
+        {
+            private readonly Transform parent;
+            private readonly Vector3 position;
+            private readonly Quaternion rotation;
+
+            public Placement(Transform target)
+            {
+                parent = target.parent;
+                position = target.localPosition;
+                rotation = target.localRotation;
+            }
+
+            public void Restore(Transform target)
+            {
+                target.SetParent(parent, false);
+                target.SetLocalPositionAndRotation(position, rotation);
+            }
+        }
+
+        private Placement tinHome;
+        private Placement bakerHome;
+        private Placement showcaseHome;
+        private Placement steamHome;
+
+        public event System.Action<Loaf> LoafReady;
+
         private void OnEnable()
         {
             kneadStage.Finished += HandleKneadFinished;
@@ -40,19 +72,75 @@ namespace BreadBowl
             breadBaker.Finished -= HandleBakerFinished;
         }
 
-        private void Start()
+        // needs to be awake so this is guaranteed to be ready when a levelcontroller
+        // calls Begin() from it's own Start() method
+        private void Awake()
         {
             if (cameraRig == null)
             {
                 cameraRig = Camera.main.transform;
             }
 
+            tinHome = new Placement(tin);
+            bakerHome = new Placement(breadBaker.transform);
+            showcaseHome = new Placement(showcase.transform);
+
+            if (steam != null)
+            {
+                steamHome = new Placement(steam.transform);
+            }
+
+            kneadStage.gameObject.SetActive(false);
+            kneadCanvas.SetActive(false);
+            ResetStation();
+        }
+
+        [ContextMenu("Begin")]
+        public void Begin()
+        {
+            StopAllCoroutines();
+            ResetStation();
+
+            kneadStage.gameObject.SetActive(true);
+            kneadStage.Restart();
             kneadCanvas.SetActive(true);
+            MoveCamera(kneadView);
+        }
+
+        private void ResetStation()
+        {
+            if (steam != null)
+            {
+                steam.StopAndClear();
+                steamHome.Restore(steam.transform);
+            }
+
+            bakerHome.Restore(breadBaker.transform);
+            tinHome.Restore(tin);
+            showcaseHome.Restore(showcase.transform);
+            breadBaker.ResetBake();
+
+            showcase.enabled = false;
+            showcaseCanvas.SetActive(false);
             bakeCanvas.SetActive(false);
+            breadBaker.gameObject.SetActive(false);
+        }
+
+        public void TakeLoaf()
+        {
             showcaseCanvas.SetActive(false);
             showcase.enabled = false;
-            breadBaker.gameObject.SetActive(false);
-            MoveCamera(kneadView);
+
+            if (steam != null)
+            {
+                steam.FadeOut(1f);
+            }
+
+            Loaf loaf = Instantiate(loafPrefab);
+            loaf.Build(Instantiate(breadBaker.BakedMesh), new Material(breadBaker.BakedMaterial), breadBaker.transform.lossyScale);
+            loaf.gameObject.SetActive(false);
+
+            LoafReady?.Invoke(loaf);
         }
 
         private void HandleKneadFinished(KneadResult result)

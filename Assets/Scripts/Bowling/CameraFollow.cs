@@ -9,12 +9,25 @@ public class CameraFollow : MonoBehaviour
 
     private void Start()
     {
-        // Remember the starting distance between camera and ball
+        if (target != null)
+        {
+            SetTarget(target);
+        }
+    }
+
+    public void SetTarget(Transform newTarget)
+    {
+        target = newTarget;
         offset = transform.position - target.position;
     }
 
     private void LateUpdate()
     {
+        if (target == null)
+        {
+            return;
+        }
+        
         // Follow position only, ignore the ball's rotation
         Vector3 desiredPosition = target.position + offset;
         transform.position = Vector3.Lerp(
