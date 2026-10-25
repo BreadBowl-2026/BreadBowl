@@ -98,7 +98,11 @@ namespace BreadBowl
         [ContextMenu("Begin")]
         public void Begin()
         {
+            StopAllCoroutines();
+            ResetStation();
+
             kneadStage.gameObject.SetActive(true);
+            kneadStage.Restart();
             kneadCanvas.SetActive(true);
             MoveCamera(kneadView);
         }
