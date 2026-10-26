@@ -52,24 +52,16 @@ namespace BreadBowl.Bowling
         private Vector3 LaneForward => Vector3.ProjectOnPlane(laneForward, Vector3.up).normalized;
         private Vector3 LaneRight => Vector3.Cross(Vector3.up, LaneForward);
 
+        public event System.Action Launched;
+
         private void Start()
         {
             Power = minPower;
 
-            if (ball == null)
+            if (ball != null)
             {
-                Debug.LogError("BreadLauncher: drag the ball into the Ball field", this);
-                enabled = false;
-                return;
+                HoldBall();
             }
-
-            // Hold the ball in place while the player lines up the shot
-            ballTransform = ball.transform;
-            ball.isKinematic = true;
-            startRotation = ballTransform.rotation;
-            aimRotation = startRotation;
-            SnapToGround();
-            startPosition = ballTransform.position;
         }
 
         private void Update()
@@ -139,6 +131,8 @@ namespace BreadBowl.Bowling
             ball.isKinematic = false;
             ball.linearVelocity = direction * (maxLaunchSpeed * Power);
             ball.angularVelocity = Vector3.zero;
+
+            Launched?.Invoke();
         }
 
         public void ResetLaunch()
@@ -161,6 +155,20 @@ namespace BreadBowl.Bowling
             gaugeTime = 0f;
             Power = minPower;
             ApplyPose();
+        }
+
+        public void SetBall(Rigidbody newBall, LaunchPoint launchPoint)
+        {
+            ball = newBall;
+            laneForward = launchPoint.transform.forward;
+            ball.transform.SetPositionAndRotation(launchPoint.transform.position, launchPoint.transform.rotation);
+
+            HasLaunched = false;
+            lateralOffset = 0f;
+            gaugeTime = 0f;
+            Power = minPower;
+
+            HoldBall();
         }
 
         private bool CanAim()
@@ -190,6 +198,16 @@ namespace BreadBowl.Bowling
             bool found = ball.SweepTest(Vector3.down, out hit, snapLift + snapMaxDistance, QueryTriggerInteraction.Ignore);
             ballTransform.position -= Vector3.up * snapLift;
             return found;
+        }
+
+        private void HoldBall()
+        {
+            ballTransform = ball.transform;
+            ball.isKinematic = true;
+            startRotation = ballTransform.rotation;
+            aimRotation = startRotation;
+            SnapToGround();
+            startPosition = ballTransform.position;
         }
     }
 }
