@@ -710,6 +710,8 @@ GameObject:
   - component: {fileID: 8202988698192393887}
   - component: {fileID: 6997525072204902017}
   - component: {fileID: 5534451121321574192}
+  - component: {fileID: 6117234591283197401}
+  - component: {fileID: 6117234591283197402}
   m_Layer: 0
   m_Name: KneadDough
   m_TagString: Untagged
@@ -932,6 +934,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 047349f7651085541b17f04715f3fe11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BreadBowl.Dough.KneadStage
+--- !u!114 &6117234591283197401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1406320381431340229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0921f9e6d5955b04e8be53a1c3f70933, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: NewAssembly::CoACD
+  target: {fileID: 4216749606300708406}
+  isTrigger: 0
+  hideColliders: 1
+  physicMaterial: {fileID: 0}
+  parameters:
+    threshold: 0.05
+    preprocessMode: 0
+    preprocessResolution: 50
+    sampleResolution: 2000
+    mctsNodes: 20
+    mctsIteration: 150
+    mctsMaxDepth: 3
+    pca: 0
+    merge: 1
+    maxConvexHull: -1
+    seed: 0
+  _colliderData: {fileID: 0}
+  _colliders: []
+--- !u!114 &6117234591283197402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1406320381431340229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a7f10b91fc14db4a80d5cc9d7d4b8cb, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::BreadBowl.Dough.DoughCoACDCollider
+  visual: {fileID: 2433552938003896183}
 --- !u!1 &1523141324536532432
 GameObject:
   m_ObjectHideFlags: 0
