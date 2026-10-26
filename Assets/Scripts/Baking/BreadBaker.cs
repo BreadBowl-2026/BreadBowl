@@ -13,6 +13,8 @@ public class BreadBaker : MonoBehaviour
     [SerializeField] private float perfectEndTime = 11f;
     [SerializeField] private float maxBakeTime = 15f;
 
+    [SerializeField] private float bakingSpeed = 1.5f;
+
     [Header("Knead")]
     [SerializeField] private AnimationCurve riseByKnead = new AnimationCurve(
         new Keyframe(0f, 0f), new Keyframe(1f, 1f), new Keyframe(2f, 1f),
@@ -149,7 +151,7 @@ public class BreadBaker : MonoBehaviour
 
         while (elapsedTime < maxBakeTime)
         {
-            elapsedTime += Time.deltaTime;
+            elapsedTime += Time.deltaTime * bakingSpeed;
 
             elapsedTime = Mathf.Min(elapsedTime, maxBakeTime);
             UpdateTimer();
