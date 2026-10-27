@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace BreadBowl.Bowling
 {
@@ -6,7 +7,7 @@ namespace BreadBowl.Bowling
     [RequireComponent(typeof(MeshFilter))]
     [RequireComponent(typeof(MeshRenderer))]
     [RequireComponent(typeof(MeshCollider))]
-    public class Loaf : MonoBehaviour
+    public class Loaf : MonoBehaviour, IPointerClickHandler
     {
         private Mesh mesh;
         private Material material;
@@ -14,9 +15,16 @@ namespace BreadBowl.Bowling
         public Rigidbody Body { get; private set; }
         public float RestHeight => -mesh.bounds.min.y * transform.localScale.y;
 
+        public event System.Action<Loaf> Clicked;
+
         private void Awake()
         {
             Body = GetComponent<Rigidbody>();
+        }
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            Clicked?.Invoke(this);
         }
 
         public void Build(Mesh bakedMesh, Material bakedMaterial, Vector3 scale)

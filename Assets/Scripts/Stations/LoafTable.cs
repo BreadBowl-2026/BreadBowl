@@ -12,6 +12,7 @@ namespace BreadBowl
         [SerializeField][Min(1)] private int rows = 2;
         [SerializeField] private Vector2 spacing = new Vector2(0.4f, 0.4f);
         [SerializeField] private float placeDuration = 0.8f;
+        [SerializeField] private Transform selectionMarker;
 
         private Loaf[] slots;
 
@@ -23,6 +24,7 @@ namespace BreadBowl
         private void Awake()
         {
             slots = new Loaf[Capacity];
+            Select(null);
         }
 
         public void Place(Loaf loaf)
@@ -37,7 +39,8 @@ namespace BreadBowl
 
             slots[index] = loaf;
             Count++;
-            Selected = loaf;
+            loaf.Clicked += Select;
+            Select(loaf);
 
             loaf.Body.isKinematic = true;
             Vector3 restPosition = SlotPosition(index) + slotOrigin.up * loaf.RestHeight;
@@ -56,9 +59,11 @@ namespace BreadBowl
             slots[index] = null;
             Count--;
 
+            loaf.Clicked -= Select;
+            
             if (Selected == loaf)
             {
-                Selected = FirstLoaf();
+                Select(FirstLoaf());
             }
         }
 
@@ -104,6 +109,19 @@ namespace BreadBowl
             int column = index % columns;
             int row = index / columns;
             return slotOrigin.position + slotOrigin.rotation * new Vector3(column * spacing.x, 0f, row * spacing.y);
+        }
+
+        private void Select(Loaf loaf)
+        {
+            Selected = loaf;
+            selectionMarker.gameObject.SetActive(loaf != null);
+
+            if (loaf == null)
+            {
+                return;
+            }
+
+            selectionMarker.position = SlotPosition(System.Array.IndexOf(slots, loaf));
         }
 
         private void OnDrawGizmos()
