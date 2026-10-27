@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using BreadBowl.Dough;
 
 namespace BreadBowl.Bowling
 {
@@ -13,6 +14,8 @@ namespace BreadBowl.Bowling
         private Material material;
 
         public Rigidbody Body { get; private set; }
+        public KneadResult Knead { get; private set; }
+
         public float RestHeight => -mesh.bounds.min.y * transform.localScale.y;
 
         public event System.Action<Loaf> Clicked;
@@ -27,10 +30,11 @@ namespace BreadBowl.Bowling
             Clicked?.Invoke(this);
         }
 
-        public void Build(Mesh bakedMesh, Material bakedMaterial, Vector3 scale)
+        public void Build(Mesh bakedMesh, Material bakedMaterial, Vector3 scale, KneadResult knead)
         {
             mesh = bakedMesh;
             material = bakedMaterial;
+            Knead = knead;
 
             GetComponent<MeshFilter>().sharedMesh = mesh;
             GetComponent<MeshCollider>().sharedMesh = mesh;

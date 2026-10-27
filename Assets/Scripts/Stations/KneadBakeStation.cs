@@ -58,6 +58,7 @@ namespace BreadBowl
         private Placement bakerHome;
         private Placement showcaseHome;
         private Placement steamHome;
+        private KneadResult kneadResult;
 
         public event System.Action<Loaf> LoafReady;
 
@@ -139,7 +140,11 @@ namespace BreadBowl
             }
 
             Loaf loaf = Instantiate(loafPrefab, breadBaker.transform.position, breadBaker.transform.rotation);
-            loaf.Build(Instantiate(breadBaker.BakedMesh), new Material(breadBaker.BakedMaterial), breadBaker.transform.lossyScale);
+            loaf.Build(
+                Instantiate(breadBaker.BakedMesh), 
+                new Material(breadBaker.BakedMaterial), 
+                breadBaker.transform.lossyScale, 
+                kneadResult);
             breadBaker.gameObject.SetActive(false);
             loafTable.Place(loaf);
 
@@ -148,6 +153,7 @@ namespace BreadBowl
 
         private void HandleKneadFinished(KneadResult result)
         {
+            kneadResult = result;
             breadBaker.SetKneadResult(result);
             kneadStage.gameObject.SetActive(false);
             kneadCanvas.SetActive(false);

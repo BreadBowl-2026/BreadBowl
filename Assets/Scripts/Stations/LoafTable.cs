@@ -13,6 +13,7 @@ namespace BreadBowl
         [SerializeField] private Vector2 spacing = new Vector2(0.4f, 0.4f);
         [SerializeField] private float placeDuration = 0.8f;
         [SerializeField] private Transform selectionMarker;
+        [SerializeField] private LoafStatsUI stats;
 
         private Loaf[] slots;
 
@@ -122,6 +123,7 @@ namespace BreadBowl
             }
 
             selectionMarker.position = SlotPosition(System.Array.IndexOf(slots, loaf));
+            stats.Show(loaf);
         }
 
         private void OnDrawGizmos()
