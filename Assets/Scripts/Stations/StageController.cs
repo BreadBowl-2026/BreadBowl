@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Threading.Tasks;
 using UnityEngine.EventSystems;
+using System.Collections.Generic;
+using BreadBowl.Dough;
 
 public class StageController : MonoBehaviour
 {
@@ -9,7 +11,6 @@ public class StageController : MonoBehaviour
     [SerializeField] private string laneScene;
     [SerializeField] private int waitingTime = 2;
     [SerializeField] private float breadScale = 1f;
-
     public async void MoveBreadToLane()
     {
         Debug.Log("Waiting before loading scene: " + laneScene);
@@ -55,7 +56,20 @@ public class StageController : MonoBehaviour
             {
                 bread.GetComponent<MeshFilter>().mesh = myBreadMeshFilter.sharedMesh;
 
-                bread.GetComponent<MeshCollider>().sharedMesh = myBreadMeshFilter.sharedMesh;
+                CoACD coacd = bread.GetComponent<CoACD>();
+                if (coacd == null)
+                {
+                    coacd = bread.AddComponent<CoACD>();
+                }
+
+                var breadColliders = new List<MeshCollider>();
+                var breadColliderMeshes = new List<Mesh>();
+                await DoughCoACDCollider.GenerateCollidersAsync(
+                    bread,
+                    myBreadMeshFilter.sharedMesh,
+                    coacd,
+                    breadColliders,
+                    breadColliderMeshes);
 
                 bread.GetComponent<MeshRenderer>().material = breadMesh.GetComponent<MeshRenderer>().material;
                 bread.transform.localScale = breadMesh.transform.lossyScale * breadScale;

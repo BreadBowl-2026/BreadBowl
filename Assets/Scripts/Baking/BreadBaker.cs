@@ -1,10 +1,10 @@
 
 using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using TMPro;
 using UnityEngine.UI;
 using BreadBowl.Dough;
+using System.Collections.Generic;
 
 public class BreadBaker : MonoBehaviour
 {
@@ -16,10 +16,12 @@ public class BreadBaker : MonoBehaviour
     [SerializeField] private float bakingSpeed = 1.5f;
 
     [Header("Knead")]
-    [SerializeField] private AnimationCurve riseByKnead = new AnimationCurve(
+    [SerializeField]
+    private AnimationCurve riseByKnead = new AnimationCurve(
         new Keyframe(0f, 0f), new Keyframe(1f, 1f), new Keyframe(2f, 1f),
         new Keyframe(3f, 0.3f));
-    [SerializeField] private AnimationCurve lumpByKnead = new AnimationCurve(
+    [SerializeField]
+    private AnimationCurve lumpByKnead = new AnimationCurve(
         new Keyframe(0f, 1f), new Keyframe(1f, 0f), new Keyframe(2f, 0f),
         new Keyframe(3f, 0.4f));
     [SerializeField] private float minRiseFraction = 0.5f;
@@ -68,10 +70,13 @@ public class BreadBaker : MonoBehaviour
     private bool isBaking = false;
     private float elapsedTime = 0f;
     private Coroutine bakingCoroutine;
+    private CoACD coacd;
+    private readonly List<MeshCollider> doughColliders = new List<MeshCollider>();
+    private readonly List<Mesh> doughColliderMeshes = new List<Mesh>();
 
-    void Start()
+    async void Start()
     {
-        
+
         dough = transform;
         doughMaterial = GetComponent<Renderer>().material;
 
@@ -86,6 +91,17 @@ public class BreadBaker : MonoBehaviour
 
         doughMesh = Instantiate(filter.sharedMesh);
         filter.mesh = doughMesh;
+        coacd = GetComponent<CoACD>();
+        if (coacd == null)
+        {
+            coacd = gameObject.AddComponent<CoACD>();
+        }
+        await DoughCoACDCollider.GenerateCollidersAsync(
+            gameObject,
+            doughMesh,
+            coacd,
+            doughColliders,
+            doughColliderMeshes);
         originalVertices = doughMesh.vertices;
         originalBounds = doughMesh.bounds;
 
@@ -147,7 +163,7 @@ public class BreadBaker : MonoBehaviour
         bakingCoroutine = StartCoroutine(Bake());
     }
 
-    public void ResetBake()
+    public async void ResetBake()
     {
         if (doughMesh == null)
         {
@@ -164,6 +180,12 @@ public class BreadBaker : MonoBehaviour
         doughMesh.vertices = originalVertices;
         doughMesh.RecalculateNormals();
         doughMesh.RecalculateBounds();
+        await DoughCoACDCollider.GenerateCollidersAsync(
+            gameObject,
+            doughMesh,
+            coacd,
+            doughColliders,
+            doughColliderMeshes);
 
         bakingProgress.value = 0f;
         startButton.gameObject.SetActive(true);
@@ -228,7 +250,7 @@ public class BreadBaker : MonoBehaviour
                 elapsedTime / maxBakeTime
             );
 
-          
+
 
             yield return null;
         }
@@ -250,7 +272,7 @@ public class BreadBaker : MonoBehaviour
         FinishBaking(false);
     }
 
-    void FinishBaking(bool burnt)
+    async void FinishBaking(bool burnt)
     {
         isBaking = false;
         bakingCoroutine = null;
@@ -278,7 +300,21 @@ public class BreadBaker : MonoBehaviour
                 statusText.text = "Overbaked!";
         }
 
+        await DoughCoACDCollider.GenerateCollidersAsync(
+            gameObject,
+            doughMesh,
+            coacd,
+            doughColliders,
+            doughColliderMeshes);
         Finished?.Invoke();
+    }
+
+    private void OnDestroy()
+    {
+        DoughCoACDCollider.ClearColliders(
+            gameObject,
+            doughColliders,
+            doughColliderMeshes);
     }
 
     void ChangeShape(float progress)
@@ -374,5 +410,3 @@ public class BreadBaker : MonoBehaviour
         timerText.text = $"{minutes:00}:{remainingSeconds:00}";
     }
 }
-
-

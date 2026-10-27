@@ -126,7 +126,7 @@ namespace BreadBowl
             breadBaker.gameObject.SetActive(false);
         }
 
-        public void TakeLoaf()
+        public async void TakeLoaf()
         {
             showcaseCanvas.SetActive(false);
             showcase.enabled = false;
@@ -137,7 +137,10 @@ namespace BreadBowl
             }
 
             Loaf loaf = Instantiate(loafPrefab);
-            loaf.Build(Instantiate(breadBaker.BakedMesh), new Material(breadBaker.BakedMaterial), breadBaker.transform.lossyScale);
+            await loaf.BuildAsync(
+                Instantiate(breadBaker.BakedMesh),
+                new Material(breadBaker.BakedMaterial),
+                breadBaker.transform.lossyScale);
             loaf.gameObject.SetActive(false);
 
             LoafReady?.Invoke(loaf);

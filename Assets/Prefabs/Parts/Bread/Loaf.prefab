@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 4107526551313506126}
   - component: {fileID: 7780879349383261826}
   - component: {fileID: 2556722323909872358}
-  - component: {fileID: 7194776619252372656}
   - component: {fileID: 5601298502742498980}
   m_Layer: 0
   m_Name: Loaf
@@ -120,28 +119,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &7194776619252372656
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1877740577027194402}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
 --- !u!114 &5601298502742498980
 MonoBehaviour:
   m_ObjectHideFlags: 0
