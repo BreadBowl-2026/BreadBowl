@@ -12,6 +12,7 @@ namespace BreadBowl.Bowling
         private Material material;
 
         public Rigidbody Body { get; private set; }
+        public float RestHeight => -mesh.bounds.min.y * transform.localScale.y;
 
         private void Awake()
         {

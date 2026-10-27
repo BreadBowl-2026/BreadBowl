@@ -32,6 +32,7 @@ namespace BreadBowl
 
         [Header("Loaf")]
         [SerializeField] private Loaf loafPrefab;
+        [SerializeField] private LoafTable loafTable;
 
         private struct Placement
         {
@@ -133,12 +134,14 @@ namespace BreadBowl
 
             if (steam != null)
             {
+                steam.transform.SetParent(transform, true);
                 steam.FadeOut(1f);
             }
 
-            Loaf loaf = Instantiate(loafPrefab);
+            Loaf loaf = Instantiate(loafPrefab, breadBaker.transform.position, breadBaker.transform.rotation);
             loaf.Build(Instantiate(breadBaker.BakedMesh), new Material(breadBaker.BakedMaterial), breadBaker.transform.lossyScale);
-            loaf.gameObject.SetActive(false);
+            breadBaker.gameObject.SetActive(false);
+            loafTable.Place(loaf);
 
             LoafReady?.Invoke(loaf);
         }
