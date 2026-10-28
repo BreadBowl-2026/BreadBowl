@@ -46,6 +46,7 @@ public class BreadBaker : MonoBehaviour
     [SerializeField] private OvenDoor ovenDoor;
 
     public event System.Action Finished;
+    public event System.Action ColliderGenerationStarted;
 
     public Mesh BakedMesh => doughMesh;
     public Material BakedMaterial => doughMaterial;
@@ -74,7 +75,7 @@ public class BreadBaker : MonoBehaviour
     private readonly List<MeshCollider> doughColliders = new List<MeshCollider>();
     private readonly List<Mesh> doughColliderMeshes = new List<Mesh>();
 
-    async void Start()
+    void Start()
     {
 
         dough = transform;
@@ -91,17 +92,6 @@ public class BreadBaker : MonoBehaviour
 
         doughMesh = Instantiate(filter.sharedMesh);
         filter.mesh = doughMesh;
-        coacd = GetComponent<CoACD>();
-        if (coacd == null)
-        {
-            coacd = gameObject.AddComponent<CoACD>();
-        }
-        await DoughCoACDCollider.GenerateCollidersAsync(
-            gameObject,
-            doughMesh,
-            coacd,
-            doughColliders,
-            doughColliderMeshes);
         originalVertices = doughMesh.vertices;
         originalBounds = doughMesh.bounds;
 
@@ -163,7 +153,7 @@ public class BreadBaker : MonoBehaviour
         bakingCoroutine = StartCoroutine(Bake());
     }
 
-    public async void ResetBake()
+    public void ResetBake()
     {
         if (doughMesh == null)
         {
@@ -180,12 +170,7 @@ public class BreadBaker : MonoBehaviour
         doughMesh.vertices = originalVertices;
         doughMesh.RecalculateNormals();
         doughMesh.RecalculateBounds();
-        await DoughCoACDCollider.GenerateCollidersAsync(
-            gameObject,
-            doughMesh,
-            coacd,
-            doughColliders,
-            doughColliderMeshes);
+        DoughCoACDCollider.ClearColliders(gameObject, doughColliders, doughColliderMeshes);
 
         bakingProgress.value = 0f;
         startButton.gameObject.SetActive(true);
@@ -300,6 +285,12 @@ public class BreadBaker : MonoBehaviour
                 statusText.text = "Overbaked!";
         }
 
+        if (coacd == null)
+        {
+            coacd = gameObject.AddComponent<CoACD>();
+        }
+
+        ColliderGenerationStarted?.Invoke();
         await DoughCoACDCollider.GenerateCollidersAsync(
             gameObject,
             doughMesh,

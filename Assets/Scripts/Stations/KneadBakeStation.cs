@@ -2,6 +2,7 @@ using System.Collections;
 using BreadBowl.Dough;
 using BreadBowl.Bowling;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace BreadBowl
 {
@@ -57,6 +58,8 @@ namespace BreadBowl
         private Placement bakerHome;
         private Placement showcaseHome;
         private Placement steamHome;
+        private GameObject colliderLoadingIcon;
+        private Texture2D colliderLoadingTexture;
 
         public event System.Action<Loaf> LoafReady;
 
@@ -64,12 +67,14 @@ namespace BreadBowl
         {
             kneadStage.Finished += HandleKneadFinished;
             breadBaker.Finished += HandleBakerFinished;
+            breadBaker.ColliderGenerationStarted += HandleColliderGenerationStarted;
         }
 
         private void OnDisable()
         {
             kneadStage.Finished -= HandleKneadFinished;
             breadBaker.Finished -= HandleBakerFinished;
+            breadBaker.ColliderGenerationStarted -= HandleColliderGenerationStarted;
         }
 
         // needs to be awake so this is guaranteed to be ready when a levelcontroller
@@ -93,6 +98,7 @@ namespace BreadBowl
             kneadStage.gameObject.SetActive(false);
             kneadCanvas.SetActive(false);
             ResetStation();
+            CreateColliderLoadingIcon();
         }
 
         [ContextMenu("Begin")]
@@ -109,6 +115,11 @@ namespace BreadBowl
 
         private void ResetStation()
         {
+            if (colliderLoadingIcon != null)
+            {
+                colliderLoadingIcon.SetActive(false);
+            }
+
             if (steam != null)
             {
                 steam.StopAndClear();
@@ -158,8 +169,79 @@ namespace BreadBowl
 
         private void HandleBakerFinished()
         {
+            if (colliderLoadingIcon != null)
+            {
+                colliderLoadingIcon.SetActive(false);
+            }
+
             bakeCanvas.SetActive(false);
             StartCoroutine(ShowcaseRoutine());
+        }
+
+        private void HandleColliderGenerationStarted()
+        {
+            if (colliderLoadingIcon != null)
+            {
+                colliderLoadingIcon.SetActive(true);
+            }
+        }
+
+        private void CreateColliderLoadingIcon()
+        {
+            colliderLoadingIcon = new GameObject("ColliderLoadingIcon", typeof(RectTransform), typeof(RawImage));
+            colliderLoadingIcon.transform.SetParent(bakeCanvas.transform, false);
+
+            RectTransform rect = colliderLoadingIcon.GetComponent<RectTransform>();
+            rect.anchorMin = new Vector2(0.5f, 0.5f);
+            rect.anchorMax = new Vector2(0.5f, 0.5f);
+            rect.sizeDelta = new Vector2(48f, 48f);
+            rect.anchoredPosition = new Vector2(0f, 72f);
+
+            RawImage image = colliderLoadingIcon.GetComponent<RawImage>();
+            colliderLoadingTexture = CreateLoadingTexture(48);
+            image.texture = colliderLoadingTexture;
+            image.color = new Color(0.78f, 0.55f, 0.28f, 1f);
+            colliderLoadingIcon.SetActive(false);
+        }
+
+        private Texture2D CreateLoadingTexture(int size)
+        {
+            Texture2D texture = new Texture2D(size, size, TextureFormat.RGBA32, false);
+            Color[] pixels = new Color[size * size];
+            Vector2 center = new Vector2((size - 1) * 0.5f, (size - 1) * 0.5f);
+            float innerRadius = size * 0.28f;
+            float outerRadius = size * 0.44f;
+
+            for (int y = 0; y < size; y++)
+            {
+                for (int x = 0; x < size; x++)
+                {
+                    float distance = Vector2.Distance(new Vector2(x, y), center);
+                    pixels[y * size + x] = distance >= innerRadius && distance <= outerRadius
+                        ? Color.white
+                        : Color.clear;
+                }
+            }
+
+            texture.SetPixels(pixels);
+            texture.Apply();
+            return texture;
+        }
+
+        private void Update()
+        {
+            if (colliderLoadingIcon != null && colliderLoadingIcon.activeSelf)
+            {
+                colliderLoadingIcon.transform.Rotate(0f, 0f, -180f * Time.deltaTime);
+            }
+        }
+
+        private void OnDestroy()
+        {
+            if (colliderLoadingTexture != null)
+            {
+                Destroy(colliderLoadingTexture);
+            }
         }
 
         private IEnumerator ShowcaseRoutine()
