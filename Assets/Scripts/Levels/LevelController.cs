@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using BreadBowl.Bowling;
 using UnityEngine;
 
@@ -29,7 +28,7 @@ namespace BreadBowl.Levels
         [SerializeField] private float maxRollTime = 15f;
         [SerializeField] private float fallDepth = 10f;
 
-        private readonly List<Loaf> loaves = new List<Loaf>();
+        private LoafTable table;
         private KneadBakeStation station;
         private BreadLauncher launcher;
         private CameraFollow cameraFollow;
@@ -54,6 +53,7 @@ namespace BreadBowl.Levels
             laneUI = GetComponentInChildren<LaneUI>(true);
             launchPoint = GetComponentInChildren<LaunchPoint>(true);
             resultUI = GetComponentInChildren<ResultUI>(true);
+            table = GetComponentInChildren<LoafTable>(true);
             resultUI.Hide();
 
             launcher.gameObject.SetActive(false);
@@ -110,28 +110,28 @@ namespace BreadBowl.Levels
             station.Begin();
         }
 
-        private void GoToLane(string message = "")
+        private void GoToTable(string message = "")
         {
             cameraFollow.enabled = false;
-            MoveCameraTo(launchPoint.CameraView);
-            laneUI.Show(loaves.Count, maxLoaves, message);
+            MoveCameraTo(table.CameraView);
+            laneUI.Show(table.Count, maxLoaves, message);
         }
 
         private void HandleLoafReady(Loaf loaf)
         {
-            loaves.Add(loaf);
-            GoToLane();
+            GoToTable();
         }
 
         private void BowlNextLoaf()
         {
-            if (loaves.Count == 0)
+            Loaf loaf = table.Selected;
+
+            if (loaf == null)
             {
                 return;
             }
 
-            Loaf loaf = loaves[0];
-            loaves.RemoveAt(0);
+            table.Take(loaf);
             StartBowling(loaf);
         }
 
@@ -142,7 +142,6 @@ namespace BreadBowl.Levels
             laneUI.Hide();
             MoveCameraTo(launchPoint.CameraView);
 
-            loaf.gameObject.SetActive(true);
             launcher.gameObject.SetActive(true);
             launcher.SetBall(loaf.Body, launchPoint);
             cameraFollow.SetTarget(loaf.transform);
@@ -210,7 +209,7 @@ namespace BreadBowl.Levels
                 message = "Out of rolls, try again!";
             }
 
-            GoToLane(message);
+            GoToTable(message);
         }
 
         private LevelConstraint FindViolation(Loaf loaf)
