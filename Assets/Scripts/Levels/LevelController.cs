@@ -28,6 +28,9 @@ namespace BreadBowl.Levels
         [SerializeField] private float maxRollTime = 15f;
         [SerializeField] private float fallDepth = 10f;
 
+        [Header("Testing")]
+        [SerializeField] private Loaf testLoaf;
+
         private LoafTable table;
         private KneadBakeStation station;
         private BreadLauncher launcher;
@@ -92,7 +95,14 @@ namespace BreadBowl.Levels
             }
 
             StartAttempt();
-            GoToKitchen();
+            if (testLoaf != null)
+            {
+                GoToTable();
+            }
+            else
+            {
+                GoToKitchen();
+            }
         }
 
         private void StartAttempt()
@@ -112,6 +122,11 @@ namespace BreadBowl.Levels
 
         private void GoToTable(string message = "")
         {
+            if (testLoaf != null && table.Count == 0)
+            {
+                table.Place(Instantiate(testLoaf, table.transform.position + Vector3.up, Quaternion.identity));
+            }
+
             cameraFollow.enabled = false;
             MoveCameraTo(table.CameraView);
             laneUI.Show(table.Count, maxLoaves, message);

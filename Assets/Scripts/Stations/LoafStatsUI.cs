@@ -16,12 +16,13 @@ namespace BreadBowl
             if (knead == null)
             {
                 statsText.text = "Kneadedness:\n\tUnknown";
+                return;
             }
 
             statsText.text = "Kneadedness:\n" +
                 $"\tUnder {Percent(knead.UnderFraction)}\n" +
                 $"\tWell {Percent(knead.WellFraction)}\n" + 
-                $"\tOver {Percent(knead.OverFraction)}\n";
+                $"\tOver {Percent(knead.OverFraction)}";
         }
 
         private static string Percent(float fraction)
