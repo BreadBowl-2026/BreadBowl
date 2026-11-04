@@ -2523,7 +2523,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dba4e2aadf22b6944b4c1da92d0147cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BreadBowl.LevelSelectButton
-  sceneName: LevelTest2
+  sceneName: LevelSelect
 --- !u!224 &6804754374481694870 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3274471713429887593, guid: 2b7706df1fbd94c0c92a09be24263b98, type: 3}
