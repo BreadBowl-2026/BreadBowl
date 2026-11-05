@@ -32,6 +32,14 @@ namespace BreadBowl.Dough
             StartCoroutine(FinishRoutine());
         }
 
+        public void Restart()
+        {
+            finishing = false;
+            result = null;
+            input.enabled = true;
+            dough.ResetKnead();
+        }
+
         private IEnumerator FinishRoutine()
         {
             input.enabled = false;

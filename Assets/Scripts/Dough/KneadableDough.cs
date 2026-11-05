@@ -24,6 +24,7 @@ namespace BreadBowl.Dough
         public event System.Action<Vector2, float> Pressed;
         public event System.Action<float> FoldStarted;
         public event System.Action GridChanged;
+        public event System.Action KneadReset;
         
 
         public KneadGrid Grid
@@ -52,8 +53,14 @@ namespace BreadBowl.Dough
         public void Fold()
         {
             KneadFold.Apply(Grid, quarterTurns, settings.FoldBlend);
-            flourPuff.Puff();
             GridChanged?.Invoke();
+
+            // this needs to be null checked otherwise an empty flourPuff
+            // breaks the data layer
+            if (flourPuff != null)
+            {
+                flourPuff.Puff();
+            }
         }
 
         public void PalmPress(Vector2 playerPosition, float radius, float amount, KneadBrushFalloff falloff)
@@ -100,10 +107,11 @@ namespace BreadBowl.Dough
         }
 
         [ContextMenu("Reset Knead")]
-        private void ResetKnead()
+        public void ResetKnead()
         {
             grid = new KneadGrid(resolution);
             quarterTurns = 0;
+            KneadReset?.Invoke();
             GridChanged?.Invoke();
         }
 
