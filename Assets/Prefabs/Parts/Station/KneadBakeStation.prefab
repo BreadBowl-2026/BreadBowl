@@ -746,6 +746,7 @@ MonoBehaviour:
   steam: {fileID: 8633857708616965206}
   loafPrefab: {fileID: 5601298502742498980, guid: 37bc59cf10873954d89fe69c3533c993, type: 3}
   loafTable: {fileID: 3191703242817417273}
+  testShape: {fileID: 11400000, guid: 2faee8d4b4ac8eb4dacb76c756806894, type: 2}
 --- !u!1 &1406320381431340229
 GameObject:
   m_ObjectHideFlags: 0

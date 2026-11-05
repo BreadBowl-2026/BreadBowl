@@ -34,6 +34,9 @@ namespace BreadBowl
         [SerializeField] private Loaf loafPrefab;
         [SerializeField] private LoafTable loafTable;
 
+        [Header("Shape")]
+        [SerializeField] private BreadShape testShape;
+
         private struct Placement
         {
             private readonly Transform parent;
@@ -153,6 +156,11 @@ namespace BreadBowl
 
         private void HandleKneadFinished(KneadResult result)
         {
+            if (testShape != null)
+            {
+                breadBaker.SetShape(testShape);
+            }
+            
             kneadResult = result;
             breadBaker.SetKneadResult(result);
             kneadStage.gameObject.SetActive(false);
