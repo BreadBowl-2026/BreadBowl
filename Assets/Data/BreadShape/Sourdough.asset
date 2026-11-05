@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Sourdough
   m_EditorClassIdentifier: Assembly-CSharp::BreadBowl.BreadShape
   displayName: Sourdough
-  mesh: {fileID: 0}
+  mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
   rawSize: {x: 3, y: 0.8, z: 3}
-  bakedSize: {x: 3.3, y: 2.5, z: 3.3}
+  bakedSize: {x: 3.3, y: 2.25, z: 3.3}
+  tinPrefab: {fileID: 1614633322688268271, guid: 667a52d2e131f4c3f9d3d0a1fc15542a, type: 3}

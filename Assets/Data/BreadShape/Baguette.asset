@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9d1b18e57b1076448a6ed3f3c4ec5b1, type: 3}
   m_Name: Baguette
   m_EditorClassIdentifier: Assembly-CSharp::BreadBowl.BreadShape
-  displayName: Sourdough
-  mesh: {fileID: 0}
-  rawSize: {x: 3, y: 0.8, z: 3}
-  bakedSize: {x: 3.3, y: 2.5, z: 3.3}
+  displayName: Baguette
+  mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  rawSize: {x: 4.5, y: 0.8, z: 1.4}
+  bakedSize: {x: 5, y: 1.4, z: 1.6}
+  tinPrefab: {fileID: 3227608673605359861, guid: 9414d4bae81cf4b47917ea1260f3bd74, type: 3}
