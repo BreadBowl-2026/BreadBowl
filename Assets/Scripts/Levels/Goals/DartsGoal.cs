@@ -15,7 +15,6 @@ namespace BreadBowl.Levels
 
         private void OnCollisionEnter(Collision collision)
         {
-            Debug.Log("COLLISION!");
             if (hitLoaf != null)
             {
                 return;
