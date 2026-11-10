@@ -34,6 +34,8 @@ public class BreadBaker : MonoBehaviour
 
     [Header("Baked Bread Texture")]
     [SerializeField] private float maxNormalStrength = 2f;
+    [SerializeField] private float startFriction = .8f;
+    [SerializeField] private float endFriction = 0.2f;
 
     [Header("UI")]
     [SerializeField] private Slider bakingProgress;
@@ -48,9 +50,13 @@ public class BreadBaker : MonoBehaviour
 
     public Mesh BakedMesh => doughMesh;
     public Material BakedMaterial => doughMaterial;
+    public float BakedDynamicFriction => dynamicFriction;
+    public float BakedStaticFriction => staticFriction;
 
     private Transform dough;
     private Material doughMaterial;
+    private float dynamicFriction;
+    private float staticFriction;
     private Mesh doughMesh;
     private Vector3[] originalVertices;
     private Vector3 startPosition;
@@ -229,6 +235,10 @@ public class BreadBaker : MonoBehaviour
             float t = Mathf.Clamp01(elapsedTime / perfectEndTime);
             float normalStrength = Mathf.Pow(t, 2f) * maxNormalStrength;
             doughMaterial.SetFloat("_BumpScale", normalStrength);
+
+            float friction = Mathf.Lerp(startFriction, endFriction, t * t);
+            dynamicFriction = friction;
+            staticFriction = friction;
 
             ChangeShape(progress);
 
