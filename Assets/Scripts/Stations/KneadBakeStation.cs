@@ -154,9 +154,11 @@ namespace BreadBowl
             Loaf loaf = Instantiate(loafPrefab, breadBaker.transform.position, breadBaker.transform.rotation);
             loaf.Build(
                 Instantiate(breadBaker.BakedMesh), 
-                new Material(breadBaker.BakedMaterial), 
+                new Material(breadBaker.BakedMaterial),
                 breadBaker.transform.lossyScale, 
-                kneadResult);
+                kneadResult,
+                breadBaker.BakedDynamicFriction,
+                breadBaker.BakedStaticFriction);
             breadBaker.gameObject.SetActive(false);
             loafTable.Place(loaf);
 
