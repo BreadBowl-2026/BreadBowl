@@ -12,6 +12,7 @@ namespace BreadBowl.Bowling
     {
         private Mesh mesh;
         private Material material;
+        private PhysicsMaterial physicsMaterial;
 
         public Rigidbody Body { get; private set; }
         public KneadResult Knead { get; private set; }
@@ -30,16 +31,27 @@ namespace BreadBowl.Bowling
             Clicked?.Invoke(this);
         }
 
-        public void Build(Mesh bakedMesh, Material bakedMaterial, Vector3 scale, KneadResult knead)
-        {
+        public void Build(
+            Mesh bakedMesh, 
+            Material bakedMaterial, 
+            Vector3 scale, 
+            KneadResult knead, 
+            float dynamicFriction, 
+            float staticFriction
+        ){
             mesh = bakedMesh;
             material = bakedMaterial;
             Knead = knead;
 
             GetComponent<MeshFilter>().sharedMesh = mesh;
             GetComponent<MeshCollider>().sharedMesh = mesh;
+            
             GetComponent<MeshRenderer>().sharedMaterial = material;
             transform.localScale = scale;
+
+            physicsMaterial = GetComponent<MeshCollider>().material;
+            physicsMaterial.dynamicFriction = dynamicFriction;
+            physicsMaterial.staticFriction = staticFriction;
         }
 
         private void OnDestroy()
@@ -52,6 +64,11 @@ namespace BreadBowl.Bowling
             if (material != null)
             {
                 Destroy(material);
+            }
+
+            if (physicsMaterial != null)
+            {
+                Destroy(physicsMaterial);
             }
         }
 

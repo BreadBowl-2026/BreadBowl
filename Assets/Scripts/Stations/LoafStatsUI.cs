@@ -7,7 +7,9 @@ namespace BreadBowl
 {
     public class LoafStatsUI : MonoBehaviour
     {
-        [SerializeField] private TMP_Text statsText;
+        [SerializeField] private TMP_Text underText;
+        [SerializeField] private TMP_Text wellText;
+        [SerializeField] private TMP_Text overText;
 
         public void Show(Loaf loaf)
         {
@@ -15,14 +17,15 @@ namespace BreadBowl
 
             if (knead == null)
             {
-                statsText.text = "Kneadedness:\n\tUnknown";
+                underText.text = "Under --";
+                wellText.text = "Well --";
+                overText.text = "Over --";
                 return;
             }
 
-            statsText.text = "Kneadedness:\n" +
-                $"\tUnder {Percent(knead.UnderFraction)}\n" +
-                $"\tWell {Percent(knead.WellFraction)}\n" + 
-                $"\tOver {Percent(knead.OverFraction)}";
+            underText.text = $"Under {Percent(knead.UnderFraction)}";
+            wellText.text = $"Well {Percent(knead.WellFraction)}";
+            overText.text = $"Over {Percent(knead.OverFraction)}";
         }
 
         private static string Percent(float fraction)
@@ -31,4 +34,5 @@ namespace BreadBowl
         }
     }
 }
+
 

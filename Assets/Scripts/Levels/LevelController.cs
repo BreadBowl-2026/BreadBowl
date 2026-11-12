@@ -69,7 +69,7 @@ namespace BreadBowl.Levels
             launcher.Launched += HandleLaunched;
             laneUI.BowlPressed += BowlNextLoaf;
             laneUI.BakePressed += GoToKitchen;
-            laneUI.MenuPressed += Quit;
+            // laneUI.MenuPressed += Quit;
             resultUI.ContinuePressed += HandleContinue;
         }
 
@@ -79,7 +79,7 @@ namespace BreadBowl.Levels
             launcher.Launched -= HandleLaunched;
             laneUI.BowlPressed -= BowlNextLoaf;
             laneUI.BakePressed -= GoToKitchen;
-            laneUI.MenuPressed -= Quit;
+            // laneUI.MenuPressed -= Quit;
             resultUI.ContinuePressed -= HandleContinue;
         }
 
