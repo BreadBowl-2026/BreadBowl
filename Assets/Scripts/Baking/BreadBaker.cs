@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
 using UnityEngine.UI;
+using BreadBowl;
 using BreadBowl.Dough;
 
 public class BreadBaker : MonoBehaviour
@@ -64,6 +65,7 @@ public class BreadBaker : MonoBehaviour
     private KneadResult kneadResult;
     private float[] vertexRise;
     private float[] vertexLump;
+    private BreadShape shape;
 
     // unused commented out to prevent unity warning
     // private string kneadLabel = "Perfectly Kneaded";
@@ -92,10 +94,12 @@ public class BreadBaker : MonoBehaviour
             Destroy(sphere);
         }
 
-        doughMesh = Instantiate(filter.sharedMesh);
-        filter.mesh = doughMesh;
-        originalVertices = doughMesh.vertices;
-        originalBounds = doughMesh.bounds;
+        UseMesh(filter.sharedMesh);
+
+        if (shape != null)
+        {
+            ApplyShape();
+        }
 
         dough.localScale = rawSize;
         startPosition = dough.localPosition;
@@ -120,6 +124,37 @@ public class BreadBaker : MonoBehaviour
         kneadResult = result;
     }
 
+    public void SetShape(BreadShape newShape)
+    {
+        shape = newShape;
+
+        if (doughMesh != null)
+        {
+            ApplyShape();
+            dough.localScale = rawSize;
+        }
+    }
+
+    private void ApplyShape()
+    {
+        rawSize = shape.RawSize;
+        bakedSize = shape.BakedSize;
+        UseMesh(shape.Mesh);
+    }
+
+    private void UseMesh(Mesh source)
+    {
+        if (doughMesh != null)
+        {
+            Destroy(doughMesh);
+        }
+
+        doughMesh = Instantiate(source);
+        GetComponent<MeshFilter>().mesh = doughMesh;
+        originalVertices = doughMesh.vertices;
+        originalBounds = doughMesh.bounds;
+    }
+    
     private void ResetCrust()
     {
         doughMaterial.SetFloat("_BumpScale", 0f);

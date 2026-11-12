@@ -34,6 +34,12 @@ namespace BreadBowl
         [SerializeField] private Loaf loafPrefab;
         [SerializeField] private LoafTable loafTable;
 
+        [Header("Shape")]
+        [SerializeField] private ShapeStage shapeStage;
+        [SerializeField] private GameObject shapeCanvas;
+        [SerializeField] private Transform shapeView;
+
+
         private struct Placement
         {
             private readonly Transform parent;
@@ -59,18 +65,21 @@ namespace BreadBowl
         private Placement showcaseHome;
         private Placement steamHome;
         private KneadResult kneadResult;
+        private GameObject tinModel;
 
         public event System.Action<Loaf> LoafReady;
 
         private void OnEnable()
         {
             kneadStage.Finished += HandleKneadFinished;
+            shapeStage.Finished += HandleShapeFinished;
             breadBaker.Finished += HandleBakerFinished;
         }
 
         private void OnDisable()
         {
             kneadStage.Finished -= HandleKneadFinished;
+            shapeStage.Finished -= HandleShapeFinished;
             breadBaker.Finished -= HandleBakerFinished;
         }
 
@@ -111,6 +120,9 @@ namespace BreadBowl
 
         private void ResetStation()
         {
+            shapeStage.gameObject.SetActive(false);
+            shapeCanvas.SetActive(false);
+
             if (steam != null)
             {
                 steam.StopAndClear();
@@ -153,12 +165,34 @@ namespace BreadBowl
             LoafReady?.Invoke(loaf);
         }
 
+        private void UseTin(BreadShape shape)
+        {
+            if (tinModel != null)
+            {
+                Destroy(tinModel);
+            }
+
+            tinModel = Instantiate(shape.TinPrefab, tin);
+        }
+
         private void HandleKneadFinished(KneadResult result)
         {
             kneadResult = result;
-            breadBaker.SetKneadResult(result);
             kneadStage.gameObject.SetActive(false);
             kneadCanvas.SetActive(false);
+            shapeStage.gameObject.SetActive(true);
+            shapeStage.Restart();
+            shapeCanvas.SetActive(true);
+            MoveCamera(shapeView);
+        }
+
+        private void HandleShapeFinished(BreadShape shape)
+        {
+            shapeStage.gameObject.SetActive(false);
+            shapeCanvas.SetActive(false);
+            breadBaker.SetShape(shape);
+            breadBaker.SetKneadResult(kneadResult);
+            UseTin(shape);
             breadBaker.gameObject.SetActive(true);
             bakeCanvas.SetActive(true);
             MoveCamera(bakeView);
