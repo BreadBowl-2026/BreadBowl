@@ -81,6 +81,7 @@ public class BreadBaker : MonoBehaviour
         
         dough = transform;
         doughMaterial = GetComponent<Renderer>().material;
+        ResetCrust();
 
         MeshFilter filter = GetComponent<MeshFilter>();
 
@@ -117,6 +118,13 @@ public class BreadBaker : MonoBehaviour
     public void SetKneadResult(KneadResult result)
     {
         kneadResult = result;
+    }
+
+    private void ResetCrust()
+    {
+        doughMaterial.SetFloat("_BumpScale", 0f);
+        dynamicFriction = startFriction;
+        staticFriction = startFriction;
     }
 
     public void StartBaking()
@@ -168,6 +176,7 @@ public class BreadBaker : MonoBehaviour
 
         dough.localScale = rawSize;
         doughMaterial.color = new Color(0.93f, 0.85f, 0.65f);
+        ResetCrust();
         doughMesh.vertices = originalVertices;
         doughMesh.RecalculateNormals();
         doughMesh.RecalculateBounds();
@@ -190,7 +199,7 @@ public class BreadBaker : MonoBehaviour
         Color bakedColor = new Color(0.78f, 0.55f, 0.28f);
         Color burntColor = new Color(0.35f, 0.18f, 0.08f);
 
-        doughMaterial.SetFloat("_BumpScale", 0f);
+        ResetCrust();
 
         while (elapsedTime < maxBakeTime)
         {
