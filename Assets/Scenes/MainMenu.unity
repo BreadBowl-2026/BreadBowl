@@ -519,6 +519,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6053696930335401378, guid: 62a7a4e0fa61453aa26c4ba08ea2a7b0, type: 3}
+      propertyPath: sceneName
+      value: RollingPins
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
