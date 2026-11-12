@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class SoundMenu : MonoBehaviour
 {
-    private void Awake()
-    {
-        gameObject.SetActive(false);
-    }
+    // private void Awake()
+    // {
+    //     gameObject.SetActive(false);
+    // }
 
     public void OpenMenu()
     {

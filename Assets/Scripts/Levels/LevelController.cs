@@ -28,6 +28,12 @@ namespace BreadBowl.Levels
         [SerializeField] private float maxRollTime = 15f;
         [SerializeField] private float fallDepth = 10f;
 
+        [Header("Stages")]
+        [SerializeField] private LevelStage[] stages;
+
+        [Header("Testing")]
+        [SerializeField] private Loaf testLoaf;
+
         private LoafTable table;
         private KneadBakeStation station;
         private BreadLauncher launcher;
@@ -41,6 +47,7 @@ namespace BreadBowl.Levels
         private LevelResult result;
         private int loavesBowled;
         private float startTime;
+        private int stageIndex;
 
 
         public event System.Action<LevelResult> Finished;
@@ -66,7 +73,7 @@ namespace BreadBowl.Levels
             launcher.Launched += HandleLaunched;
             laneUI.BowlPressed += BowlNextLoaf;
             laneUI.BakePressed += GoToKitchen;
-            laneUI.MenuPressed += Quit;
+            // laneUI.MenuPressed += Quit;
             resultUI.ContinuePressed += HandleContinue;
         }
 
@@ -76,15 +83,23 @@ namespace BreadBowl.Levels
             launcher.Launched -= HandleLaunched;
             laneUI.BowlPressed -= BowlNextLoaf;
             laneUI.BakePressed -= GoToKitchen;
-            laneUI.MenuPressed -= Quit;
+            // laneUI.MenuPressed -= Quit;
             resultUI.ContinuePressed -= HandleContinue;
         }
 
         private void Start()
         {
             startTime = Time.time;
-            goals = FindObjectsByType<LevelGoal>(FindObjectsSortMode.None);
-            constraints = FindObjectsByType<LevelConstraint>(FindObjectsSortMode.None);
+
+            if (stages.Length > 0)
+            {
+                EnterStage(0);
+            }
+            else // level starts normally if no stages
+            {
+                goals = FindObjectsByType<LevelGoal>(FindObjectsSortMode.None);
+                constraints = FindObjectsByType<LevelConstraint>(FindObjectsSortMode.None);
+            }
 
             if (goals.Length == 0)
             {
@@ -92,7 +107,14 @@ namespace BreadBowl.Levels
             }
 
             StartAttempt();
-            GoToKitchen();
+            if (testLoaf != null)
+            {
+                GoToTable();
+            }
+            else
+            {
+                GoToKitchen();
+            }
         }
 
         private void StartAttempt()
@@ -112,6 +134,11 @@ namespace BreadBowl.Levels
 
         private void GoToTable(string message = "")
         {
+            if (testLoaf != null && table.Count == 0)
+            {
+                table.Place(Instantiate(testLoaf, table.transform.position + Vector3.up, Quaternion.identity));
+            }
+
             cameraFollow.enabled = false;
             MoveCameraTo(table.CameraView);
             laneUI.Show(table.Count, maxLoaves, message);
@@ -192,7 +219,7 @@ namespace BreadBowl.Levels
 
             if (completed)
             {
-                Complete();
+                CompleteStage();
                 yield break;
             }
 
@@ -282,6 +309,29 @@ namespace BreadBowl.Levels
         {
             result = BuildResult(LevelOutcome.Completed);
             resultUI.Show(completeMessage, result);
+        }
+
+        private void EnterStage(int index)
+        {
+            stageIndex = index;
+            LevelStage stage = stages[index];
+            goals = stage.Goals;
+            constraints = stage.Constraints;
+            launchPoint = stage.LaunchPoint;
+        }
+
+        private void CompleteStage()
+        {
+            if (stageIndex >= stages.Length - 1)
+            {
+                Complete();
+                return;
+            }
+
+            string message = $"{stages[stageIndex].DisplayName} cleared!";
+            EnterStage(stageIndex + 1);
+            StartAttempt();
+            GoToTable(message);
         }
 
         private void Quit()

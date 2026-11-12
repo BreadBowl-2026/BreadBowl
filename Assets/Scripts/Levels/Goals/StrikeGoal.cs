@@ -51,8 +51,7 @@ namespace BreadBowl.Levels
             {
                 pins[i].linearVelocity = Vector3.zero;
                 pins[i].angularVelocity = Vector3.zero;
-                pins[i].position = pinStarts[i].position;
-                pins[i].rotation = pinStarts[i].rotation;
+                pins[i].transform.SetPositionAndRotation(pinStarts[i].position, pinStarts[i].rotation);
                 pins[i].Sleep();
             }
         }
