@@ -435,6 +435,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1012785015}
     m_Modifications:
+    - target: {fileID: -3840324915266438921, guid: 12db5729c84ee804f9ba823c508b217c, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1544207336454552015, guid: 12db5729c84ee804f9ba823c508b217c, type: 3}
       propertyPath: boost
       value: 150
@@ -445,7 +449,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5386305277509206431, guid: 12db5729c84ee804f9ba823c508b217c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 18.191
+      value: 18.11
       objectReference: {fileID: 0}
     - target: {fileID: 5386305277509206431, guid: 12db5729c84ee804f9ba823c508b217c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1044,7 +1048,7 @@ PrefabInstance:
     - target: {fileID: 4808669429704497339, guid: 09254468e7e984144941f7f459290abe, type: 3}
       propertyPath: testLoaf
       value: 
-      objectReference: {fileID: 6604332302976616471, guid: a3e4132e0bf7ef2408a9ffdb641649e5, type: 3}
+      objectReference: {fileID: 4704962520191272399, guid: bc5517867292cad49876260296c0001b, type: 3}
     - target: {fileID: 4918353262948497519, guid: 09254468e7e984144941f7f459290abe, type: 3}
       propertyPath: m_Mesh
       value: 
