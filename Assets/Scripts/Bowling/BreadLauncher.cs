@@ -20,6 +20,10 @@ namespace BreadBowl.Bowling
         [SerializeField] private float yawSpeed = 90f;
         [SerializeField] private float tiltSpeed = 90f;
 
+        [Header("Aim")]
+        [SerializeField] private float aimSpeed = 30f;
+        [SerializeField] private float maxAimAngle = 30f;
+
         [Header("Power Gauge")]
         [Range(0f, 1f)]
         [SerializeField] private float minPower = 0.1f;
@@ -44,10 +48,35 @@ namespace BreadBowl.Bowling
         private Quaternion startRotation;
         private Quaternion aimRotation;
         private float lateralOffset;
+        private float aimAngle;
         private float gaugeTime;
+        private Vector3 groundPoint;
+        private Vector3 groundNormal = Vector3.up;
 
+        public Rigidbody Ball => ball;
         public float Power { get; private set; }
         public bool HasLaunched { get; private set; }
+        public Vector3 GroundNormal => groundNormal;
+
+        // Point on the lane straight under the ball's center
+        public Vector3 AimOrigin
+        {
+            get
+            {
+                Vector3 center = ballTransform.position;
+                return center - groundNormal * Vector3.Dot(center - groundPoint, groundNormal);
+            }
+        }
+
+        // Aim turns the launch away from straight down the lane, then it follows the slope if there is one
+        public Vector3 LaunchDirection
+        {
+            get
+            {
+                Vector3 direction = Quaternion.AngleAxis(aimAngle, Vector3.up) * LaneForward;
+                return alignLaunchToSlope ? Vector3.ProjectOnPlane(direction, groundNormal).normalized : direction;
+            }
+        }
 
         private Vector3 LaneForward => Vector3.ProjectOnPlane(laneForward, Vector3.up).normalized;
         private Vector3 LaneRight => Vector3.Cross(Vector3.up, LaneForward);
@@ -112,6 +141,21 @@ namespace BreadBowl.Bowling
             ApplyPose();
         }
 
+        public void Aim(float direction)
+        {
+            if (!CanAim())
+            {
+                return;
+            }
+
+            // Positive aim turns the launch to the right of the lane
+            aimAngle = Mathf.Clamp(
+                aimAngle + direction * aimSpeed * Time.deltaTime,
+                -maxAimAngle,
+                maxAimAngle
+            );
+        }
+
         public void Launch()
         {
             if (!CanAim())
@@ -121,15 +165,8 @@ namespace BreadBowl.Bowling
 
             HasLaunched = true;
 
-            // Always launch straight down the lane, following the slope if there is one
-            Vector3 direction = LaneForward;
-            if (alignLaunchToSlope && SweepToGround(out RaycastHit hit))
-            {
-                direction = Vector3.ProjectOnPlane(direction, hit.normal).normalized;
-            }
-
             ball.isKinematic = false;
-            ball.linearVelocity = direction * (maxLaunchSpeed * Power);
+            ball.linearVelocity = LaunchDirection * (maxLaunchSpeed * Power);
             ball.angularVelocity = Vector3.zero;
 
             Launched?.Invoke();
@@ -151,6 +188,7 @@ namespace BreadBowl.Bowling
 
             HasLaunched = false;
             lateralOffset = 0f;
+            aimAngle = 0f;
             aimRotation = startRotation;
             gaugeTime = 0f;
             Power = minPower;
@@ -165,6 +203,7 @@ namespace BreadBowl.Bowling
 
             HasLaunched = false;
             lateralOffset = 0f;
+            aimAngle = 0f;
             gaugeTime = 0f;
             Power = minPower;
 
@@ -184,10 +223,22 @@ namespace BreadBowl.Bowling
 
         private void SnapToGround()
         {
-            if (snapToGround && SweepToGround(out RaycastHit hit))
+            groundPoint = ballTransform.position;
+            groundNormal = Vector3.up;
+
+            if (!SweepToGround(out RaycastHit hit))
+            {
+                return;
+            }
+
+            if (snapToGround)
             {
                 ballTransform.position += Vector3.down * (hit.distance - snapLift);
             }
+
+            // Remember the lane under the ball so the launch and aim arrow don't have to sweep again
+            groundPoint = hit.point;
+            groundNormal = hit.normal;
         }
 
         private bool SweepToGround(out RaycastHit hit)
