@@ -1772,7 +1772,7 @@ PrefabInstance:
     - target: {fileID: 4808669429704497339, guid: 09254468e7e984144941f7f459290abe, type: 3}
       propertyPath: testLoaf
       value: 
-      objectReference: {fileID: 5834006241270650869, guid: a84ec7394e4281d4c9228584c7b2fa78, type: 3}
+      objectReference: {fileID: 4704962520191272399, guid: bc5517867292cad49876260296c0001b, type: 3}
     - target: {fileID: 4808669429704497339, guid: 09254468e7e984144941f7f459290abe, type: 3}
       propertyPath: stages.Array.size
       value: 3
