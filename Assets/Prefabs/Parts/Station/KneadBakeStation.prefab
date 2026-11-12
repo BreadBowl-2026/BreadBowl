@@ -5535,6 +5535,10 @@ PrefabInstance:
       value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 4912893661788169943, guid: fe216801b0d4e48088536b28f8079648, type: 3}
+      propertyPath: endFriction
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4912893661788169943, guid: fe216801b0d4e48088536b28f8079648, type: 3}
       propertyPath: qualityText
       value: 
       objectReference: {fileID: 0}
@@ -5542,6 +5546,10 @@ PrefabInstance:
       propertyPath: startButton
       value: 
       objectReference: {fileID: 6415014178072190615}
+    - target: {fileID: 4912893661788169943, guid: fe216801b0d4e48088536b28f8079648, type: 3}
+      propertyPath: startFriction
+      value: 0.8
+      objectReference: {fileID: 0}
     - target: {fileID: 4912893661788169943, guid: fe216801b0d4e48088536b28f8079648, type: 3}
       propertyPath: takeOutButton
       value: 

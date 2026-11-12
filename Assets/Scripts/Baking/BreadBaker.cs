@@ -32,6 +32,10 @@ public class BreadBaker : MonoBehaviour
     [SerializeField] private Vector3 rawSize = new Vector3(3f, 0.8f, 3f);
     [SerializeField] private Vector3 bakedSize = new Vector3(3.3f, 2.5f, 3.3f);
 
+    [Header("Baked Bread Texture")]
+    [SerializeField] private float maxNormalStrength = 2f;
+    [SerializeField] private float startFriction = .8f;
+    [SerializeField] private float endFriction = 0.2f;
 
     [Header("UI")]
     [SerializeField] private Slider bakingProgress;
@@ -42,14 +46,17 @@ public class BreadBaker : MonoBehaviour
     [SerializeField] private Button takeOutButton;
 
     [SerializeField] private OvenDoor ovenDoor;
-
     public event System.Action Finished;
 
     public Mesh BakedMesh => doughMesh;
     public Material BakedMaterial => doughMaterial;
+    public float BakedDynamicFriction => dynamicFriction;
+    public float BakedStaticFriction => staticFriction;
 
     private Transform dough;
     private Material doughMaterial;
+    private float dynamicFriction;
+    private float staticFriction;
     private Mesh doughMesh;
     private Vector3[] originalVertices;
     private Vector3 startPosition;
@@ -74,6 +81,7 @@ public class BreadBaker : MonoBehaviour
         
         dough = transform;
         doughMaterial = GetComponent<Renderer>().material;
+        ResetCrust();
 
         MeshFilter filter = GetComponent<MeshFilter>();
 
@@ -110,6 +118,13 @@ public class BreadBaker : MonoBehaviour
     public void SetKneadResult(KneadResult result)
     {
         kneadResult = result;
+    }
+
+    private void ResetCrust()
+    {
+        doughMaterial.SetFloat("_BumpScale", 0f);
+        dynamicFriction = startFriction;
+        staticFriction = startFriction;
     }
 
     public void StartBaking()
@@ -161,6 +176,7 @@ public class BreadBaker : MonoBehaviour
 
         dough.localScale = rawSize;
         doughMaterial.color = new Color(0.93f, 0.85f, 0.65f);
+        ResetCrust();
         doughMesh.vertices = originalVertices;
         doughMesh.RecalculateNormals();
         doughMesh.RecalculateBounds();
@@ -182,6 +198,8 @@ public class BreadBaker : MonoBehaviour
         Color rawColor = new Color(0.93f, 0.85f, 0.65f);
         Color bakedColor = new Color(0.78f, 0.55f, 0.28f);
         Color burntColor = new Color(0.35f, 0.18f, 0.08f);
+
+        ResetCrust();
 
         while (elapsedTime < maxBakeTime)
         {
@@ -221,6 +239,15 @@ public class BreadBaker : MonoBehaviour
                     bakedColor, burntColor, overbake
                 );
             }
+
+            // increase normal map texture
+            float t = Mathf.Clamp01(elapsedTime / perfectEndTime);
+            float normalStrength = Mathf.Pow(t, 2f) * maxNormalStrength;
+            doughMaterial.SetFloat("_BumpScale", normalStrength);
+
+            float friction = Mathf.Lerp(startFriction, endFriction, t * t);
+            dynamicFriction = friction;
+            staticFriction = friction;
 
             ChangeShape(progress);
 
