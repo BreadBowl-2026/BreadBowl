@@ -19,6 +19,10 @@ namespace BreadBowl.Bowling
         [SerializeField] private HoldButton rotateLeftButton;
         [SerializeField] private HoldButton rotateRightButton;
 
+        [Header("Aim")]
+        [SerializeField] private HoldButton aimLeftButton;
+        [SerializeField] private HoldButton aimRightButton;
+
         [Header("Launch")]
         [SerializeField] private HoldButton launchButton;
         [SerializeField] private RectTransform powerFill;
@@ -73,6 +77,12 @@ namespace BreadBowl.Bowling
                 if (yaw != 0f || tilt != 0f)
                 {
                     launcher.Rotate(yaw, tilt);
+                }
+
+                float aim = Axis(aimLeftButton, aimRightButton);
+                if (aim != 0f)
+                {
+                    launcher.Aim(aim);
                 }
             }
 
