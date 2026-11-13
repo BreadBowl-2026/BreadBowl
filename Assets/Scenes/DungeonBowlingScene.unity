@@ -8095,6 +8095,52 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8805893765392412216, guid: 0ebf27b646189be408ad2fe287656f56, type: 3}
   m_PrefabInstance: {fileID: 1320719606}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1323193150
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1323193152}
+  - component: {fileID: 1323193151}
+  m_Layer: 0
+  m_Name: PinSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1323193151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1323193150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb158a743c494a640ab030b9e94dd0c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BreadBowl.Bowling.PinSpawner
+  pinPrefab: {fileID: 8178256641301083266, guid: 0ebf27b646189be408ad2fe287656f56, type: 3}
+  pinCount: 10
+--- !u!4 &1323193152
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1323193150}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -99.81, y: 1.107, z: 2.63}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1333909170
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13599,3 +13645,4 @@ SceneRoots:
   - {fileID: 1176669431}
   - {fileID: 270654214}
   - {fileID: 1389393377}
+  - {fileID: 1323193152}
