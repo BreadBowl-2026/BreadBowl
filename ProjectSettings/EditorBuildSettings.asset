@@ -8,27 +8,18 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: 6e7415afce868f24abd74ab6207e443a
-  - enabled: 0
-    path: Assets/Scenes/Sandbox/LevelTest2.unity
-    guid: 66db8ac9a17533247ae78e93b6fb20cf
-  - enabled: 0
-    path: Assets/Scenes/DungeonBakingScene.unity
-    guid: 530724ecdcd371b47b88d734641077c9
-  - enabled: 0
-    path: Assets/Scenes/DungeonBowlingScene.unity
-    guid: f175fbd5c65b42e4ca687850f704b84d
-  - enabled: 0
-    path: Assets/BreadBowl/Scenes/LevelSelect.unity
-    guid: a30f323078ad541c1b534b71466847bb
   - enabled: 1
     path: Assets/Scenes/LevelSelect.unity
     guid: 2fd0dc8bbbc8d409181531d47f8dbbb1
   - enabled: 1
+    path: Assets/Scenes/LoafAtFirstStrike.unity
+    guid: af6438e96b383c24897eb6755998e3d0
+  - enabled: 1
     path: Assets/Scenes/Sandbox/Level_01.unity
     guid: 1cc6e9ef3a1b04e4cb82b38f1870aeb2
-  - enabled: 1
-    path: Assets/Scenes/Sandbox/Level_02.unity
-    guid: 612c02e7bd77d414a9b451c921949ed1
+  - enabled: 0
+    path: Assets/Scenes/Sandbox/LevelTest2.unity
+    guid: 66db8ac9a17533247ae78e93b6fb20cf
   m_configObjects:
     com.unity.dt.app-ui: {fileID: 11400000, guid: 1b1c20d82303e4b5781c3ef50ac1449f, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

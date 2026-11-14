@@ -1,5 +1,6 @@
 using System;
 using TMPro;
+using BreadBowl.Levels;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,14 +17,16 @@ public class LevelTile : MonoBehaviour
 
     private bool playable;
 
-    public void Initialize(int number, bool isPlayable, Action<int> onClick)
+    public void Initialize(int index, LevelInfo info, Action<int> onClick)
     {
-        playable = isPlayable;
-        levelLabel.text = "LEVEL " + number.ToString("00");
-        statusLabel.text = playable ? "SELECT LEVEL" : "COMING SOON";
+        string number = "Level " + (index + 1).ToString("00");
+        playable = info != null && info.IsPlayable;
+
+        levelLabel.text = info != null ? info.DisplayName : number;
+        statusLabel.text = playable ? number : "COMING SOON";
         background.color = playable ? Normal : Locked;
         button.interactable = playable;
-        button.onClick.AddListener(() => onClick(number));
+        button.onClick.AddListener(() => onClick(index));
     }
 
     public void SetSelected(bool on)
