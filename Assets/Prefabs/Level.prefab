@@ -1680,7 +1680,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8ee1a0ee22d7ef428ff78f7babe2c3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BreadBowl.Levels.ResultUI
-  titleText: {fileID: 0}
+  titleText: {fileID: 4361088815004271946}
   statsContainer: {fileID: 2526972960290437079}
   rowPrefab: {fileID: 7113989058273278056, guid: 9d02b44c8da875f46845932b5b08e5aa, type: 3}
   continueButton: {fileID: 4744426486251076380}
