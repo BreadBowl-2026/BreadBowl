@@ -358,6 +358,11 @@ namespace BreadBowl.Levels
             Finished.Invoke(result);
         }
 
+        /// <summary>
+        /// Result lines are added in this order: built-in stats, then each
+        /// stage's rolls in stage order, then every IResultReporter in the
+        /// scene in no particular order.
+        /// </summary>
         private LevelResult BuildResult(LevelOutcome outcome)
         {
             float time = Time.time - startTime;

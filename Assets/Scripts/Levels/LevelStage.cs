@@ -14,6 +14,10 @@ namespace BreadBowl.Levels
         public LevelConstraint[] Constraints => GetComponentsInChildren<LevelConstraint>();
         public LaunchPoint LaunchPoint => GetComponentInChildren<LaunchPoint>();
 
+        /// <summary>
+        /// LevelController reads this directly, in stage order, instead of
+        /// going through IResultReporter, so stages always list in order.
+        /// </summary>
         public ResultStat Result => new ResultStat(
             displayName, 
             rolls == 1 ? "1 roll" : $"{rolls} rolls"

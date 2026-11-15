@@ -4,6 +4,13 @@ using UnityEngine.UI;
 
 namespace BreadBowl.Levels
 {
+    /// <summary>
+    /// The level complete screen on ResultCanvas in the Level prefab.
+    /// LevelController calls Show, which builds one ResultRow per line in
+    /// LevelResult.Stats inside the scrolling stats container.
+    /// To add lines for a level, don't edit this class. Implement
+    /// IResultReporter instead.
+    /// </summary>
     public class ResultUI : MonoBehaviour
     {
         [SerializeField] private TMP_Text titleText;
