@@ -989,6 +989,7 @@ MonoBehaviour:
   settleTime: 1
   maxRollTime: 15
   fallDepth: 10
+  testLoaf: {fileID: 0}
 --- !u!1 &6258521169635024768
 GameObject:
   m_ObjectHideFlags: 0
