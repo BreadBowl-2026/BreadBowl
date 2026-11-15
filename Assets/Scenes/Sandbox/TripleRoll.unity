@@ -1458,7 +1458,6 @@ MonoBehaviour:
   spawnAhead: 0.65
   sideSpacing: 0.36
   outwardSpeed: 0.3
-  showDebugMessages: 1
 --- !u!4 &490842696 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6924963709929461198, guid: b7d99e050a268a74393c5e2746a07604, type: 3}
