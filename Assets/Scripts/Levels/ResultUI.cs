@@ -7,7 +7,8 @@ namespace BreadBowl.Levels
     public class ResultUI : MonoBehaviour
     {
         [SerializeField] private TMP_Text titleText;
-        [SerializeField] private TMP_Text statsText;
+        [SerializeField] private RectTransform statsContainer;
+        [SerializeField] private ResultRow rowPrefab;
         [SerializeField] private Button continueButton;
 
         public event System.Action ContinuePressed;
@@ -20,12 +21,17 @@ namespace BreadBowl.Levels
         public void Show(string title, LevelResult result)
         {
             gameObject.SetActive(true);
-
-            int minutes = Mathf.FloorToInt(result.Time / 60f);
-            int seconds = Mathf.FloorToInt(result.Time % 60f);
-
             titleText.text = title;
-            statsText.text = $"Loaves bowled: {result.LoavesBowled}\nTime: {minutes:00}:{seconds:00}";
+
+            foreach (Transform child in statsContainer)
+            {
+                Destroy(child.gameObject);
+            }
+
+            foreach (ResultStat stat in result.Stats)
+            {
+                Instantiate(rowPrefab, statsContainer).Show(stat);
+            }
         }
 
         public void Hide()

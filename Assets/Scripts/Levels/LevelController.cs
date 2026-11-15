@@ -179,6 +179,11 @@ namespace BreadBowl.Levels
 
         private void HandleLaunched()
         {
+            if (stages.Length > 0)
+            {
+                stages[stageIndex].RecordRoll();
+            }
+
             foreach (LevelGoal goal in goals)
             {
                 goal.OnRollStarted(currentLoaf);
@@ -362,6 +367,11 @@ namespace BreadBowl.Levels
                 new ResultStat("Loaves bowled", loavesBowled.ToString()),
                 new ResultStat("Time", FormatTime(time))
             };
+
+            foreach (LevelStage stage in stages)
+            {
+                stats.Add(stage.Result);
+            }
 
             AddReporterResults(stats);
 
