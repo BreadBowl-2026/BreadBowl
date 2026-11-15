@@ -1,138 +1,103 @@
+using System.Collections.Generic;
 using BreadBowl.Bowling;
 using BreadBowl.Levels;
 using UnityEngine;
 
-/// <summary>
-/// Attach to the moving target's trigger collider.
-/// MovingPlatform controls movement; this script ONLY awards two physical loaves.
-/// </summary>
 [RequireComponent(typeof(BoxCollider))]
 public class DoughMultiplierGate : LevelGoal
 {
+    private const int BonusLoafCount = 2;
+
     [Header("Bonus dough placement")]
+   
     [SerializeField, Min(0.1f)] private float spawnAhead = 0.65f;
     [SerializeField, Min(0.05f)] private float sideSpacing = 0.36f;
     [SerializeField, Min(0f)] private float outwardSpeed = 0.3f;
 
-    [Header("Debug")]
-    [SerializeField] private bool showDebugMessages = true;
-
-    private Loaf currentLoaf;
-    private bool awardedThisRoll;
+    private readonly List<Loaf> bonusLoaves = new List<Loaf>(BonusLoafCount);
+    private Loaf pendingLoaf;
     private float spawnHeight;
-    private readonly GameObject[] spawnedDough = new GameObject[2];
-    private readonly Rigidbody[] spawnedBodies = new Rigidbody[2];
 
-    private void Awake()
-    {
-        GetComponent<BoxCollider>().isTrigger = true;
-    }
-
-    public override void OnRollStarted(Loaf loaf)
-    {
-        ClearBonusDough();
-        currentLoaf = loaf;
-        awardedThisRoll = false;
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        TryMultiply(other);
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        TryMultiply(other);
-    }
-
+    private void Awake() => GetComponent<BoxCollider>().isTrigger = true;
+    public override void OnRollStarted(Loaf loaf) => ResetBonus(loaf);
+    public override void ResetForNextRoll() => ResetBonus(null);
+    public override bool IsComplete(Loaf loaf) => true;
+    private void OnTriggerEnter(Collider other) => TryMultiply(other);
+    private void OnTriggerStay(Collider other) => TryMultiply(other);
     private void TryMultiply(Collider other)
     {
-        if (awardedThisRoll || currentLoaf == null)
+        Loaf loaf = pendingLoaf;
+        if (loaf == null || other.GetComponentInParent<Loaf>() != loaf)
             return;
 
-        Loaf touchedLoaf = other.GetComponentInParent<Loaf>();
-        if (touchedLoaf == null && other.attachedRigidbody != null)
-            touchedLoaf = other.attachedRigidbody.GetComponentInParent<Loaf>();
-
-        // Only the dough launched this roll can earn the bonus.
-        // Cloned dough cannot cause the gate to multiply repeatedly.
-        if (touchedLoaf != currentLoaf || currentLoaf.Body == null)
+        Rigidbody originalBody = loaf.Body;
+        if (originalBody == null)
             return;
 
-        awardedThisRoll = true;
-        Rigidbody originalBody = currentLoaf.Body;
+        pendingLoaf = null;
+        spawnHeight = originalBody.position.y;
+
         Vector3 velocity = originalBody.linearVelocity;
         Vector3 forward = Vector3.ProjectOnPlane(velocity, Vector3.up);
         if (forward.sqrMagnitude < 0.0001f)
             forward = Vector3.ProjectOnPlane(transform.forward, Vector3.up);
+
         forward.Normalize();
+        Vector3 right = Vector3.Cross(Vector3.up, forward);
+        Vector3 spawnCenter = loaf.transform.position + forward * spawnAhead;
 
-        Vector3 right = Vector3.Cross(Vector3.up, forward).normalized;
-        spawnHeight = originalBody.position.y;
-        int created = 0;
-
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < BonusLoafCount; i++)
         {
-            float side = i == 0 ? -1f : 1f;
-            Vector3 spawnPosition = currentLoaf.transform.position
-                + forward * spawnAhead
-                + right * side * sideSpacing;
+            Vector3 side = i == 0 ? -right : right;
+            Vector3 spawnPosition = spawnCenter + side * sideSpacing;
+            Loaf copy = Instantiate(loaf, spawnPosition, loaf.transform.rotation);
+            copy.gameObject.name = $"Bonus Dough {i + 1}";
 
-            Loaf copy = Instantiate(currentLoaf, spawnPosition, currentLoaf.transform.rotation);
-            copy.gameObject.name = "Bonus Dough " + (i + 1);
-            Rigidbody copyBody = copy.Body;
-            if (copyBody == null)
+            Rigidbody body = copy.Body;
+            if (body == null)
             {
                 Debug.LogError("[Bonus Gate] Bonus dough has no Rigidbody.", copy);
                 Destroy(copy.gameObject);
                 continue;
             }
 
-            spawnedDough[i] = copy.gameObject;
-            spawnedBodies[i] = copyBody;
-            copyBody.isKinematic = false;
-            copyBody.detectCollisions = true;
-            copyBody.linearVelocity = velocity + right * side * outwardSpeed;
-            copyBody.angularVelocity = originalBody.angularVelocity;
-            copyBody.WakeUp();
-            created++;
+            bonusLoaves.Add(copy);
+            body.isKinematic = false;
+            body.detectCollisions = true;
+            body.linearVelocity = velocity + side * outwardSpeed;
+            body.angularVelocity = originalBody.angularVelocity;
+            body.WakeUp();
         }
-
-        if (showDebugMessages)
-            Debug.Log("[Bonus Gate] Spawned " + created + " bonus dough balls.", this);
     }
-
 
     public bool HasMovingBonusDough(float speedThreshold)
     {
-        float speedSqr = speedThreshold * speedThreshold;
-        foreach (Rigidbody body in spawnedBodies)
+        float speedSquared = speedThreshold * speedThreshold;
+        foreach (Loaf loaf in bonusLoaves)
         {
+            if (loaf == null)
+                continue;
+
+            Rigidbody body = loaf.Body;
             if (body == null || body.position.y < spawnHeight - 3f)
                 continue;
-            if (body.linearVelocity.sqrMagnitude >= speedSqr)
+
+            if (body.linearVelocity.sqrMagnitude >= speedSquared)
                 return true;
         }
+
         return false;
     }
 
-    public override bool IsComplete(Loaf loaf) => true;
-
-    public override void ResetForNextRoll()
+    private void ResetBonus(Loaf nextLoaf)
     {
-        ClearBonusDough();
-        currentLoaf = null;
-        awardedThisRoll = false;
-    }
-
-    private void ClearBonusDough()
-    {
-        for (int i = 0; i < spawnedDough.Length; i++)
+        foreach (Loaf loaf in bonusLoaves)
         {
-            if (spawnedDough[i] != null)
-                Destroy(spawnedDough[i]);
-            spawnedDough[i] = null;
-            spawnedBodies[i] = null;
+            if (loaf != null)
+                Destroy(loaf.gameObject);
         }
+
+        bonusLoaves.Clear();
+        pendingLoaf = nextLoaf;
     }
 }
