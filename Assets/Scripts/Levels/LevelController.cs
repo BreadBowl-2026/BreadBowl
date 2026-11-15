@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Collections;
 using BreadBowl.Bowling;
 using UnityEngine;
@@ -15,6 +16,7 @@ namespace BreadBowl.Levels
         public LevelOutcome Outcome;
         public int LoavesBowled;
         public float Time;
+        public List<ResultStat> Stats;
     }
 
     public class LevelController : MonoBehaviour
@@ -353,12 +355,41 @@ namespace BreadBowl.Levels
 
         private LevelResult BuildResult(LevelOutcome outcome)
         {
+            float time = Time.time - startTime;
+
+            List<ResultStat> stats = new List<ResultStat>
+            {
+                new ResultStat("Loaves bowled", loavesBowled.ToString()),
+                new ResultStat("Time", FormatTime(time))
+            };
+
+            AddReporterResults(stats);
+
             return new LevelResult
             {
                 Outcome = outcome,
                 LoavesBowled = loavesBowled,
-                Time = Time.time - startTime
+                Time = time,
+                Stats = stats
             };
+        }
+
+        private void AddReporterResults(List<ResultStat> stats)
+        {
+            foreach (MonoBehaviour behavior in FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None))
+            {
+                if (behavior is IResultReporter reporter)
+                {
+                    reporter.AddResults(stats);
+                }
+            }
+        }
+
+        private static string FormatTime(float seconds)
+        {
+            int minutes = Mathf.FloorToInt(seconds / 60f);
+            int remainder = Mathf.FloorToInt(seconds % 60f);
+            return $"{minutes:00}:{remainder:00}";
         }
     }
 }
