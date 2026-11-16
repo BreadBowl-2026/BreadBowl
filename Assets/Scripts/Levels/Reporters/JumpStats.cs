@@ -15,7 +15,8 @@ namespace BreadBowl.Levels
         private bool landed;
         private float topSpeed;
         private float maxHeight;
-        private float longestJump;
+        private float carryDistance;
+        private float totalDistance;
 
         private void Awake()
         {
@@ -43,6 +44,11 @@ namespace BreadBowl.Levels
 
         private void HandleRollEnded(Loaf rolling)
         {
+            if (landed)
+            {
+                totalDistance = Mathf.Max(totalDistance, Downrange(rolling));
+            }
+
             loaf = null;
             loafCollider = null;
         }
@@ -67,16 +73,22 @@ namespace BreadBowl.Levels
 
             if (downrange > 0f && bottom <= landingTolerance)
             {
-                longestJump = Mathf.Max(longestJump, downrange);
+                carryDistance = Mathf.Max(carryDistance, downrange);
                 landed = true;
             }
+        }
+
+        private float Downrange(Loaf target)
+        {
+            return Vector3.Dot(target.Body.position - transform.position, transform.forward);
         }
 
         public void AddResults(List<ResultStat> stats)
         {
             stats.Add(new ResultStat("Top speed", $"{topSpeed:0.0} m/s"));
             stats.Add(new ResultStat("Max height", $"{maxHeight:0.0} m"));
-            stats.Add(new ResultStat("Longest jump", longestJump > 0f ? $"{longestJump:0.0}m" : "No landing"));
+            stats.Add(new ResultStat("Carry distance", carryDistance > 0f ? $"{carryDistance:0.0} m" : "No landing"));
+            stats.Add(new ResultStat("Total distance", totalDistance > 0f ? $"{totalDistance:0.0} m" : "No landing"));
         }
 
         private void OnDrawGizmos()
