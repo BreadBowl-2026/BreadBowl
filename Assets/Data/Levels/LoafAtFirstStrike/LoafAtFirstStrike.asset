@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: LoafAtFirstStrike
   m_EditorClassIdentifier: Assembly-CSharp::BreadBowl.Levels.LevelInfo
   displayName: Loaf At First Strike
-  sceneName: 
-  description: 
-  screenshot: {fileID: 0}
+  sceneName: LoafAtFirstStrike
+  description: Fall in loaf at first strike. Complete three strike challenges with
+    increasing difficulty to pass the level.
+  screenshot: {fileID: 21300000, guid: d99437f73a40bc04aac5910658af1c78, type: 3}
