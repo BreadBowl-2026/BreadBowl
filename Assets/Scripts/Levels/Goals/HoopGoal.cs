@@ -5,10 +5,17 @@ using UnityEngine;
 public class HoopGoal : LevelGoal
 {
     [SerializeField] private int hoops = 2;
-    private int hoopsJumpedThrough = 0;
+    public int hoopsJumpedThrough = 0;
     public override bool IsComplete(Loaf loaf)
     {
-        return hoopsJumpedThrough > hoops;
+        if (hoopsJumpedThrough >= hoops)
+        {
+            return true;
+        } else
+        {
+            hoopsJumpedThrough = 0;
+            return false;
+        }
     }
 
     public void HoopJumpedThrough()
