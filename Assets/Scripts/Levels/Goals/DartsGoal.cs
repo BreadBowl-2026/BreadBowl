@@ -1,9 +1,10 @@
+using System.Collections.Generic;
 using BreadBowl.Bowling;
 using UnityEngine;
 
 namespace BreadBowl.Levels
 {
-    public class DartsGoal : LevelGoal
+    public class DartsGoal : LevelGoal, IResultReporter
     {
         [SerializeField] private float MaxScore = 100f;
         [SerializeField] private Transform targetCenter;
@@ -56,6 +57,11 @@ namespace BreadBowl.Levels
         {
             hitLoaf = null;
             Score = 0f;
+        }
+
+        public void AddResults(List<ResultStat> stats)
+        {
+            stats.Add(new ResultStat("Score", Score.ToString("0")));
         }
     }
 }
