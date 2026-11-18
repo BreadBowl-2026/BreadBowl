@@ -53,6 +53,8 @@ namespace BreadBowl.Levels
 
 
         public event System.Action<LevelResult> Finished;
+        public event System.Action<Loaf> RollStarted;
+        public event System.Action<Loaf> RollEnded;
 
         private void Awake()
         {
@@ -194,6 +196,8 @@ namespace BreadBowl.Levels
                 constraint.OnRollStarted(currentLoaf);
             }
 
+            RollStarted?.Invoke(currentLoaf);
+
             StartCoroutine(WatchRoll(currentLoaf));
         }
 
@@ -215,6 +219,8 @@ namespace BreadBowl.Levels
             }
 
             yield return new WaitForSeconds(LongestSettleTime());
+
+            RollEnded?.Invoke(loaf);
 
             LevelConstraint violated = FindViolation(loaf);
             bool completed = violated == null && AllGoalsComplete(loaf);

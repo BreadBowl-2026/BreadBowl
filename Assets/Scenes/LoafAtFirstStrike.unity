@@ -905,8 +905,8 @@ Mesh:
   m_CookingOptions: 30
   m_BakedConvexCollisionMesh: 
   m_BakedTriangleCollisionMesh: 
-  'm_MeshMetrics[0]': 1.0000001
-  'm_MeshMetrics[1]': 1
+  m_MeshMetrics[0]: 1.0000001
+  m_MeshMetrics[1]: 1
   m_MeshOptimizationFlags: 1
   m_StreamData:
     serializedVersion: 2
@@ -1900,19 +1900,23 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6663934056503770329, guid: 03d314ef9b23fbc4a8c28db7060d718f, type: 3}
     - target: {fileID: 4808669429704497339, guid: 09254468e7e984144941f7f459290abe, type: 3}
+      propertyPath: testLoaf
+      value: 
+      objectReference: {fileID: 4704962520191272399, guid: bc5517867292cad49876260296c0001b, type: 3}
+    - target: {fileID: 4808669429704497339, guid: 09254468e7e984144941f7f459290abe, type: 3}
       propertyPath: stages.Array.size
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4808669429704497339, guid: 09254468e7e984144941f7f459290abe, type: 3}
-      propertyPath: 'stages.Array.data[0]'
+      propertyPath: stages.Array.data[0]
       value: 
       objectReference: {fileID: 151552811}
     - target: {fileID: 4808669429704497339, guid: 09254468e7e984144941f7f459290abe, type: 3}
-      propertyPath: 'stages.Array.data[1]'
+      propertyPath: stages.Array.data[1]
       value: 
       objectReference: {fileID: 1939959075}
     - target: {fileID: 4808669429704497339, guid: 09254468e7e984144941f7f459290abe, type: 3}
-      propertyPath: 'stages.Array.data[2]'
+      propertyPath: stages.Array.data[2]
       value: 
       objectReference: {fileID: 2085131042}
     - target: {fileID: 4918353262948497519, guid: 09254468e7e984144941f7f459290abe, type: 3}
@@ -4200,8 +4204,8 @@ Mesh:
   m_CookingOptions: 30
   m_BakedConvexCollisionMesh: 
   m_BakedTriangleCollisionMesh: 
-  'm_MeshMetrics[0]': 1.0000001
-  'm_MeshMetrics[1]': 1
+  m_MeshMetrics[0]: 1.0000001
+  m_MeshMetrics[1]: 1
   m_MeshOptimizationFlags: 1
   m_StreamData:
     serializedVersion: 2
@@ -6014,8 +6018,8 @@ Mesh:
   m_CookingOptions: 30
   m_BakedConvexCollisionMesh: 
   m_BakedTriangleCollisionMesh: 
-  'm_MeshMetrics[0]': 1.0000001
-  'm_MeshMetrics[1]': 1
+  m_MeshMetrics[0]: 1.0000001
+  m_MeshMetrics[1]: 1
   m_MeshOptimizationFlags: 1
   m_StreamData:
     serializedVersion: 2
@@ -6923,8 +6927,8 @@ Mesh:
   m_CookingOptions: 30
   m_BakedConvexCollisionMesh: 
   m_BakedTriangleCollisionMesh: 
-  'm_MeshMetrics[0]': 1.0000001
-  'm_MeshMetrics[1]': 1
+  m_MeshMetrics[0]: 1.0000001
+  m_MeshMetrics[1]: 1
   m_MeshOptimizationFlags: 1
   m_StreamData:
     serializedVersion: 2

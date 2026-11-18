@@ -134,6 +134,10 @@ PrefabInstance:
     - target: {fileID: 4525258190256437685, guid: 332fab55134624b6495894ceaa04d40a, type: 3}
       propertyPath: 'levels.Array.data[1]'
       value: 
+      objectReference: {fileID: 11400000, guid: 4c8288c514076da46b340f3d46fda640, type: 2}
+    - target: {fileID: 4525258190256437685, guid: 332fab55134624b6495894ceaa04d40a, type: 3}
+      propertyPath: 'levels.Array.data[2]'
+      value: 
       objectReference: {fileID: 11400000, guid: 403c5879eab05474ca547a14e8b3fbc4, type: 2}
     - target: {fileID: 4525258190256437685, guid: 332fab55134624b6495894ceaa04d40a, type: 3}
       propertyPath: 'levels.Array.data[2]'
