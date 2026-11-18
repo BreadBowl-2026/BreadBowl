@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 5623b355e6dd4d9da22941637c99ed3b
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 422952
+  packageName: "Dine & Dash FREE \u2013 Retro American Diner Exterior with Neon and
+    Parking Lot"
+  packageVersion: 1.0
+  assetPath: Assets/RetroStyleGames/American Diner/Base/Shaders/RSG_Skybox_Cubemap.shader
+  uploadId: 1034864

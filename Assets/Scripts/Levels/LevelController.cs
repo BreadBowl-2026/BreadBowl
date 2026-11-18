@@ -208,7 +208,7 @@ namespace BreadBowl.Levels
 
             while (elapsed < maxRollTime &&
                     stillTime < settleTime &&
-                    !HasFallen(loaf))
+                    !HasFallen(loaf) && !AllGoalsComplete(loaf))
             {
                 elapsed += Time.deltaTime;
                 stillTime = loaf.Body.linearVelocity.magnitude < settleSpeed

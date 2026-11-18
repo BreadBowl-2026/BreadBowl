@@ -1,0 +1,26 @@
+fileFormatVersion: 2
+guid: ad7c26d351143ab48b2ccb710be00bd8
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 625f186215c104763be7675aa2d941aa, type: 3}
+  useAsTemplate: 0
+  exposeTemplateAsShader: 0
+  template:
+    name: 
+    category: 
+    description: 
+    icon: {instanceID: 0}
+    thumbnail: {instanceID: 0}
+AssetOrigin:
+  serializedVersion: 1
+  productId: 422952
+  packageName: "Dine & Dash FREE \u2013 Retro American Diner Exterior with Neon and
+    Parking Lot"
+  packageVersion: 1.0
+  assetPath: Assets/RetroStyleGames/American Diner/Base/Shaders/RSG_Puddle.shadergraph
+  uploadId: 1034864
