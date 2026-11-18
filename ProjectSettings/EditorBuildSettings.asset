@@ -15,11 +15,14 @@ EditorBuildSettings:
     path: Assets/Scenes/LoafAtFirstStrike.unity
     guid: af6438e96b383c24897eb6755998e3d0
   - enabled: 1
-    path: Assets/Scenes/knead_for_speed.unity
-    guid: cdaaf9c34648b744d944eca94957282a
-  - enabled: 1
     path: Assets/Scenes/JumpingTheBun.unity
     guid: 6f0c5a55299c864488cca56907a8c591
+  - enabled: 1
+    path: Assets/Scenes/Starchery.unity
+    guid: 8296ed73cb3d48046922833734636642
+  - enabled: 1
+    path: Assets/Scenes/knead_for_speed.unity
+    guid: cdaaf9c34648b744d944eca94957282a
   m_configObjects:
     com.unity.dt.app-ui: {fileID: 11400000, guid: 1b1c20d82303e4b5781c3ef50ac1449f, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
