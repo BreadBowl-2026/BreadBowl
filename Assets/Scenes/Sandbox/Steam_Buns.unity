@@ -7355,7 +7355,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fee8e62a2d473a4ab8beaebeddc9b75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BreadBowl.Levels.LevelStage
-  displayName: 'Level ?: Ride the Steam'
+  displayName: 'Level ?: Steam Buns'
 --- !u!1001 &2071411440
 PrefabInstance:
   m_ObjectHideFlags: 0
