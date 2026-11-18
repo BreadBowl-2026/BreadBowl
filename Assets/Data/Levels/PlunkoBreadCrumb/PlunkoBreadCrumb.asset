@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c96d23744f8135c498550cf269f08854, type: 3}
+  m_Name: PlunkoBreadCrumb
+  m_EditorClassIdentifier: Assembly-CSharp::BreadBowl.Levels.LevelInfo
+  displayName: Plunko
+  sceneName: PlunkoBreadCrumbs
+  description: 
+  screenshot: {fileID: -5499094091136782307, guid: 4d24d0c9930c64b4a9deda7b4a76a005, type: 3}

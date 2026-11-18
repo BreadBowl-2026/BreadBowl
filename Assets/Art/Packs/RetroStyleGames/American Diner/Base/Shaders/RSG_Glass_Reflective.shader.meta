@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: b3bdd34ccac6c9047bf8c23c027f7dbe
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 422952
+  packageName: "Dine & Dash FREE \u2013 Retro American Diner Exterior with Neon and
+    Parking Lot"
+  packageVersion: 1.0
+  assetPath: Assets/RetroStyleGames/American Diner/Base/Shaders/RSG_Glass_Reflective.shader
+  uploadId: 1034864

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Collections;
 using BreadBowl.Bowling;
 using UnityEngine;
@@ -15,6 +16,7 @@ namespace BreadBowl.Levels
         public LevelOutcome Outcome;
         public int LoavesBowled;
         public float Time;
+        public List<ResultStat> Stats;
     }
 
     public class LevelController : MonoBehaviour
@@ -51,6 +53,8 @@ namespace BreadBowl.Levels
 
 
         public event System.Action<LevelResult> Finished;
+        public event System.Action<Loaf> RollStarted;
+        public event System.Action<Loaf> RollEnded;
 
         private void Awake()
         {
@@ -177,6 +181,11 @@ namespace BreadBowl.Levels
 
         private void HandleLaunched()
         {
+            if (stages.Length > 0)
+            {
+                stages[stageIndex].RecordRoll();
+            }
+
             foreach (LevelGoal goal in goals)
             {
                 goal.OnRollStarted(currentLoaf);
@@ -186,6 +195,8 @@ namespace BreadBowl.Levels
             {
                 constraint.OnRollStarted(currentLoaf);
             }
+
+            RollStarted?.Invoke(currentLoaf);
 
             StartCoroutine(WatchRoll(currentLoaf));
         }
@@ -197,8 +208,8 @@ namespace BreadBowl.Levels
 
             while (elapsed < maxRollTime &&
                     stillTime < settleTime &&
-                    !HasFallen(loaf))
-            {
+                    !HasFallen(loaf) 
+            ){
                 elapsed += Time.deltaTime;
                 stillTime = loaf.Body.linearVelocity.magnitude < settleSpeed
                     ? stillTime + Time.deltaTime
@@ -208,6 +219,8 @@ namespace BreadBowl.Levels
             }
 
             yield return new WaitForSeconds(LongestSettleTime());
+
+            RollEnded?.Invoke(loaf);
 
             LevelConstraint violated = FindViolation(loaf);
             bool completed = violated == null && AllGoalsComplete(loaf);
@@ -351,14 +364,53 @@ namespace BreadBowl.Levels
             Finished.Invoke(result);
         }
 
+        /// <summary>
+        /// Result lines are added in this order: built-in stats, then each
+        /// stage's rolls in stage order, then every IResultReporter in the
+        /// scene in no particular order.
+        /// </summary>
         private LevelResult BuildResult(LevelOutcome outcome)
         {
+            float time = Time.time - startTime;
+
+            List<ResultStat> stats = new List<ResultStat>
+            {
+                new ResultStat("Loaves bowled", loavesBowled.ToString()),
+                new ResultStat("Time", FormatTime(time))
+            };
+
+            foreach (LevelStage stage in stages)
+            {
+                stats.Add(stage.Result);
+            }
+
+            AddReporterResults(stats);
+
             return new LevelResult
             {
                 Outcome = outcome,
                 LoavesBowled = loavesBowled,
-                Time = Time.time - startTime
+                Time = time,
+                Stats = stats
             };
+        }
+
+        private void AddReporterResults(List<ResultStat> stats)
+        {
+            foreach (MonoBehaviour behavior in FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None))
+            {
+                if (behavior is IResultReporter reporter)
+                {
+                    reporter.AddResults(stats);
+                }
+            }
+        }
+
+        private static string FormatTime(float seconds)
+        {
+            int minutes = Mathf.FloorToInt(seconds / 60f);
+            int remainder = Mathf.FloorToInt(seconds % 60f);
+            return $"{minutes:00}:{remainder:00}";
         }
     }
 }
