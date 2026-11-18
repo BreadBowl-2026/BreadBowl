@@ -1,0 +1,30 @@
+fileFormatVersion: 2
+guid: a76d1c94a5ece4f48b05f73286562077
+AudioImporter:
+  externalObjects: {}
+  serializedVersion: 6
+  defaultSettings:
+    loadType: 0
+    sampleRateSetting: 0
+    sampleRateOverride: 44100
+    compressionFormat: 0
+    quality: 1
+    conversionMode: 0
+  platformSettingOverrides: {}
+  forceToMono: 0
+  normalize: 1
+  preloadAudioData: 1
+  loadInBackground: 0
+  ambisonic: 0
+  3D: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 220142
+  packageName: Close Contact
+  packageVersion: 1.0
+  assetPath: Assets/Rogue Waves/Close Contact/PizzaTray/PizzaTray_Golfball/METLMisc_PizzaTray
+    GolfBall_Rogue Waves_Close Contact_03.wav
+  uploadId: 495946
