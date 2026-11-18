@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BreadBowl.Levels.LevelInfo
   displayName: Rolling In Dough
   sceneName: RollingInDough
-  description: 
-  screenshot: {fileID: 0}
+  description: Aim carefully and knock down all three moving pins!
+  screenshot: {fileID: 6824613311317433592, guid: f1e3ed9a7141e40beb7a67e92aa14ec6, type: 3}

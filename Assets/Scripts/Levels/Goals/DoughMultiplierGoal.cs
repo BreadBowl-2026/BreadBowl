@@ -13,8 +13,14 @@ namespace BreadBowl.Levels
         private Vector3[] pinUps;
         private bool allPinsDown;
         private int lastDownCount = -1;
+        private PinsReporter pinsReporter;
 
         public override float SettleTime => settleTime;
+
+        private void Awake()
+        {
+            pinsReporter = GetComponent<PinsReporter>();
+        }
 
         private void Start()
         {
@@ -38,6 +44,7 @@ namespace BreadBowl.Levels
         {
             allPinsDown = false;
             lastDownCount = -1;
+            pinsReporter?.BeginRoll();
         }
 
         public override bool IsComplete(Loaf loaf)
@@ -47,12 +54,7 @@ namespace BreadBowl.Levels
             if (pins == null || pins.Length == 0)
                 return false;
 
-            int downCount = 0;
-            for (int i = 0; i < pins.Length; i++)
-            {
-                if (pins[i] != null && !IsStanding(i))
-                    downCount++;
-            }
+            int downCount = CountPinsDown();
 
             if (downCount != lastDownCount)
             {
@@ -71,6 +73,9 @@ namespace BreadBowl.Levels
 
         public override void ResetForNextRoll()
         {
+            // Record the result before returning the pins to their starting positions.
+            pinsReporter?.EndRoll(CountPinsDown());
+
             allPinsDown = false;
             lastDownCount = -1;
             if (pins == null)
@@ -85,6 +90,21 @@ namespace BreadBowl.Levels
                 pins[i].transform.SetPositionAndRotation(pinStarts[i].position, pinStarts[i].rotation);
                 pins[i].Sleep();
             }
+        }
+
+        public int CountPinsDown()
+        {
+            if (pins == null)
+                return 0;
+
+            int downCount = 0;
+            for (int i = 0; i < pins.Length; i++)
+            {
+                if (pins[i] != null && !IsStanding(i))
+                    downCount++;
+            }
+
+            return downCount;
         }
 
         private bool IsStanding(int index)

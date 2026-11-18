@@ -151,6 +151,10 @@ PrefabInstance:
       propertyPath: 'levels.Array.data[5]'
       value: 
       objectReference: {fileID: 11400000, guid: 55627f87f67052548bcb7aeae66b9240, type: 2}
+    - target: {fileID: 4525258190256437685, guid: 332fab55134624b6495894ceaa04d40a, type: 3}
+      propertyPath: 'levels.Array.data[6]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 55627f87f67052548bcb7aeae66b9240, type: 2}
     - target: {fileID: 5083776960586811216, guid: 332fab55134624b6495894ceaa04d40a, type: 3}
       propertyPath: m_Pivot.x
       value: 0

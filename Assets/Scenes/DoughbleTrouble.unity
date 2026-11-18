@@ -956,6 +956,7 @@ GameObject:
   m_Component:
   - component: {fileID: 230693504}
   - component: {fileID: 230693505}
+  - component: {fileID: 230693506}
   m_Layer: 0
   m_Name: PinRack
   m_TagString: Untagged
@@ -1002,6 +1003,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BreadBowl.Levels.DoughMultiplierGoal
   knockedAngle: 30
   settleTime: 1
+--- !u!114 &230693506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 230693503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7df074d78e6f4d01af9d0f6d50b7d4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BreadBowl.Levels.PinsReporter
 --- !u!1 &294874511
 GameObject:
   m_ObjectHideFlags: 0
@@ -4066,6 +4079,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 783535456719804539, guid: 09254468e7e984144941f7f459290abe, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 783535456719804539, guid: 09254468e7e984144941f7f459290abe, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1065298513252353016, guid: 09254468e7e984144941f7f459290abe, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -4090,6 +4111,22 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 600391749}
+    - target: {fileID: 2252109593129638877, guid: 09254468e7e984144941f7f459290abe, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2252109593129638877, guid: 09254468e7e984144941f7f459290abe, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2252109593129638877, guid: 09254468e7e984144941f7f459290abe, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2526972960290437079, guid: 09254468e7e984144941f7f459290abe, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2764880503874319738, guid: 09254468e7e984144941f7f459290abe, type: 3}
       propertyPath: m_Mesh
       value: 

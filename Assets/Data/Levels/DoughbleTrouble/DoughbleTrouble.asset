@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BreadBowl.Levels.LevelInfo
   displayName: Doughble Trouble
   sceneName: DoughbleTrouble
-  description: 
-  screenshot: {fileID: 0}
+  description: Pass through the bonus gate to multiply your dough and strike all
+    the pins!
+  screenshot: {fileID: 8661612803485152668, guid: 4d7c1477408de474ab4723fd6a9a46bb, type: 3}
