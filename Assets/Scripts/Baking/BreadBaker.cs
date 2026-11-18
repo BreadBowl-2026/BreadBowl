@@ -50,6 +50,7 @@ public class BreadBaker : MonoBehaviour
     public event System.Action Finished;
 
     [Header("Audio")]
+    [SerializeField] private AudioClip ovenTickingSound;
     [SerializeField] private AudioClip ovenDingSound;
 
     public Mesh BakedMesh => doughMesh;
@@ -197,6 +198,8 @@ public class BreadBaker : MonoBehaviour
         startButton.gameObject.SetActive(false);
         takeOutButton.gameObject.SetActive(true);
 
+        AudioManager.Instance?.PlayOvenTickingSound(ovenTickingSound);
+
         bakingCoroutine = StartCoroutine(Bake());
     }
 
@@ -320,11 +323,12 @@ public class BreadBaker : MonoBehaviour
         isBaking = false;
         bakingCoroutine = null;
 
+        AudioManager.Instance?.StopOvenTickingSound();
+        PlayOvenDingSound();
+
         if (ovenDoor == null)
             ovenDoor = FindFirstObjectByType<OvenDoor>();
 
-        PlayOvenDingSound();
-        
         if (ovenDoor != null)
             ovenDoor.OpenDoor();
 

@@ -88,6 +88,28 @@ public class AudioManager : MonoBehaviour
             sfxSource.PlayOneShot(clip);
         }
     }
+    public void PlayOvenTickingSound(AudioClip clip)
+    {
+        if (sfxSource != null && clip != null && !IsSFXMuted())
+        {
+            sfxSource.clip = clip;
+            Debug.Log("Clip: " + clip.name);
+            sfxSource.loop = true;
+            Debug.Log("Looping: " + sfxSource.loop);
+            sfxSource.Play();
+            Debug.Log("Playing oven ticking sound.");
+        }
+    }
+    public void StopOvenTickingSound()
+    {
+        if (sfxSource != null)
+        {
+            sfxSource.Stop();
+            sfxSource.loop = false;
+            sfxSource.clip = null;
+            Debug.Log("Stopped oven ticking sound.");
+        }
+    }
 
     // -------------------------
     // Kneading Volume

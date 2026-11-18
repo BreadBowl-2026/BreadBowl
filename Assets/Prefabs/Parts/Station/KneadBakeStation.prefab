@@ -5962,6 +5962,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6415014178072190615}
     - target: {fileID: 4912893661788169943, guid: fe216801b0d4e48088536b28f8079648, type: 3}
+      propertyPath: ovenDingSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 92118649d647bba40abdf1364b5df41b, type: 3}
+    - target: {fileID: 4912893661788169943, guid: fe216801b0d4e48088536b28f8079648, type: 3}
       propertyPath: startFriction
       value: 0.8
       objectReference: {fileID: 0}
@@ -5977,6 +5981,10 @@ PrefabInstance:
       propertyPath: minRiseFraction
       value: 0.75
       objectReference: {fileID: 0}
+    - target: {fileID: 4912893661788169943, guid: fe216801b0d4e48088536b28f8079648, type: 3}
+      propertyPath: ovenTickingSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 32be2830408ab1c429305a0a068c2bd6, type: 3}
     - target: {fileID: 4912893661788169943, guid: fe216801b0d4e48088536b28f8079648, type: 3}
       propertyPath: lumpByKnead.m_Curve.Array.data[0].time
       value: 0.016666412
