@@ -81,6 +81,13 @@ public class AudioManager : MonoBehaviour
     {
         return masterMuted || sfxMuted;
     }
+    public void PlaySFX(AudioClip clip)
+    {
+        if (sfxSource != null && clip != null && !IsSFXMuted())
+        {
+            sfxSource.PlayOneShot(clip);
+        }
+    }
 
     // -------------------------
     // Kneading Volume

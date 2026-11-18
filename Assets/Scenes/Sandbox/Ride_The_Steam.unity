@@ -634,6 +634,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8175889758505095434, guid: a2cd4b8e75316e540a30fd4096750c7d, type: 3}
   m_PrefabInstance: {fileID: 709436319}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &755272613 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3560142258351050868, guid: 09254468e7e984144941f7f459290abe, type: 3}
+  m_PrefabInstance: {fileID: 1570263741}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abed46f934de43148a04ecc3f9b9384a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonSoundPlayer
 --- !u!4 &791609303 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 821697842945565480, guid: ad723011623795149ab723c33c434c37, type: 3}
@@ -1890,7 +1901,7 @@ PrefabInstance:
       objectReference: {fileID: 971586386}
     - target: {fileID: 1099717521616984655, guid: 09254468e7e984144941f7f459290abe, type: 3}
       propertyPath: m_VersionIndex
-      value: 1186
+      value: 1387
       objectReference: {fileID: 0}
     - target: {fileID: 1637214536808728585, guid: 09254468e7e984144941f7f459290abe, type: 3}
       propertyPath: m_Mesh
@@ -1902,7 +1913,7 @@ PrefabInstance:
       objectReference: {fileID: 1687199412}
     - target: {fileID: 2764880503874319738, guid: 09254468e7e984144941f7f459290abe, type: 3}
       propertyPath: m_VersionIndex
-      value: 1188
+      value: 1389
       objectReference: {fileID: 0}
     - target: {fileID: 2767679930344699931, guid: 09254468e7e984144941f7f459290abe, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1932,6 +1943,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 3592135957471038254, guid: 09254468e7e984144941f7f459290abe, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3592135957471038254, guid: 09254468e7e984144941f7f459290abe, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3592135957471038254, guid: 09254468e7e984144941f7f459290abe, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 755272613}
+    - target: {fileID: 3592135957471038254, guid: 09254468e7e984144941f7f459290abe, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3592135957471038254, guid: 09254468e7e984144941f7f459290abe, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: PlayButtonSound
+      objectReference: {fileID: 0}
+    - target: {fileID: 3592135957471038254, guid: 09254468e7e984144941f7f459290abe, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: ButtonSoundPlayer, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3592135957471038254, guid: 09254468e7e984144941f7f459290abe, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 4918353262948497519, guid: 09254468e7e984144941f7f459290abe, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -1960,7 +1999,8 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 971586386}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3067448164042542254, guid: 09254468e7e984144941f7f459290abe, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:

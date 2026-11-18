@@ -150,6 +150,7 @@ GameObject:
   - component: {fileID: 9135869874517652061}
   - component: {fileID: 7286474391057780613}
   - component: {fileID: 6380997711885195530}
+  - component: {fileID: 3142421470677136237}
   m_Layer: 0
   m_Name: Button
   m_TagString: Untagged
@@ -274,7 +275,32 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8302231075503669713}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3142421470677136237}
+        m_TargetAssemblyTypeName: ButtonSoundPlayer, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &3142421470677136237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3713679072041432665}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abed46f934de43148a04ecc3f9b9384a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonSoundPlayer
+  buttonSound: {fileID: 8300000, guid: cf6c0e7fbef9449c98a0cdb5ea0c4d9f, type: 3}
 --- !u!1 &3813218689888727647
 GameObject:
   m_ObjectHideFlags: 0

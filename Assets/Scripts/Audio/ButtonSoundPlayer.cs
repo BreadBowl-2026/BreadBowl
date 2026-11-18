@@ -2,20 +2,22 @@ using UnityEngine;
 
 public class ButtonSoundPlayer : MonoBehaviour
 {
-    [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip buttonSound;
 
     public void PlayButtonSound()
     {
-        if (audioSource == null || buttonSound == null)
-            return;
-
-        if (AudioManager.Instance != null &&
-            AudioManager.Instance.IsSFXMuted())
+        if (buttonSound == null)
         {
+            Debug.Log("No button sound assigned.");
             return;
         }
 
-        audioSource.PlayOneShot(buttonSound);
+        if (AudioManager.Instance == null)
+        {
+            Debug.Log("AudioManager instance not found.");
+            return;
+        }
+
+        AudioManager.Instance.PlaySFX(buttonSound);
     }
 }

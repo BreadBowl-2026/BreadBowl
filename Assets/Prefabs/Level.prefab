@@ -624,7 +624,6 @@ MonoBehaviour:
   bakeButton: {fileID: 1187085230201012198}
   loafCountText: {fileID: 8317102947018985649}
   messageText: {fileID: 1408069402371434224}
-  menuButton: {fileID: 0}
 --- !u!1 &4382623432893142160
 GameObject:
   m_ObjectHideFlags: 0
@@ -989,6 +988,7 @@ MonoBehaviour:
   settleTime: 1
   maxRollTime: 15
   fallDepth: 10
+  stages: []
   testLoaf: {fileID: 0}
 --- !u!1 &6258521169635024768
 GameObject:
@@ -1942,6 +1942,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 428673538348125582}
     m_Modifications:
+    - target: {fileID: 883540664618638329, guid: 8f5543d8c381b28459cf59a17ce78103, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 883540664618638329, guid: 8f5543d8c381b28459cf59a17ce78103, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 883540664618638329, guid: 8f5543d8c381b28459cf59a17ce78103, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 883540664618638329, guid: 8f5543d8c381b28459cf59a17ce78103, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: BreadBowl.ShapeStage, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 1355916315637036199, guid: 8f5543d8c381b28459cf59a17ce78103, type: 3}
       propertyPath: m_Name
       value: KneadBakeStation
