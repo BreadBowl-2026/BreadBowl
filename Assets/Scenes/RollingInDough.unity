@@ -10460,6 +10460,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 522440883}
+    - target: {fileID: 4808669429704497339, guid: 09254468e7e984144941f7f459290abe, type: 3}
+      propertyPath: testLoaf
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5030801182664829223, guid: 09254468e7e984144941f7f459290abe, type: 3}
       propertyPath: m_Name
       value: Level

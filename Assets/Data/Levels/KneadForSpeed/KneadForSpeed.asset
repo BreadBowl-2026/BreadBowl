@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: KneadForSpeed
   m_EditorClassIdentifier: Assembly-CSharp::BreadBowl.Levels.LevelInfo
   displayName: Knead For Speed
-  sceneName: knead_for_speed
+  sceneName: KneadForSpeed
   description: Zoom through the loop and see how far your knead for speed can take
     you!
-  screenshot: {fileID: 3073746130282629696, guid: 73b08365e5cb1a94997ed5682386bea1, type: 3}
+  screenshot: {fileID: 5544044317833852769, guid: f980359d0fba2e44bbaafb7bfc1af414, type: 3}

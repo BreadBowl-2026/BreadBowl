@@ -3,8 +3,8 @@ guid: 1df3410d8cd6234439db2170d7c5930d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -9137104494015156495
-    second: JTB_ss_0
+      213: 7391374500515634803
+    second: JTB_SS_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,17 +96,43 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: JTB_ss_0
+      name: JTB_SS_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1579
-        height: 879
+        width: 1920
+        height: 1078
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1fee9968fdb723180800000000000000
-      internalID: -9137104494015156495
+      spriteID: 37e5d1172ff639660800000000000000
+      internalID: 7391374500515634803
       vertices: []
       indices: 
       edges: []
@@ -135,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      JTB_ss_0: -9137104494015156495
+      JTB_SS_0: 7391374500515634803
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

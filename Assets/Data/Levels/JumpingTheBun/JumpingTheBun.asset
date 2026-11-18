@@ -15,4 +15,4 @@ MonoBehaviour:
   displayName: Jumping The Bun
   sceneName: JumpingTheBun
   description: Jump through the hoops! Get two hoops and you've joined the circus.
-  screenshot: {fileID: -9137104494015156495, guid: 1df3410d8cd6234439db2170d7c5930d, type: 3}
+  screenshot: {fileID: 7391374500515634803, guid: 1df3410d8cd6234439db2170d7c5930d, type: 3}
