@@ -129,7 +129,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4525258190256437685, guid: 332fab55134624b6495894ceaa04d40a, type: 3}
       propertyPath: levels.Array.size
-      value: 11
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 4525258190256437685, guid: 332fab55134624b6495894ceaa04d40a, type: 3}
       propertyPath: 'levels.Array.data[1]'
@@ -171,6 +171,10 @@ PrefabInstance:
       propertyPath: 'levels.Array.data[10]'
       value: 
       objectReference: {fileID: 11400000, guid: 6236330bd107afe4a869074c12107560, type: 2}
+    - target: {fileID: 4525258190256437685, guid: 332fab55134624b6495894ceaa04d40a, type: 3}
+      propertyPath: 'levels.Array.data[11]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 9ee2f940ce4fcb844aec6e0f21d28514, type: 2}
     - target: {fileID: 5083776960586811216, guid: 332fab55134624b6495894ceaa04d40a, type: 3}
       propertyPath: m_Pivot.x
       value: 0
