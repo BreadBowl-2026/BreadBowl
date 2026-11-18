@@ -1880,6 +1880,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 783535456719804539, guid: 09254468e7e984144941f7f459290abe, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 783535456719804539, guid: 09254468e7e984144941f7f459290abe, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1065298513252353016, guid: 09254468e7e984144941f7f459290abe, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -1896,6 +1904,22 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 971586386}
+    - target: {fileID: 2252109593129638877, guid: 09254468e7e984144941f7f459290abe, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2252109593129638877, guid: 09254468e7e984144941f7f459290abe, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2252109593129638877, guid: 09254468e7e984144941f7f459290abe, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2526972960290437079, guid: 09254468e7e984144941f7f459290abe, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2764880503874319738, guid: 09254468e7e984144941f7f459290abe, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -1931,6 +1955,10 @@ PrefabInstance:
     - target: {fileID: 2767679930344699931, guid: 09254468e7e984144941f7f459290abe, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 4808669429704497339, guid: 09254468e7e984144941f7f459290abe, type: 3}
+      propertyPath: testLoaf
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4918353262948497519, guid: 09254468e7e984144941f7f459290abe, type: 3}
       propertyPath: m_Mesh
