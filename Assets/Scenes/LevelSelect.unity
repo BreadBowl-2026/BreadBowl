@@ -129,12 +129,16 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4525258190256437685, guid: 332fab55134624b6495894ceaa04d40a, type: 3}
       propertyPath: levels.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4525258190256437685, guid: 332fab55134624b6495894ceaa04d40a, type: 3}
       propertyPath: 'levels.Array.data[1]'
       value: 
       objectReference: {fileID: 11400000, guid: 403c5879eab05474ca547a14e8b3fbc4, type: 2}
+    - target: {fileID: 4525258190256437685, guid: 332fab55134624b6495894ceaa04d40a, type: 3}
+      propertyPath: 'levels.Array.data[2]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 59116ecbf86c3d649a8c0b553a97b3c0, type: 2}
     - target: {fileID: 5083776960586811216, guid: 332fab55134624b6495894ceaa04d40a, type: 3}
       propertyPath: m_Pivot.x
       value: 0
