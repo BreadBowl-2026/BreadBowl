@@ -165,6 +165,8 @@ namespace BreadBowl.Bowling
 
             HasLaunched = true;
 
+            Physics.SyncTransforms();
+            ball.interpolation = RigidbodyInterpolation.Interpolate;
             ball.isKinematic = false;
             ball.linearVelocity = LaunchDirection * (maxLaunchSpeed * Power);
             ball.angularVelocity = Vector3.zero;
@@ -186,6 +188,7 @@ namespace BreadBowl.Bowling
                 ball.isKinematic = true;
             }
 
+            ball.interpolation = RigidbodyInterpolation.None;
             HasLaunched = false;
             lateralOffset = 0f;
             aimAngle = 0f;
@@ -255,6 +258,7 @@ namespace BreadBowl.Bowling
         {
             ballTransform = ball.transform;
             ball.isKinematic = true;
+            ball.interpolation = RigidbodyInterpolation.None;
             startRotation = ballTransform.rotation;
             aimRotation = startRotation;
             SnapToGround();
