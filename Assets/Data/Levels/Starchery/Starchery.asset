@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BreadBowl.Levels.LevelInfo
   displayName: Starchery
   sceneName: Starchery
-  description: 'Show off your archery skills by hitting a bullseye with some starch-based
+  description: 'Show off your accuracy by hitting a bullseye with some bread-based
     ammunition '
   screenshot: {fileID: 0}
