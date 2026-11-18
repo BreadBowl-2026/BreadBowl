@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 4d7c1477408de474ab4723fd6a9a46bb
+guid: f980359d0fba2e44bbaafb7bfc1af414
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8661612803485152668
-    second: doughbleTrouble_0
+      213: 5544044317833852769
+    second: KFS_SS_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,17 +96,43 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: doughbleTrouble_0
+      name: KFS_SS_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1916
-        height: 1074
+        width: 1917
+        height: 1079
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c9535bd14fa343870800000000000000
-      internalID: 8661612803485152668
+      spriteID: 1677287fee660fc40800000000000000
+      internalID: 5544044317833852769
       vertices: []
       indices: 
       edges: []
@@ -135,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      doughbleTrouble_0: 8661612803485152668
+      KFS_SS_0: 5544044317833852769
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
