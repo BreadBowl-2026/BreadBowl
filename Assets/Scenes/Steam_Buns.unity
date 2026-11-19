@@ -1073,7 +1073,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SteamVent
   interval: 0.1
   activeDuration: 10
-  launchForce: 18
+  launchForce: 90
   steamEffect: {fileID: 1958525343}
 --- !u!4 &915924122
 Transform:
@@ -2264,6 +2264,18 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 971586386}
+    - target: {fileID: 2252109593129638877, guid: 09254468e7e984144941f7f459290abe, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2252109593129638877, guid: 09254468e7e984144941f7f459290abe, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2252109593129638877, guid: 09254468e7e984144941f7f459290abe, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2526972960290437079, guid: 09254468e7e984144941f7f459290abe, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
@@ -2312,6 +2324,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1288814640}
+    - target: {fileID: 4808669429704497339, guid: 09254468e7e984144941f7f459290abe, type: 3}
+      propertyPath: testLoaf
+      value: 
+      objectReference: {fileID: 4704962520191272399, guid: bc5517867292cad49876260296c0001b, type: 3}
     - target: {fileID: 4918353262948497519, guid: 09254468e7e984144941f7f459290abe, type: 3}
       propertyPath: m_Mesh
       value: 
