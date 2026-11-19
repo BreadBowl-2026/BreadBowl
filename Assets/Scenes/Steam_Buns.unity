@@ -281,8 +281,8 @@ Mesh:
   m_CookingOptions: 30
   m_BakedConvexCollisionMesh: 
   m_BakedTriangleCollisionMesh: 
-  m_MeshMetrics[0]: 1.0000001
-  m_MeshMetrics[1]: 1
+  'm_MeshMetrics[0]': 1.0000001
+  'm_MeshMetrics[1]': 1
   m_MeshOptimizationFlags: 1
   m_StreamData:
     serializedVersion: 2
@@ -1337,8 +1337,8 @@ Mesh:
   m_CookingOptions: 30
   m_BakedConvexCollisionMesh: 
   m_BakedTriangleCollisionMesh: 
-  m_MeshMetrics[0]: 1.0000001
-  m_MeshMetrics[1]: 1
+  'm_MeshMetrics[0]': 1.0000001
+  'm_MeshMetrics[1]': 1
   m_MeshOptimizationFlags: 1
   m_StreamData:
     serializedVersion: 2
@@ -2065,8 +2065,8 @@ Mesh:
   m_CookingOptions: 30
   m_BakedConvexCollisionMesh: 
   m_BakedTriangleCollisionMesh: 
-  m_MeshMetrics[0]: 1.0000001
-  m_MeshMetrics[1]: 1
+  'm_MeshMetrics[0]': 1.0000001
+  'm_MeshMetrics[1]': 1
   m_MeshOptimizationFlags: 1
   m_StreamData:
     serializedVersion: 2
@@ -2264,18 +2264,6 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 971586386}
-    - target: {fileID: 2252109593129638877, guid: 09254468e7e984144941f7f459290abe, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2252109593129638877, guid: 09254468e7e984144941f7f459290abe, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2252109593129638877, guid: 09254468e7e984144941f7f459290abe, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2526972960290437079, guid: 09254468e7e984144941f7f459290abe, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
@@ -2316,10 +2304,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 90
       objectReference: {fileID: 0}
-    - target: {fileID: 4808669429704497339, guid: 09254468e7e984144941f7f459290abe, type: 3}
-      propertyPath: testLoaf
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 4096122467439294335, guid: 09254468e7e984144941f7f459290abe, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -2350,7 +2334,7 @@ PrefabInstance:
       objectReference: {fileID: 1288814640}
     - target: {fileID: 6609003795485935151, guid: 09254468e7e984144941f7f459290abe, type: 3}
       propertyPath: m_VersionIndex
-      value: 1165
+      value: 1168
       objectReference: {fileID: 0}
     - target: {fileID: 7691499464920539219, guid: 09254468e7e984144941f7f459290abe, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2374,7 +2358,7 @@ PrefabInstance:
       objectReference: {fileID: 61465148}
     - target: {fileID: 8262920621163407642, guid: 09254468e7e984144941f7f459290abe, type: 3}
       propertyPath: m_VersionIndex
-      value: 1167
+      value: 1170
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2635,8 +2619,8 @@ Mesh:
   m_CookingOptions: 30
   m_BakedConvexCollisionMesh: 
   m_BakedTriangleCollisionMesh: 
-  m_MeshMetrics[0]: 1.0000001
-  m_MeshMetrics[1]: 1
+  'm_MeshMetrics[0]': 1.0000001
+  'm_MeshMetrics[1]': 1
   m_MeshOptimizationFlags: 1
   m_StreamData:
     serializedVersion: 2
