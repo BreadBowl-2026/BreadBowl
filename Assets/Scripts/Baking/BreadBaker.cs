@@ -198,7 +198,7 @@ public class BreadBaker : MonoBehaviour
         startButton.gameObject.SetActive(false);
         takeOutButton.gameObject.SetActive(true);
 
-        AudioManager.Instance?.PlayOvenTickingSound(ovenTickingSound);
+        AudioManager.Instance?.PlayContinuousSound(ovenTickingSound);
 
         bakingCoroutine = StartCoroutine(Bake());
     }
@@ -323,7 +323,7 @@ public class BreadBaker : MonoBehaviour
         isBaking = false;
         bakingCoroutine = null;
 
-        AudioManager.Instance?.StopOvenTickingSound();
+        AudioManager.Instance?.StopContinuousSound();
         PlayOvenDingSound();
 
         if (ovenDoor == null)

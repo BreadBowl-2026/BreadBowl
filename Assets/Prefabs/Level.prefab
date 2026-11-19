@@ -2340,10 +2340,46 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1899761097503027660, guid: 9a81a4fc094de7344b050c717c296113, type: 3}
+      propertyPath: pressedSound
+      value: 
+      objectReference: {fileID: 8300000, guid: c95d154077d392547b248199d65e347d, type: 3}
+    - target: {fileID: 1973089039929400023, guid: 9a81a4fc094de7344b050c717c296113, type: 3}
+      propertyPath: pressedSound
+      value: 
+      objectReference: {fileID: 8300000, guid: c95d154077d392547b248199d65e347d, type: 3}
+    - target: {fileID: 2206670831119382114, guid: 9a81a4fc094de7344b050c717c296113, type: 3}
+      propertyPath: pressedSound
+      value: 
+      objectReference: {fileID: 8300000, guid: c95d154077d392547b248199d65e347d, type: 3}
+    - target: {fileID: 3229570123920871666, guid: 9a81a4fc094de7344b050c717c296113, type: 3}
+      propertyPath: pressedSound
+      value: 
+      objectReference: {fileID: 8300000, guid: c95d154077d392547b248199d65e347d, type: 3}
+    - target: {fileID: 4967021296773551198, guid: 9a81a4fc094de7344b050c717c296113, type: 3}
+      propertyPath: pressedSound
+      value: 
+      objectReference: {fileID: 8300000, guid: c95d154077d392547b248199d65e347d, type: 3}
+    - target: {fileID: 6116762219727169515, guid: 9a81a4fc094de7344b050c717c296113, type: 3}
+      propertyPath: pressedSound
+      value: 
+      objectReference: {fileID: 8300000, guid: c95d154077d392547b248199d65e347d, type: 3}
+    - target: {fileID: 6928357587508739281, guid: 9a81a4fc094de7344b050c717c296113, type: 3}
+      propertyPath: pressedSound
+      value: 
+      objectReference: {fileID: 8300000, guid: c95d154077d392547b248199d65e347d, type: 3}
+    - target: {fileID: 7130063255522475263, guid: 9a81a4fc094de7344b050c717c296113, type: 3}
+      propertyPath: launchSound
+      value: 
+      objectReference: {fileID: 8300000, guid: d46323e22e74e46baa241cbf48c85671, type: 3}
     - target: {fileID: 7737581304953704053, guid: 9a81a4fc094de7344b050c717c296113, type: 3}
       propertyPath: m_Name
       value: LaunchControls
       objectReference: {fileID: 0}
+    - target: {fileID: 9134980837895957136, guid: 9a81a4fc094de7344b050c717c296113, type: 3}
+      propertyPath: pressedSound
+      value: 
+      objectReference: {fileID: 8300000, guid: c95d154077d392547b248199d65e347d, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
