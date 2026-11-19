@@ -15,5 +15,5 @@ MonoBehaviour:
   displayName: Bread Pit
   sceneName: BreadPit
   description: Mind the gap! Launch off the ramp, clear the pit and strike the pins
-    as they slide side to side.
+    without losing your bread down the pit.
   screenshot: {fileID: -777133704656286152, guid: 1cec1bde8f024ef40925f29ed43cfb52, type: 3}
