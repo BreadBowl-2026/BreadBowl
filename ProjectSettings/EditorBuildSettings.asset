@@ -47,6 +47,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/RiseToTheOccasion.unity
     guid: 60982ed66c5f0ad428527ba3bb2e1eb7
+  - enabled: 1
+    path: Assets/Scenes/Tutorial.unity
+    guid: 20ce8e47b2749d14e8bbdb8695fb5e6e
   m_configObjects:
     com.unity.dt.app-ui: {fileID: 11400000, guid: 1b1c20d82303e4b5781c3ef50ac1449f, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
