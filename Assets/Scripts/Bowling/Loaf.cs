@@ -17,6 +17,13 @@ namespace BreadBowl.Bowling
         public Rigidbody Body { get; private set; }
         public KneadResult Knead { get; private set; }
 
+        [Header("Collision Audio")]
+        [SerializeField] private AudioClip collisionSound;
+        [SerializeField] private float minImpactVelocity = 1f;
+        [SerializeField] private float minSoundInterval = 0.2f;
+
+        private float lastSoundTime;
+
         public float RestHeight => -GetComponent<MeshFilter>().sharedMesh.bounds.min.y * transform.localScale.y;
 
         public event System.Action<Loaf> Clicked;
@@ -52,6 +59,26 @@ namespace BreadBowl.Bowling
             physicsMaterial = GetComponent<MeshCollider>().material;
             physicsMaterial.dynamicFriction = dynamicFriction;
             physicsMaterial.staticFriction = staticFriction;
+        }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            float impactVelocity = collision.relativeVelocity.magnitude;
+
+            // not fast enough to make a sound
+            if (impactVelocity < minImpactVelocity)
+                return;
+
+            // not enough time has passed since the last sound
+            if (Time.time < lastSoundTime + minSoundInterval)
+                return;
+
+            if (collisionSound == null)
+                return;
+
+            AudioManager.Instance?.PlaySFX(collisionSound);
+
+            lastSoundTime = Time.time;
         }
 
         private void OnDestroy()
