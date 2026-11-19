@@ -523,6 +523,38 @@ PrefabInstance:
       propertyPath: sceneName
       value: LevelSelect
       objectReference: {fileID: 0}
+    - target: {fileID: 6151661933675949123, guid: 62a7a4e0fa61453aa26c4ba08ea2a7b0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6151661933675949123, guid: 62a7a4e0fa61453aa26c4ba08ea2a7b0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6151661933675949123, guid: 62a7a4e0fa61453aa26c4ba08ea2a7b0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 228445670}
+    - target: {fileID: 6151661933675949123, guid: 62a7a4e0fa61453aa26c4ba08ea2a7b0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6151661933675949123, guid: 62a7a4e0fa61453aa26c4ba08ea2a7b0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadLevel
+      objectReference: {fileID: 0}
+    - target: {fileID: 6151661933675949123, guid: 62a7a4e0fa61453aa26c4ba08ea2a7b0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: BreadBowl.GameController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6151661933675949123, guid: 62a7a4e0fa61453aa26c4ba08ea2a7b0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Tutorial
+      objectReference: {fileID: 0}
+    - target: {fileID: 6151661933675949123, guid: 62a7a4e0fa61453aa26c4ba08ea2a7b0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
