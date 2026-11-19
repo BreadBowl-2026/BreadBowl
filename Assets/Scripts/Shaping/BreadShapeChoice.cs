@@ -16,6 +16,7 @@ namespace BreadBowl
         [SerializeField] private float liftHeight = 0.1f;
         [SerializeField] private Color selectedColor = Color.white;
         [SerializeField] private Color unselectedColor = Color.gray;
+        [SerializeField] private AudioClip selectedSound;
 
         private Vector3 restPosition;
 
@@ -36,6 +37,12 @@ namespace BreadBowl
 
         public void SetSelected(bool selected)
         {
+            // Play sound
+            if (selected)
+            {
+                AudioManager.Instance?.PlaySFX(selectedSound);
+            }
+
             // Lift tin
             tin.transform.localPosition = selected 
                 ? restPosition + Vector3.up * liftHeight 

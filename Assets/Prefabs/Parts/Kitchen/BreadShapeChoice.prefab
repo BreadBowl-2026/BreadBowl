@@ -293,6 +293,7 @@ MonoBehaviour:
   liftHeight: 0.1
   selectedColor: {r: 1, g: 1, b: 1, a: 1}
   unselectedColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  selectedSound: {fileID: 8300000, guid: 9767b833f9d16fc499e305607ad02f5f, type: 3}
 --- !u!1 &8691984368241885684
 GameObject:
   m_ObjectHideFlags: 0

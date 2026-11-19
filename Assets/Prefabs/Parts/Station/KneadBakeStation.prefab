@@ -6625,6 +6625,10 @@ PrefabInstance:
       propertyPath: shape
       value: 
       objectReference: {fileID: 11400000, guid: 10c7fe52b553a974aa5247c8e226ba2d, type: 2}
+    - target: {fileID: 9130006043780252594, guid: 4b064c361c05dbc4d96ef319ecb102ae, type: 3}
+      propertyPath: selectedSound
+      value: 
+      objectReference: {fileID: 8300000, guid: c36aed155946d4fe897aeb6b8c5dd631, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 2055493084165255611, guid: 4b064c361c05dbc4d96ef319ecb102ae, type: 3}
