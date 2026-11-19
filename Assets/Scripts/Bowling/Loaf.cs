@@ -14,6 +14,9 @@ namespace BreadBowl.Bowling
         private Material material;
         private PhysicsMaterial physicsMaterial;
 
+        [SerializeField] private float maxDepenetrationVelocity = 2f;
+        [SerializeField] private float maxAngularVelocity = 200f;
+
         public Rigidbody Body { get; private set; }
         public KneadResult Knead { get; private set; }
 
@@ -31,6 +34,8 @@ namespace BreadBowl.Bowling
         private void Awake()
         {
             Body = GetComponent<Rigidbody>();
+            Body.maxDepenetrationVelocity = maxDepenetrationVelocity;
+            Body.maxAngularVelocity = maxAngularVelocity;
         }
 
         public void OnPointerClick(PointerEventData eventData)

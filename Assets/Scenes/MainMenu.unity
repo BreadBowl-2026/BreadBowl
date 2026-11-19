@@ -246,6 +246,24 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!1 &111613993 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4493307113193833232, guid: 62a7a4e0fa61453aa26c4ba08ea2a7b0, type: 3}
+  m_PrefabInstance: {fileID: 1297056352}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &111613999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 111613993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dba4e2aadf22b6944b4c1da92d0147cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BreadBowl.LevelSelectButton
+  sceneName: Tutorial
 --- !u!1 &228445669
 GameObject:
   m_ObjectHideFlags: 0
@@ -519,10 +537,49 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6053696930335401378, guid: 62a7a4e0fa61453aa26c4ba08ea2a7b0, type: 3}
+      propertyPath: sceneName
+      value: LevelSelect
+      objectReference: {fileID: 0}
+    - target: {fileID: 6151661933675949123, guid: 62a7a4e0fa61453aa26c4ba08ea2a7b0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6151661933675949123, guid: 62a7a4e0fa61453aa26c4ba08ea2a7b0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6151661933675949123, guid: 62a7a4e0fa61453aa26c4ba08ea2a7b0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 228445670}
+    - target: {fileID: 6151661933675949123, guid: 62a7a4e0fa61453aa26c4ba08ea2a7b0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6151661933675949123, guid: 62a7a4e0fa61453aa26c4ba08ea2a7b0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadLevel
+      objectReference: {fileID: 0}
+    - target: {fileID: 6151661933675949123, guid: 62a7a4e0fa61453aa26c4ba08ea2a7b0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: BreadBowl.GameController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6151661933675949123, guid: 62a7a4e0fa61453aa26c4ba08ea2a7b0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Tutorial
+      objectReference: {fileID: 0}
+    - target: {fileID: 6151661933675949123, guid: 62a7a4e0fa61453aa26c4ba08ea2a7b0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4493307113193833232, guid: 62a7a4e0fa61453aa26c4ba08ea2a7b0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 111613999}
   m_SourcePrefab: {fileID: 100100000, guid: 62a7a4e0fa61453aa26c4ba08ea2a7b0, type: 3}
 --- !u!1 &2093120845
 GameObject:

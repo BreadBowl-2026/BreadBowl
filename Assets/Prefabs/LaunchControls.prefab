@@ -62,7 +62,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8, g: 0.91, b: 1, a: 1}
+  m_Color: {r: 0.94509804, g: 0.87058824, b: 0.7529412, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -91,7 +91,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Outline
-  m_EffectColor: {r: 0.25, g: 0.65, b: 0.96, a: 1}
+  m_EffectColor: {r: 0.3137255, g: 0.20392157, b: 0.14901961, a: 1}
   m_EffectDistance: {x: 4, y: 4}
   m_UseGraphicAlpha: 1
 --- !u!114 &7980615212533439301
@@ -115,11 +115,11 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.94, g: 0.97, b: 1, a: 1}
-    m_PressedColor: {r: 0.7, g: 0.82, b: 0.95, a: 1}
-    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
-    m_DisabledColor: {r: 0.75, g: 0.75, b: 0.75, a: 0.5}
+    m_NormalColor: {r: 0.94509804, g: 0.87058824, b: 0.7529412, a: 1}
+    m_HighlightedColor: {r: 1, g: 0.9529412, b: 0.87058824, a: 1}
+    m_PressedColor: {r: 0.83137256, g: 0.7137255, b: 0.5568628, a: 1}
+    m_SelectedColor: {r: 0.94509804, g: 0.87058824, b: 0.7529412, a: 1}
+    m_DisabledColor: {r: 0.6627451, g: 0.6039216, b: 0.5294118, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -212,7 +212,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8, g: 0.91, b: 1, a: 1}
+  m_Color: {r: 0.94509804, g: 0.87058824, b: 0.7529412, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -241,7 +241,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Outline
-  m_EffectColor: {r: 0.25, g: 0.65, b: 0.96, a: 1}
+  m_EffectColor: {r: 0.3137255, g: 0.20392157, b: 0.14901961, a: 1}
   m_EffectDistance: {x: 4, y: 4}
   m_UseGraphicAlpha: 1
 --- !u!114 &438573099457666885
@@ -265,11 +265,11 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.94, g: 0.97, b: 1, a: 1}
-    m_PressedColor: {r: 0.7, g: 0.82, b: 0.95, a: 1}
-    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
-    m_DisabledColor: {r: 0.75, g: 0.75, b: 0.75, a: 0.5}
+    m_NormalColor: {r: 0.94509804, g: 0.87058824, b: 0.7529412, a: 1}
+    m_HighlightedColor: {r: 1, g: 0.9529412, b: 0.87058824, a: 1}
+    m_PressedColor: {r: 0.83137256, g: 0.7137255, b: 0.5568628, a: 1}
+    m_SelectedColor: {r: 0.94509804, g: 0.87058824, b: 0.7529412, a: 1}
+    m_DisabledColor: {r: 0.6627451, g: 0.6039216, b: 0.5294118, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -374,8 +374,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294288960
-  m_fontColor: {r: 0.25, g: 0.65, b: 0.96, a: 1}
+    rgba: 4280693840
+  m_fontColor: {r: 0.3137255, g: 0.20392157, b: 0.14901961, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -499,7 +499,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.62, g: 0.82, b: 1, a: 1}
+  m_Color: {r: 0.94509804, g: 0.87058824, b: 0.7529412, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -528,7 +528,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Outline
-  m_EffectColor: {r: 0.25, g: 0.65, b: 0.96, a: 1}
+  m_EffectColor: {r: 0.3137255, g: 0.20392157, b: 0.14901961, a: 1}
   m_EffectDistance: {x: 4, y: 4}
   m_UseGraphicAlpha: 1
 --- !u!114 &4073746745267501564
@@ -552,11 +552,11 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.94, g: 0.97, b: 1, a: 1}
-    m_PressedColor: {r: 0.7, g: 0.82, b: 0.95, a: 1}
-    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
-    m_DisabledColor: {r: 0.75, g: 0.75, b: 0.75, a: 0.5}
+    m_NormalColor: {r: 0.94509804, g: 0.87058824, b: 0.7529412, a: 1}
+    m_HighlightedColor: {r: 1, g: 0.9529412, b: 0.87058824, a: 1}
+    m_PressedColor: {r: 0.83137256, g: 0.7137255, b: 0.5568628, a: 1}
+    m_SelectedColor: {r: 0.94509804, g: 0.87058824, b: 0.7529412, a: 1}
+    m_DisabledColor: {r: 0.6627451, g: 0.6039216, b: 0.5294118, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -649,7 +649,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.62, g: 0.82, b: 1, a: 1}
+  m_Color: {r: 0.94509804, g: 0.87058824, b: 0.7529412, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -678,7 +678,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Outline
-  m_EffectColor: {r: 0.25, g: 0.65, b: 0.96, a: 1}
+  m_EffectColor: {r: 0.3137255, g: 0.20392157, b: 0.14901961, a: 1}
   m_EffectDistance: {x: 4, y: 4}
   m_UseGraphicAlpha: 1
 --- !u!114 &8781042978538936164
@@ -702,11 +702,11 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.94, g: 0.97, b: 1, a: 1}
-    m_PressedColor: {r: 0.7, g: 0.82, b: 0.95, a: 1}
-    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
-    m_DisabledColor: {r: 0.75, g: 0.75, b: 0.75, a: 0.5}
+    m_NormalColor: {r: 0.94509804, g: 0.87058824, b: 0.7529412, a: 1}
+    m_HighlightedColor: {r: 1, g: 0.9529412, b: 0.87058824, a: 1}
+    m_PressedColor: {r: 0.83137256, g: 0.7137255, b: 0.5568628, a: 1}
+    m_SelectedColor: {r: 0.94509804, g: 0.87058824, b: 0.7529412, a: 1}
+    m_DisabledColor: {r: 0.6627451, g: 0.6039216, b: 0.5294118, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -811,8 +811,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294288960
-  m_fontColor: {r: 0.25, g: 0.65, b: 0.96, a: 1}
+    rgba: 4293326335
+  m_fontColor: {r: 1, g: 0.9607843, b: 0.9019608, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -936,7 +936,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8, g: 0.91, b: 1, a: 1}
+  m_Color: {r: 0.94509804, g: 0.87058824, b: 0.7529412, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -965,7 +965,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Outline
-  m_EffectColor: {r: 0.25, g: 0.65, b: 0.96, a: 1}
+  m_EffectColor: {r: 0.3137255, g: 0.20392157, b: 0.14901961, a: 1}
   m_EffectDistance: {x: 4, y: 4}
   m_UseGraphicAlpha: 1
 --- !u!114 &6401451003931404482
@@ -989,11 +989,11 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.94, g: 0.97, b: 1, a: 1}
-    m_PressedColor: {r: 0.7, g: 0.82, b: 0.95, a: 1}
-    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
-    m_DisabledColor: {r: 0.75, g: 0.75, b: 0.75, a: 0.5}
+    m_NormalColor: {r: 0.94509804, g: 0.87058824, b: 0.7529412, a: 1}
+    m_HighlightedColor: {r: 1, g: 0.9529412, b: 0.87058824, a: 1}
+    m_PressedColor: {r: 0.83137256, g: 0.7137255, b: 0.5568628, a: 1}
+    m_SelectedColor: {r: 0.94509804, g: 0.87058824, b: 0.7529412, a: 1}
+    m_DisabledColor: {r: 0.6627451, g: 0.6039216, b: 0.5294118, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -1148,8 +1148,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294288960
-  m_fontColor: {r: 0.25, g: 0.65, b: 0.96, a: 1}
+    rgba: 4280693840
+  m_fontColor: {r: 0.3137255, g: 0.20392157, b: 0.14901961, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1273,7 +1273,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8, g: 0.91, b: 1, a: 1}
+  m_Color: {r: 0.94509804, g: 0.87058824, b: 0.7529412, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1302,7 +1302,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Outline
-  m_EffectColor: {r: 0.25, g: 0.65, b: 0.96, a: 1}
+  m_EffectColor: {r: 0.3137255, g: 0.20392157, b: 0.14901961, a: 1}
   m_EffectDistance: {x: 4, y: 4}
   m_UseGraphicAlpha: 1
 --- !u!114 &4334322335745631067
@@ -1326,11 +1326,11 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.94, g: 0.97, b: 1, a: 1}
-    m_PressedColor: {r: 0.7, g: 0.82, b: 0.95, a: 1}
-    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
-    m_DisabledColor: {r: 0.75, g: 0.75, b: 0.75, a: 0.5}
+    m_NormalColor: {r: 0.94509804, g: 0.87058824, b: 0.7529412, a: 1}
+    m_HighlightedColor: {r: 1, g: 0.9529412, b: 0.87058824, a: 1}
+    m_PressedColor: {r: 0.83137256, g: 0.7137255, b: 0.5568628, a: 1}
+    m_SelectedColor: {r: 0.94509804, g: 0.87058824, b: 0.7529412, a: 1}
+    m_DisabledColor: {r: 0.6627451, g: 0.6039216, b: 0.5294118, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -1626,7 +1626,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8, g: 0.91, b: 1, a: 1}
+  m_Color: {r: 0.94509804, g: 0.87058824, b: 0.7529412, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1655,7 +1655,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Outline
-  m_EffectColor: {r: 0.25, g: 0.65, b: 0.96, a: 1}
+  m_EffectColor: {r: 0.3137255, g: 0.20392157, b: 0.14901961, a: 1}
   m_EffectDistance: {x: 4, y: 4}
   m_UseGraphicAlpha: 1
 --- !u!114 &4612919657734761860
@@ -1679,11 +1679,11 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.94, g: 0.97, b: 1, a: 1}
-    m_PressedColor: {r: 0.7, g: 0.82, b: 0.95, a: 1}
-    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
-    m_DisabledColor: {r: 0.75, g: 0.75, b: 0.75, a: 0.5}
+    m_NormalColor: {r: 0.94509804, g: 0.87058824, b: 0.7529412, a: 1}
+    m_HighlightedColor: {r: 1, g: 0.9529412, b: 0.87058824, a: 1}
+    m_PressedColor: {r: 0.83137256, g: 0.7137255, b: 0.5568628, a: 1}
+    m_SelectedColor: {r: 0.94509804, g: 0.87058824, b: 0.7529412, a: 1}
+    m_DisabledColor: {r: 0.6627451, g: 0.6039216, b: 0.5294118, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -1776,7 +1776,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8, g: 0.91, b: 1, a: 1}
+  m_Color: {r: 0.77254903, g: 0.54509807, b: 0.24705882, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1805,7 +1805,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Outline
-  m_EffectColor: {r: 0.25, g: 0.65, b: 0.96, a: 1}
+  m_EffectColor: {r: 0.3137255, g: 0.20392157, b: 0.14901961, a: 1}
   m_EffectDistance: {x: 4, y: 4}
   m_UseGraphicAlpha: 1
 --- !u!114 &338722416499624402
@@ -1829,11 +1829,11 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.94, g: 0.97, b: 1, a: 1}
-    m_PressedColor: {r: 0.7, g: 0.82, b: 0.95, a: 1}
-    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
-    m_DisabledColor: {r: 0.75, g: 0.75, b: 0.75, a: 0.5}
+    m_NormalColor: {r: 0.77254903, g: 0.54509807, b: 0.24705882, a: 1}
+    m_HighlightedColor: {r: 0.8666667, g: 0.6509804, b: 0.3529412, a: 1}
+    m_PressedColor: {r: 0.62352943, g: 0.41960785, b: 0.18039216, a: 1}
+    m_SelectedColor: {r: 0.77254903, g: 0.54509807, b: 0.24705882, a: 1}
+    m_DisabledColor: {r: 0.6627451, g: 0.6039216, b: 0.5294118, a: 0.5}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -2100,8 +2100,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294288960
-  m_fontColor: {r: 0.25, g: 0.65, b: 0.96, a: 1}
+    rgba: 4280693840
+  m_fontColor: {r: 0.3137255, g: 0.20392157, b: 0.14901961, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -2237,8 +2237,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294288960
-  m_fontColor: {r: 0.25, g: 0.65, b: 0.96, a: 1}
+    rgba: 4280693840
+  m_fontColor: {r: 0.3137255, g: 0.20392157, b: 0.14901961, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -2416,8 +2416,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294288960
-  m_fontColor: {r: 0.25, g: 0.65, b: 0.96, a: 1}
+    rgba: 4280693840
+  m_fontColor: {r: 0.3137255, g: 0.20392157, b: 0.14901961, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -2553,8 +2553,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294288960
-  m_fontColor: {r: 0.25, g: 0.65, b: 0.96, a: 1}
+    rgba: 4280693840
+  m_fontColor: {r: 0.3137255, g: 0.20392157, b: 0.14901961, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -2837,7 +2837,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8, g: 0.91, b: 1, a: 1}
+  m_Color: {r: 0.94509804, g: 0.87058824, b: 0.7529412, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2866,7 +2866,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Outline
-  m_EffectColor: {r: 0.25, g: 0.65, b: 0.96, a: 1}
+  m_EffectColor: {r: 0.3137255, g: 0.20392157, b: 0.14901961, a: 1}
   m_EffectDistance: {x: 4, y: 4}
   m_UseGraphicAlpha: 1
 --- !u!114 &4374395135818099351
@@ -2890,11 +2890,11 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.94, g: 0.97, b: 1, a: 1}
-    m_PressedColor: {r: 0.7, g: 0.82, b: 0.95, a: 1}
-    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
-    m_DisabledColor: {r: 0.75, g: 0.75, b: 0.75, a: 0.5}
+    m_NormalColor: {r: 0.94509804, g: 0.87058824, b: 0.7529412, a: 1}
+    m_HighlightedColor: {r: 1, g: 0.9529412, b: 0.87058824, a: 1}
+    m_PressedColor: {r: 0.83137256, g: 0.7137255, b: 0.5568628, a: 1}
+    m_SelectedColor: {r: 0.94509804, g: 0.87058824, b: 0.7529412, a: 1}
+    m_DisabledColor: {r: 0.6627451, g: 0.6039216, b: 0.5294118, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -2999,8 +2999,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294288960
-  m_fontColor: {r: 0.25, g: 0.65, b: 0.96, a: 1}
+    rgba: 4280693840
+  m_fontColor: {r: 0.3137255, g: 0.20392157, b: 0.14901961, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -3173,8 +3173,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294288960
-  m_fontColor: {r: 0.25, g: 0.65, b: 0.96, a: 1}
+    rgba: 4280693840
+  m_fontColor: {r: 0.3137255, g: 0.20392157, b: 0.14901961, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
