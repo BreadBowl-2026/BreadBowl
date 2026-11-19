@@ -10,7 +10,7 @@ using UnityEngine.UI;
 public class TutorialController : MonoBehaviour
 {
     [SerializeField] private TMP_Text dialogueTextBox;
-    [SerializeField] private Canvas dialogueCanvas;
+    [SerializeField] private GameObject dialogueBox;
     [SerializeField] private Transform chalkboardViewPoint;
     [SerializeField] private Transform kneadViewPoint;
     [SerializeField] private Canvas kneadCanvas;
@@ -19,6 +19,7 @@ public class TutorialController : MonoBehaviour
     [SerializeField] private BreadBaker breadBaker;
     [SerializeField] private GameObject chef;
     [SerializeField] private Transform chefBakingPosition;
+    [SerializeField] private Transform chefShapingPosition;
     [SerializeField] private Transform chefBowlingPosition;
     [SerializeField] private Button returnToKneadButton;
     [SerializeField] private Button bakeButton;
@@ -143,6 +144,7 @@ public class TutorialController : MonoBehaviour
         currentStage = "Shaping";
         currentStageInd = 0;
         ChangeDialogueBox();
+        chef.transform.SetPositionAndRotation(chefShapingPosition.transform.position, chefShapingPosition.transform.rotation);
     }
 
     private void HandleShapeFinished(BreadShape shape)
@@ -175,11 +177,11 @@ public class TutorialController : MonoBehaviour
         List<int> dialogueOptions = dialogueSections[currentStage];
         if (currentStageInd >= dialogueOptions.Count)
         {
-            dialogueCanvas.enabled = false;
+            dialogueBox.gameObject.SetActive(false);
         }
         else
         {
-            dialogueCanvas.enabled = true;
+            dialogueBox.gameObject.SetActive(true);
             dialogueTextBox.text = dialogue[dialogueSections[currentStage][currentStageInd]];
         }
 
