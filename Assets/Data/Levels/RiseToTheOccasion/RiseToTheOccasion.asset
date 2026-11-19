@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BreadBowl.Levels.LevelInfo
   displayName: Rise To The Occasion
   sceneName: RiseToTheOccasion
-  description: 
+  description: Roll over the rising step, dodge the sliding shield and strike the
+    pins on the raised platform.
   screenshot: {fileID: -5614663414598254205, guid: c91ffbadcde5ce94db6a216750a0ef6f, type: 3}
