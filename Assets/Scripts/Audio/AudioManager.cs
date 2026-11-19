@@ -44,6 +44,7 @@ public class AudioManager : MonoBehaviour
         masterVolume = value;
         ApplyAllVolumes();
     }
+
     public void SetMasterMuted(bool muted)
     {
         masterMuted = !muted;
@@ -58,6 +59,7 @@ public class AudioManager : MonoBehaviour
         musicVolume = value;
         ApplyAllVolumes();
     }
+
     public void SetMusicMuted(bool muted)
     {
         musicMuted = !muted;
@@ -72,14 +74,44 @@ public class AudioManager : MonoBehaviour
         sfxVolume = value;
         ApplyAllVolumes();
     }
+
     public void SetSFXMuted(bool muted)
     {
         sfxMuted = !muted;
         ApplyAllVolumes();
     }
+
     public bool IsSFXMuted()
     {
         return masterMuted || sfxMuted;
+    }
+
+    public void PlaySFX(AudioClip clip)
+    {
+        if (sfxSource != null && clip != null && !IsSFXMuted())
+        {
+            sfxSource.PlayOneShot(clip);
+        }
+    }
+
+    public void PlayContinuousSound(AudioClip clip)
+    {
+        if (sfxSource != null && clip != null && !IsSFXMuted())
+        {
+            sfxSource.clip = clip;
+            sfxSource.loop = true;
+            sfxSource.Play();
+        }
+    }
+
+    public void StopContinuousSound()
+    {
+        if (sfxSource != null) 
+        {
+            sfxSource.Stop();
+            sfxSource.loop = false;
+            sfxSource.clip = null;
+        }
     }
 
     // -------------------------
@@ -90,11 +122,13 @@ public class AudioManager : MonoBehaviour
         doughVolume = value;
         ApplyAllVolumes();
     }
+
     public void SetDoughMuted(bool muted)
     {
         doughMuted = !muted;
         ApplyAllVolumes();
     }
+
     public bool IsDoughMuted()
     {
         return masterMuted || doughMuted;

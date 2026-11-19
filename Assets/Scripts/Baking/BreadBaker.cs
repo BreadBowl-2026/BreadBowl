@@ -49,6 +49,10 @@ public class BreadBaker : MonoBehaviour
     [SerializeField] private OvenDoor ovenDoor;
     public event System.Action Finished;
 
+    [Header("Audio")]
+    [SerializeField] private AudioClip ovenTickingSound;
+    [SerializeField] private AudioClip ovenDingSound;
+
     public Mesh BakedMesh => doughMesh;
     public Material BakedMaterial => doughMaterial;
     public float BakedDynamicFriction => dynamicFriction;
@@ -194,6 +198,8 @@ public class BreadBaker : MonoBehaviour
         startButton.gameObject.SetActive(false);
         takeOutButton.gameObject.SetActive(true);
 
+        AudioManager.Instance?.PlayContinuousSound(ovenTickingSound);
+
         bakingCoroutine = StartCoroutine(Bake());
     }
 
@@ -317,6 +323,9 @@ public class BreadBaker : MonoBehaviour
         isBaking = false;
         bakingCoroutine = null;
 
+        AudioManager.Instance?.StopContinuousSound();
+        PlayOvenDingSound();
+
         if (ovenDoor == null)
             ovenDoor = FindFirstObjectByType<OvenDoor>();
 
@@ -341,6 +350,23 @@ public class BreadBaker : MonoBehaviour
         }
 
         Finished?.Invoke();
+    }
+
+    void PlayOvenDingSound()
+    {
+        if (ovenDingSound == null)
+        {
+            Debug.Log("No button sound assigned.");
+            return;
+        }
+
+        if (AudioManager.Instance == null)
+        {
+            Debug.Log("AudioManager instance not found.");
+            return;
+        }
+
+        AudioManager.Instance.PlaySFX(ovenDingSound);
     }
 
     void ChangeShape(float progress)

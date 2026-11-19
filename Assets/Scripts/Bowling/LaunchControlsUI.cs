@@ -27,6 +27,7 @@ namespace BreadBowl.Bowling
         [SerializeField] private HoldButton launchButton;
         [SerializeField] private RectTransform powerFill;
         [SerializeField] private CanvasGroup controlsGroup;
+        [SerializeField] private AudioClip launchSound;
 
         private void Awake()
         {
@@ -94,6 +95,7 @@ namespace BreadBowl.Bowling
         {
             if (launcher != null)
             {
+                AudioManager.Instance?.PlaySFX(launchSound);
                 launcher.Launch();
             }
         }

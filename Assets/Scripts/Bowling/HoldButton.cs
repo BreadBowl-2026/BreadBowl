@@ -7,6 +7,8 @@ namespace BreadBowl.Bowling
 {
     public class HoldButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerExitHandler
     {
+        [SerializeField] private AudioClip pressedSound;
+
         private Selectable selectable;
 
         public bool IsHeld { get; private set; }
@@ -35,17 +37,20 @@ namespace BreadBowl.Bowling
                 return;
             }
 
+            AudioManager.Instance?.PlayContinuousSound(pressedSound);
             IsHeld = true;
             Pressed?.Invoke();
         }
 
         public void OnPointerUp(PointerEventData eventData)
         {
+            AudioManager.Instance?.StopContinuousSound();
             IsHeld = false;
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
+            AudioManager.Instance?.StopContinuousSound();
             IsHeld = false;
         }
     }

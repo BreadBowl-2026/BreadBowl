@@ -30,11 +30,25 @@ namespace BreadBowl
 
         public void Restart()
         {
+            if (choices == null || choices.Length == 0)
+            {
+                Debug.LogWarning("No bread shape choices available", this);
+                return;
+            }
+
             Select(choices[0]);
         }
 
         public void Confirm()
         {
+            Debug.Log("Bread shape choice: " + selected.Shape.DisplayName);
+
+            if (selected == null)
+            {
+                Debug.LogWarning("No bread shape selected", this);
+                return;
+            }
+
             Finished?.Invoke(selected.Shape);
         }
 
