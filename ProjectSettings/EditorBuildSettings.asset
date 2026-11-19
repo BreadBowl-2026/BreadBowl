@@ -6,47 +6,53 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Baking.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+    path: Assets/Scenes/MainMenu.unity
+    guid: 6e7415afce868f24abd74ab6207e443a
   - enabled: 1
-    path: Assets/Scenes/Level2Demo.unity
-    guid: 8a8747dbbed9ca341b9b81830ffcf306
+    path: Assets/Scenes/LevelSelect.unity
+    guid: 2fd0dc8bbbc8d409181531d47f8dbbb1
   - enabled: 1
-    path: Assets/Scenes/AllStagesTogetherTest.unity
-    guid: a83162a15ba54454cbfa92a1e1ef6163
+    path: Assets/Scenes/LoafAtFirstStrike.unity
+    guid: af6438e96b383c24897eb6755998e3d0
   - enabled: 1
-    path: Assets/Scenes/BakerVisionTestScene.unity
-    guid: f0edc638ba7e65f4d9cd8f19bf51d1a2
+    path: Assets/Scenes/JumpingTheBun.unity
+    guid: 6f0c5a55299c864488cca56907a8c591
   - enabled: 1
-    path: Assets/Scenes/DungeonBakingScene.unity
-    guid: 530724ecdcd371b47b88d734641077c9
+    path: Assets/Scenes/Starchery.unity
+    guid: 8296ed73cb3d48046922833734636642
   - enabled: 1
-    path: Assets/Scenes/GridTestScene.unity
-    guid: 2584a31215cfc5245bd97755ce226d0f
+    path: Assets/Scenes/KneadForSpeed.unity
+    guid: cdaaf9c34648b744d944eca94957282a
   - enabled: 1
-    path: Assets/Scenes/KneadBakeTestScene.unity
-    guid: 2bfaab399961fba46a12baf251c5b8d8
+    path: Assets/Scenes/Starchery.unity
+    guid: 8296ed73cb3d48046922833734636642
   - enabled: 1
-    path: Assets/Scenes/KneadStageTestScene.unity
-    guid: 3c5b807ce899b6a48b0f444e60d2f303
+    path: Assets/Scenes/RollingInDough.unity
+    guid: 8ec7cbc3dfb664e2cb4ea42a50925579
   - enabled: 1
-    path: Assets/Scenes/Level1Demo.unity
-    guid: 49c53fab95e13dc42a29505ac3348013
+    path: Assets/Scenes/DoughbleTrouble.unity
+    guid: fd3689f963fc346078461ce517e84b72
   - enabled: 1
-    path: Assets/Scenes/Level3Demo.unity
-    guid: c2b1374d4d0049848a95e84a7829322d
+    path: Assets/Scenes/BreadPit.unity
+    guid: b1ad665024b62ec42b975449d477858d
   - enabled: 1
-    path: Assets/Scenes/Level4Demo.unity
-    guid: de53f8b656af33547aeaa0c6a752da0e
+    path: Assets/Scenes/BreadyOrNot.unity
+    guid: 50db56f32325cec4da8a0b229c8078b4
   - enabled: 1
-    path: Assets/Scenes/PrefabTestScene.unity
-    guid: 9575747937ede334aac8abf5e1c953da
+    path: Assets/Scenes/DoughNotEnter.unity
+    guid: 3051e07c7a48fac4c9500ae800a862c3
   - enabled: 1
-    path: Assets/Scenes/SchoolScene.unity
-    guid: 9527bc6ab052cef4c955c081529ea1a3
+    path: Assets/Scenes/PlunkoBreadCrumbs.unity
+    guid: 2267d7c9684f5784c9f44510dbbc3744
   - enabled: 1
-    path: Assets/Scenes/DungeonBowlingScene.unity
-    guid: f175fbd5c65b42e4ca687850f704b84d
+    path: Assets/Scenes/RiseToTheOccasion.unity
+    guid: 60982ed66c5f0ad428527ba3bb2e1eb7
+  - enabled: 1
+    path: Assets/Scenes/Tutorial.unity
+    guid: 20ce8e47b2749d14e8bbdb8695fb5e6e
+  - enabled: 1
+    path: Assets/Scenes/Steam_Buns.unity
+    guid: a41c04dde45caa74bb645de5812df999
   m_configObjects:
     com.unity.dt.app-ui: {fileID: 11400000, guid: 1b1c20d82303e4b5781c3ef50ac1449f, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

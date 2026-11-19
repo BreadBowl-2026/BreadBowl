@@ -15,23 +15,26 @@ namespace BreadBowl.Dough
         // KneadableDough object keeps the transform in the player frame and 
         // avoids double rotating the data layer
         [SerializeField] private Transform visual;
-        [SerializeField, Min(0f)] private float turnSpeed = 540f;        
-        [SerializeField, Min(0f)] private float dentSpeed = 0.5f;
-        [SerializeField, Min(0f)] private float maxDentDepth = 0.15f;
+        [SerializeField][Min(0f)] private float turnSpeed = 540f;        
+        [SerializeField][Min(0f)] private float dentSpeed = 0.5f;
+        [SerializeField][Min(0f)] private float maxDentDepth = 0.15f;
 
-        [SerializeField, Tooltip("multiplies dentSpeed and maxDentDepth. 1 = base values, > 1 = squishier, < 1 = firmer")] 
+        [SerializeField]
+        [Tooltip("multiplies dentSpeed and maxDentDepth. 1 = base values, > 1 = squishier, < 1 = firmer")] 
         private AnimationCurve kneadSoftness = new AnimationCurve(
             new Keyframe(0f, 1.5f), new Keyframe(1f, 1f), new Keyframe(2f, 0.7f), new Keyframe(3f, 0.3f));
-        [SerializeField, Tooltip("0-1, a fraction of the dent that stays after letting go. also caps lasting dents at " +
+        [SerializeField]
+        [Tooltip("0-1, a fraction of the dent that stays after letting go. also caps lasting dents at " +
          "maxDentDepth * plasticity so old marks smooth out as kneading continues. at 0 the dough stop holding marks entirely")] 
         private AnimationCurve kneadPlasticity = new AnimationCurve(
             new Keyframe(0f, 0.7f), new Keyframe(1f, 0f), new Keyframe(3f, 0f));
-        [SerializeField, Tooltip("decay rate towards the lasting depth. the higher the value, the snappier the relax")] 
+        [SerializeField]
+        [Tooltip("decay rate towards the lasting depth. the higher the value, the snappier the relax")] 
         private AnimationCurve kneadRelaxRate = new AnimationCurve(
             new Keyframe(0f, 0.6f), new Keyframe(1f, 1.5f), new Keyframe(2f, 3f), new Keyframe(3f, 8f));
-        [SerializeField, Min(0.001f)] private float hingeWidth = 0.15f;
-        [SerializeField, Range(0.05f, 1f)] private float flattenHeight = 0.35f;
-        [SerializeField, Min(1f)] private float flattenSpread = 1.4f;
+        [SerializeField][Min(0.001f)] private float hingeWidth = 0.15f;
+        [SerializeField][Range(0.05f, 1f)] private float flattenHeight = 0.35f;
+        [SerializeField][Min(1f)] private float flattenSpread = 1.4f;
 
         private KneadableDough dough;
         private Mesh mesh;
@@ -90,12 +93,14 @@ namespace BreadBowl.Dough
         {
             dough.Pressed += AddDent;
             dough.FoldStarted += StartFold;
+            dough.KneadReset += ClearDents;
         }
 
         private void OnDisable()
         {
             dough.Pressed -= AddDent;
             dough.FoldStarted -= StartFold;
+            dough.KneadReset -= ClearDents;
         }
 
         private void OnDestroy()
@@ -271,6 +276,19 @@ namespace BreadBowl.Dough
             Vector2Int cell = vertexCells[vertex];
 
             return dough.Settings.KneadPosition(dough.Grid.Get(cell.x, cell.y));
+        }
+
+        private void ClearDents()
+        {
+            if (visual == null)
+            {
+                return;
+            }
+
+            System.Array.Clear(dentDepths, 0, dentDepths.Length);
+            System.Array.Clear(setDepths, 0, setDepths.Length);
+            folding = false;
+            visual.localRotation = Quaternion.identity;
         }
     }
 }

@@ -19,10 +19,15 @@ namespace BreadBowl.Bowling
         [SerializeField] private HoldButton rotateLeftButton;
         [SerializeField] private HoldButton rotateRightButton;
 
+        [Header("Aim")]
+        [SerializeField] private HoldButton aimLeftButton;
+        [SerializeField] private HoldButton aimRightButton;
+
         [Header("Launch")]
         [SerializeField] private HoldButton launchButton;
         [SerializeField] private RectTransform powerFill;
         [SerializeField] private CanvasGroup controlsGroup;
+        [SerializeField] private AudioClip launchSound;
 
         private void Awake()
         {
@@ -74,6 +79,12 @@ namespace BreadBowl.Bowling
                 {
                     launcher.Rotate(yaw, tilt);
                 }
+
+                float aim = Axis(aimLeftButton, aimRightButton);
+                if (aim != 0f)
+                {
+                    launcher.Aim(aim);
+                }
             }
 
             powerFill.anchorMax = new Vector2(launcher.Power, powerFill.anchorMax.y);
@@ -84,6 +95,7 @@ namespace BreadBowl.Bowling
         {
             if (launcher != null)
             {
+                AudioManager.Instance?.PlaySFX(launchSound);
                 launcher.Launch();
             }
         }
