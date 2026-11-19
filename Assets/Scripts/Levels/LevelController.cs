@@ -42,6 +42,7 @@ namespace BreadBowl.Levels
         private CameraFollow cameraFollow;
         private LaneUI laneUI;
         private LaunchPoint launchPoint;
+        private LevelIntro intro;
         private LevelGoal[] goals;
         private LevelConstraint[] constraints;
         private Loaf currentLoaf;
@@ -65,6 +66,7 @@ namespace BreadBowl.Levels
             launchPoint = GetComponentInChildren<LaunchPoint>(true);
             resultUI = GetComponentInChildren<ResultUI>(true);
             table = GetComponentInChildren<LoafTable>(true);
+            intro = FindFirstObjectByType<LevelIntro>();
             resultUI.Hide();
 
             launcher.gameObject.SetActive(false);
@@ -79,6 +81,11 @@ namespace BreadBowl.Levels
             laneUI.BakePressed += GoToKitchen;
             // laneUI.MenuPressed += Quit;
             resultUI.ContinuePressed += HandleContinue;
+
+            if (intro != null)
+            {
+                intro.Finished += HandleIntroFinished;
+            }
         }
 
         private void OnDisable()
@@ -89,12 +96,15 @@ namespace BreadBowl.Levels
             laneUI.BakePressed -= GoToKitchen;
             // laneUI.MenuPressed -= Quit;
             resultUI.ContinuePressed -= HandleContinue;
+
+            if (intro != null)
+            {
+                intro.Finished -= HandleIntroFinished;
+            }
         }
 
         private void Start()
         {
-            startTime = Time.time;
-
             if (stages.Length > 0)
             {
                 EnterStage(0);
@@ -111,6 +121,29 @@ namespace BreadBowl.Levels
             }
 
             StartAttempt();
+
+            // The intro only plays here, once per level load. Baking more
+            // loaves goes back through GoToKitchen and never replays it.
+            if (intro != null && intro.enabled)
+            {
+                intro.Play();
+            }
+            else
+            {
+                BeginPlay();
+            }
+        }
+
+        private void HandleIntroFinished()
+        {
+            BeginPlay();
+        }
+
+        // The level timer starts here, so the intro is not counted.
+        private void BeginPlay()
+        {
+            startTime = Time.time;
+
             if (testLoaf != null)
             {
                 GoToTable();

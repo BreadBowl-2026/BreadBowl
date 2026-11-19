@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BreadBowl.Levels.LevelInfo
   displayName: Bread Pit
   sceneName: BreadPit
-  description: 
+  description: Mind the gap! Launch off the ramp, clear the pit and strike the pins
+    as they slide side to side.
   screenshot: {fileID: -777133704656286152, guid: 1cec1bde8f024ef40925f29ed43cfb52, type: 3}

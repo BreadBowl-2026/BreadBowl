@@ -651,6 +651,7 @@ MonoBehaviour:
   upDown: 1
   distance: 0.3
   tripTime: 5
+  resetEachRoll: 0
 --- !u!54 &119013333
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3958,6 +3959,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1273177404}
   - component: {fileID: 1273177403}
+  - component: {fileID: 1273177405}
   m_Layer: 0
   m_Name: PinSpawner
   m_TagString: Untagged
@@ -3994,6 +3996,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!114 &1273177405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1273177402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d1c2fe69873c944994eace1ac736c58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BreadBowl.Levels.StrikeGoal
+  knockedAngle: 30
+  settleTime: 1
 --- !u!4 &1287163656 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1676609100239073865, guid: 0d780173c250d334f80c9061373c8e4f, type: 3}
@@ -4708,6 +4724,7 @@ MonoBehaviour:
   upDown: 0
   distance: 3
   tripTime: 3
+  resetEachRoll: 0
 --- !u!54 &1576549798
 Rigidbody:
   m_ObjectHideFlags: 0

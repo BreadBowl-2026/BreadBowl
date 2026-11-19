@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BreadBowl.Levels.LevelInfo
   displayName: Dough Not Enter
   sceneName: DoughNotEnter
-  description: 
+  description: Dough not enter... unless you time it right. Slip past three sliding
+    shields and strike all ten pins.
   screenshot: {fileID: 2482584209306734337, guid: 86623120c8eb5704b80818d622067d4e, type: 3}

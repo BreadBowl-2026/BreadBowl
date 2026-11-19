@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BreadBowl.Levels.LevelInfo
   displayName: Plunko
   sceneName: PlunkoBreadCrumbs
-  description: 
+  description: Drop through the moving barrels and land in the middle slot to knock
+    down its pins.
   screenshot: {fileID: -5499094091136782307, guid: 4d24d0c9930c64b4a9deda7b4a76a005, type: 3}

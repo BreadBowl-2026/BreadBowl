@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96d23744f8135c498550cf269f08854, type: 3}
   m_Name: BreadyOrNot
   m_EditorClassIdentifier: Assembly-CSharp::BreadBowl.Levels.LevelInfo
-  displayName: BreadyOrNot
+  displayName: Bready Or Not
   sceneName: BreadyOrNot
-  description: 
+  description: Bready or not, here they come! The pins ride a platform up and down,
+    so time your roll and strike them all.
   screenshot: {fileID: 8289079282664095342, guid: 645f5707e4a8fc14e90b1168fde4d028, type: 3}

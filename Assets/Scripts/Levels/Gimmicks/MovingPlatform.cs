@@ -1,3 +1,4 @@
+using BreadBowl.Bowling;
 using UnityEngine;
 
 namespace BreadBowl.Levels
@@ -25,9 +26,14 @@ namespace BreadBowl.Levels
         [Tooltip("Seconds to travel from one end to the other.")]
         [SerializeField][Min(0.1f)] private float tripTime = 2f;
 
+        [Tooltip("Snap back to the starting spot at the end of every roll. Tick this when pins " +
+            "ride on the platform, so they land back on it when the goal resets them.")]
+        [SerializeField] private bool resetEachRoll;
+
         private Rigidbody body;
         private Vector3 startPosition;
         private float elapsed;
+        private LevelController level;
 
         // Runs in the editor when the component is first added, so the
         // Rigidbody shows up already set up correctly in the inspector.
@@ -48,6 +54,39 @@ namespace BreadBowl.Levels
                     "MovingPlatform is moving it. Untick Static at the top of the Inspector.", this);
             }
         #endif
+        }
+
+        private void OnEnable()
+        {
+            if (!resetEachRoll)
+            {
+                return;
+            }
+
+            level = FindFirstObjectByType<LevelController>();
+
+            if (level != null)
+            {
+                level.RollEnded += HandleRollEnded;
+            }
+        }
+
+        private void OnDisable()
+        {
+            if (level != null)
+            {
+                level.RollEnded -= HandleRollEnded;
+                level = null;
+            }
+        }
+
+        // RollEnded fires just before the goals put their pins back, so the
+        // platform is already at its starting spot when the pins land on it.
+        private void HandleRollEnded(Loaf loaf)
+        {
+            elapsed = 0f;
+            body.position = startPosition;
+            transform.position = startPosition;
         }
 
         private void SetUpBody()
