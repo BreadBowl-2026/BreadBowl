@@ -7082,10 +7082,10 @@ MonoBehaviour:
   currentStageInd: 0
   currentStage: Kneading
   dialogue:
-  - 'Hello Chef! I am your Head Chef ___ and today is your first day at Upper Crust
-    Academy! We have very high standards here, and we want to start you rolling down
-    the right path. Today''s lesson starts with some simple breadmaking. In front
-    of you lies your dough. Bask in its beauty. '
+  - 'Hello Chef! I am your Head Chef Breadley and today is your first day at Upper
+    Crust Academy! We have very high standards here, and we want to start you rolling
+    down the right path. Today''s lesson starts with some simple breadmaking. In
+    front of you lies your dough. Bask in its beauty. '
   - Look to the chalkboard and you'll see what tools are available to you. The highlighted
     keys are what you'll be using for the kneading. Hold space bar, and gently roll
     you hands over the keys. To spin your dough, use the left and right shift keys.
