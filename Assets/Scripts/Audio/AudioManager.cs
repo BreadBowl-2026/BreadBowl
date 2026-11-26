@@ -21,6 +21,10 @@ public class AudioManager : MonoBehaviour
     private bool sfxMuted;
     private bool doughMuted;
 
+    [Header("Randomness")]
+    [SerializeField] private Vector2 pitchRange = new Vector2(0.8f, 1.2f);
+
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -91,6 +95,17 @@ public class AudioManager : MonoBehaviour
         if (sfxSource != null && clip != null && !IsSFXMuted())
         {
             sfxSource.PlayOneShot(clip);
+        }
+    }
+
+    public void PlaySFXWithRandomPitch(AudioClip clip)
+    {
+        if (sfxSource != null && clip != null && !IsSFXMuted())
+        {
+            float randomPitch = Random.Range(pitchRange.x, pitchRange.y);
+            sfxSource.pitch = randomPitch;
+            sfxSource.PlayOneShot(clip);
+            sfxSource.pitch = 1f; // Reset pitch after playing
         }
     }
 

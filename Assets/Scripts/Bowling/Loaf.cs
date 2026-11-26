@@ -81,7 +81,7 @@ namespace BreadBowl.Bowling
             if (collisionSound == null)
                 return;
 
-            AudioManager.Instance?.PlaySFX(collisionSound);
+            AudioManager.Instance?.PlaySFXWithRandomPitch(collisionSound);
 
             lastSoundTime = Time.time;
         }
