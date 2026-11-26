@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BreadBowl.Levels.LevelInfo
   displayName: Steam Buns
   sceneName: Steam_Buns
-  description: 
+  description: 'A steam geyser erupted! Ride the steam and knock those pins down! '
   screenshot: {fileID: -2868806770239979271, guid: ab0f6c2db32a7ad43af459972e85ef6f, type: 3}
