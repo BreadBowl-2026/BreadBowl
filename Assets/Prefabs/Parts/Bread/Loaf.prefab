@@ -154,6 +154,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 472a976140523ef499500c36f0cfd77f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BreadBowl.Bowling.Loaf
+  maxDepenetrationVelocity: 2
+  maxAngularVelocity: 200
   collisionSound: {fileID: 8300000, guid: 7b9475a07d5902544a408b3f8b9d719f, type: 3}
   minImpactVelocity: 1
   minSoundInterval: 0.2

@@ -34,6 +34,10 @@ namespace BreadBowl.Bowling
         [Header("Launch")]
         [SerializeField] private float maxLaunchSpeed = 20f;
         [SerializeField] private bool alignLaunchToSlope = true;
+        [SerializeField] private ForceMode launchMode = ForceMode.VelocityChange;
+        [SerializeField] private ForceMode spinMode = ForceMode.VelocityChange;
+        [SerializeField] private float topSpin = 0f;
+        [SerializeField] private float sideSpin = 0f;
 
         [Header("Ground Check")]
         [SerializeField] private bool snapToGround = true;
@@ -168,8 +172,15 @@ namespace BreadBowl.Bowling
             Physics.SyncTransforms();
             ball.interpolation = RigidbodyInterpolation.Interpolate;
             ball.isKinematic = false;
-            ball.linearVelocity = LaunchDirection * (maxLaunchSpeed * Power);
+            ball.linearVelocity = Vector3.zero;
             ball.angularVelocity = Vector3.zero;
+
+            Vector3 direction = LaunchDirection;
+            Vector3 rollAxis = Vector3.Cross(groundNormal, direction).normalized;
+
+            ball.AddForce(direction * (maxLaunchSpeed * Power), launchMode);
+            ball.AddTorque(rollAxis * (topSpin * Power), spinMode);
+            ball.AddTorque(direction * (sideSpin * Power), spinMode);
 
             Launched?.Invoke();
         }

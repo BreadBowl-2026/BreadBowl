@@ -127,7 +127,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7144307918553427375}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 28bb7f8c9fa30ed43aed447af89be739, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -154,3 +154,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 472a976140523ef499500c36f0cfd77f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BreadBowl.Bowling.Loaf
+  maxDepenetrationVelocity: 2
+  maxAngularVelocity: 200
+  collisionSound: {fileID: 0}
+  minImpactVelocity: 1
+  minSoundInterval: 0.2
